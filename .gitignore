@@ -1,0 +1,24 @@
+# Godot-specific
+.import/
+.export/
+godot.env
+*.godot-export
+*.tmp
+
+# Mono/C#-related
+.mono/
+*.csproj
+*.sln
+*.user
+*.suo
+*.dll
+*.pdb
+*.exe
+*.nupkg
+*.mdb
+*.pidb
+*.cache
+
+# OS-related
+.DS_Store
+Thumbs.db

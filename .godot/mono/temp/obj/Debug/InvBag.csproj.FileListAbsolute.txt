@@ -1,0 +1,17 @@
+C:\Users\Bauyr\Desktop\godot_test\game2\invbag\.godot\mono\temp\bin\Debug\InvBag.deps.json
+C:\Users\Bauyr\Desktop\godot_test\game2\invbag\.godot\mono\temp\bin\Debug\InvBag.runtimeconfig.json
+C:\Users\Bauyr\Desktop\godot_test\game2\invbag\.godot\mono\temp\bin\Debug\InvBag.dll
+C:\Users\Bauyr\Desktop\godot_test\game2\invbag\.godot\mono\temp\bin\Debug\InvBag.pdb
+C:\Users\Bauyr\Desktop\godot_test\game2\invbag\.godot\mono\temp\bin\Debug\GodotSharp.dll
+C:\Users\Bauyr\Desktop\godot_test\game2\invbag\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
+C:\Users\Bauyr\Desktop\godot_test\game2\invbag\.godot\mono\temp\obj\Debug\InvBag.csproj.AssemblyReference.cache
+C:\Users\Bauyr\Desktop\godot_test\game2\invbag\.godot\mono\temp\obj\Debug\InvBag.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Bauyr\Desktop\godot_test\game2\invbag\.godot\mono\temp\obj\Debug\InvBag.AssemblyInfoInputs.cache
+C:\Users\Bauyr\Desktop\godot_test\game2\invbag\.godot\mono\temp\obj\Debug\InvBag.AssemblyInfo.cs
+C:\Users\Bauyr\Desktop\godot_test\game2\invbag\.godot\mono\temp\obj\Debug\InvBag.csproj.CoreCompileInputs.cache
+C:\Users\Bauyr\Desktop\godot_test\game2\invbag\.godot\mono\temp\obj\Debug\InvBag.csproj.Up2Date
+C:\Users\Bauyr\Desktop\godot_test\game2\invbag\.godot\mono\temp\obj\Debug\InvBag.dll
+C:\Users\Bauyr\Desktop\godot_test\game2\invbag\.godot\mono\temp\obj\Debug\refint\InvBag.dll
+C:\Users\Bauyr\Desktop\godot_test\game2\invbag\.godot\mono\temp\obj\Debug\InvBag.pdb
+C:\Users\Bauyr\Desktop\godot_test\game2\invbag\.godot\mono\temp\obj\Debug\InvBag.genruntimeconfig.cache
+C:\Users\Bauyr\Desktop\godot_test\game2\invbag\.godot\mono\temp\obj\Debug\ref\InvBag.dll

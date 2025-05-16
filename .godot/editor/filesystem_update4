@@ -1,0 +1,8 @@
+res://MainMenu.tscn
+res://MainMenu.cs
+res://LoginMenu.tscn
+res://PlayerUI.tscn
+res://AdminUI.tscn
+res://LoginMenu.cs
+res://Scenes/MainMenu.tscn
+res://Scenes/LoginMenu.tscn
