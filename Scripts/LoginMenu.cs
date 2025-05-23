@@ -17,12 +17,12 @@ public partial class LoginMenu : Control
 	private void OnAdminSelected()
 	{
 		GD.Print("Вход как админ");
-		GetTree().ChangeSceneToFile("res://AdminUI.tscn");
+		GetTree().ChangeSceneToFile("res://Scenes/AdminUI.tscn");
 	}
 	
 	private void OnPlayerSelected()
 	{
 		GD.Print("Вход как игрок");
-		GetTree().ChangeSceneToFile("res://PlayerUI.tscn");
+		GetTree().ChangeSceneToFile("res://Scenes/PlayerUI.tscn");
 	}
 }

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cddtxyl5gdgg5"]
 
-[ext_resource type="Script" uid="uid://cbr3h83irahnp" path="res://Scripts/MainMenu.cs" id="1_tt5f1"]
+[ext_resource type="Script" uid="uid://b2wtmvxj3h81b" path="res://scripts/MainMenu.cs" id="1_tt5f1"]
 
 [node name="MainMenu" type="Node2D"]
 
@@ -23,6 +23,14 @@ text = "List of Servers"
 [node name="Button" type="Button" parent="MainMenu/VBoxContainer"]
 layout_mode = 2
 text = "Server 1"
+
+[node name="Button" type="Button" parent="MainMenu/VBoxContainer/Button"]
+layout_mode = 0
+offset_left = 122.0
+offset_top = -1.0
+offset_right = 222.0
+offset_bottom = 30.0
+text = "Shop"
 
 [node name="Button2" type="Button" parent="MainMenu/VBoxContainer"]
 layout_mode = 2

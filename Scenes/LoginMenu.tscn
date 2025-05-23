@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c5def2lrrqxe8"]
 
-[ext_resource type="Script" uid="uid://gbe3mg7l4iw4" path="res://Scripts/LoginMenu.cs" id="1_gic8m"]
+[ext_resource type="Script" uid="uid://gbe3mg7l4iw4" path="res://scripts/LoginMenu.cs" id="1_gic8m"]
 
 [node name="LoginMenu" type="Node2D"]
 

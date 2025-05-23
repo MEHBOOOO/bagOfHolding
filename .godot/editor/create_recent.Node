@@ -1,4 +1,14 @@
-Button
+Camera2D
 Label
-VBoxContainer
+Sprite2D
+ColorRect
+Node2D
 Control
+Panel
+GridContainer
+OptionButton
+Button
+CheckBox
+CheckButton
+BoxContainer
+TextEdit

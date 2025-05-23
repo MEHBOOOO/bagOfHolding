@@ -88,27 +88,29 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Bauyr\\.nuget\\packages\\": {}
+    "C:\\Users\\unknown\\.nuget\\packages\\": {},
+    "D:\\Visual studio\\Visualstudcomp\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Bauyr\\Desktop\\godot_test\\game2\\invbag\\InvBag.csproj",
-      "projectName": "InvBag",
-      "projectPath": "C:\\Users\\Bauyr\\Desktop\\godot_test\\game2\\invbag\\InvBag.csproj",
-      "packagesPath": "C:\\Users\\Bauyr\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Bauyr\\Desktop\\godot_test\\game2\\invbag\\.godot\\mono\\temp\\obj\\",
+      "projectUniqueName": "C:\\Users\\unknown\\Documents\\hz\\hz.csproj",
+      "projectName": "hz",
+      "projectPath": "C:\\Users\\unknown\\Documents\\hz\\hz.csproj",
+      "packagesPath": "C:\\Users\\unknown\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\unknown\\Documents\\hz\\.godot\\mono\\temp\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "D:\\Visual studio\\Visualstudcomp\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Bauyr\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\unknown\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -126,7 +128,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -156,12 +159,26 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[8.0.16, 8.0.16]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[8.0.16, 8.0.16]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[8.0.16, 8.0.16]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

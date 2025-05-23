@@ -20,13 +20,13 @@ public override void _Ready()
 	{
 		GD.Print($"Сервер выбран: {serverName}");
 
-		GetTree().ChangeSceneToFile("res://LoginMenu.tscn");
+		GetTree().ChangeSceneToFile("res://scenes/LoginMenu.tscn");
 	}
 	
 	
 	private void OnBackPressed()
 	{
 		GD.Print("Назад к выбору сервера");
-		GetTree().ChangeSceneToFile("res://MainMenu.tscn");
+		GetTree().ChangeSceneToFile("res://Scenes/MainMenu.tscn");
 	}
 }

@@ -10,15 +10,16 @@ config_version=5
 
 [application]
 
-config/name="InvBag"
+config/name="hz"
 run/main_scene="uid://cddtxyl5gdgg5"
-config/features=PackedStringArray("4.4", "C#", "Mobile")
+config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [dotnet]
 
-project/assembly_name="InvBag"
+project/assembly_name="hz"
 
 [rendering]
 
-renderer/rendering_method="mobile"
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
