@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://8d70q3lby20s"]
+
+[ext_resource type="Script" uid="uid://c47hj7ssjlgqj" path="res://Scripts/game_manager.gd" id="1_k5tff"]
+[ext_resource type="Script" uid="uid://bm6ucjrn02fd3" path="res://Scripts/game_room.gd" id="1_nfm3c"]
+
+[node name="GameRoom" type="Node2D"]
+script = ExtResource("1_k5tff")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_nfm3c")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+offset_right = 339.0
+offset_bottom = 132.0
+
+[node name="ItemList" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Ваши игры:"
+
+[node name="GameList" type="ItemList" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="NewGameName" type="LineEdit" parent="Control/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Название новой игры"
+
+[node name="CreateGameButton" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Создать игру"
+
+[node name="ExitButton" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Выйти"
+
+[connection signal="pressed" from="Control/VBoxContainer/CreateGameButton" to="Control" method="_on_CreateGameButton_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/ExitButton" to="Control" method="_on_ExitButton_pressed"]

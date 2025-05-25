@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5u1x2qc4h6x3"]
+
+[ext_resource type="Script" uid="uid://c47hj7ssjlgqj" path="res://Scripts/game_manager.gd" id="1_767d8"]
+[ext_resource type="Script" uid="uid://558v6kwp6jxx" path="res://Scripts/login.gd" id="1_leum0"]
+
+[node name="Login" type="Node2D"]
+script = ExtResource("1_767d8")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_leum0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Nickname" type="LineEdit" parent="Control/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Nickname"
+
+[node name="Password" type="LineEdit" parent="Control/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Password"
+secret = true
+
+[node name="Login" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Войти"
+
+[node name="Register" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Нет аккаунта? Зарегистрируйтесь"
+
+[connection signal="pressed" from="Control/VBoxContainer/Login" to="Control" method="_on_Login_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/Register" to="Control" method="_on_Register_pressed"]

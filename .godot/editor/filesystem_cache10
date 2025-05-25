@@ -1,12 +1,3 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1747397703
-icon.svg::CompressedTexture2D/CompressedTexture2D::8018950761762367191::1747385338::1747385343::1::::<><><>0<>0<>8c30044aab078de1ccf9017676e98118<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
-LoginMenu.cs::CSharpScript/CSharpScript::423490950801468353::1747396722::0::1::::<>Control<><>0<>0<><>::
-MainMenu.cs::CSharpScript/CSharpScript::4879838986109334005::1747396909::0::1::::<>Control<><>0<>0<><>::
-::res://Assets/::1747397689
-::res://Scenes/::1747397703
-AdminUI.tscn::PackedScene::177528909397139867::1747396909::0::1::::<><><>0<>0<><>::
-LoginMenu.tscn::PackedScene::6884953042649021301::1747397705::0::1::::<><><>0<>0<><>::uid://gbe3mg7l4iw4::::res://LoginMenu.cs
-MainMenu.tscn::PackedScene::4990797006609311866::1747397705::0::1::::<><><>0<>0<><>::uid://cbr3h83irahnp::::res://MainMenu.cs
-PlayerUI.tscn::PackedScene::2562192669323537501::1747397195::0::1::::<><><>0<>0<><>::
-::res://Scripts/::1747397693
+::res://::1748148618
+icon.svg::CompressedTexture2D/CompressedTexture2D::1419035161961853835::1748148589::1748148593::1::::<><><>0<>0<>c4b110e556066d471ad7eb91c3306e36<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::

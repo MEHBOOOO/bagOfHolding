@@ -10,14 +10,14 @@ config_version=5
 
 [application]
 
-config/name="trails_project"
-run/main_scene="uid://b5u1x2qc4h6x3"
-config/features=PackedStringArray("4.4", "Mobile")
+config/name="InvBag"
+run/main_scene="uid://cddtxyl5gdgg5"
+config/features=PackedStringArray("4.4", "C#", "Mobile")
 config/icon="res://icon.svg"
 
 [dotnet]
 
-project/assembly_name="trails_project"
+project/assembly_name="InvBag"
 
 [rendering]
 

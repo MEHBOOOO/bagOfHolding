@@ -1,33 +1,39 @@
-[gd_scene load_steps=2 format=3 uid="uid://cddtxyl5gdgg5"]
+[gd_scene load_steps=3 format=3 uid="uid://cl7e33gslvpk5"]
 
-[ext_resource type="Script" uid="uid://cbr3h83irahnp" path="res://Scripts/MainMenu.cs" id="1_tt5f1"]
+[ext_resource type="Script" uid="uid://c47hj7ssjlgqj" path="res://Scripts/game_manager.gd" id="1_853f1"]
+[ext_resource type="Script" uid="uid://c46qdyeoboqhq" path="res://Scripts/MainMenu.gd" id="1_tt5f1"]
 
 [node name="MainMenu" type="Node2D"]
+script = ExtResource("1_853f1")
 
-[node name="MainMenu" type="Control" parent="."]
+[node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_tt5f1")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu"]
+[node name="Button" type="Button" parent="Control"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 221.0
+offset_bottom = 33.0
+text = "Нажать для продолжения"
 
-[node name="Label" type="Label" parent="MainMenu/VBoxContainer"]
-layout_mode = 2
-text = "List of Servers"
+[node name="GameRoom" type="Button" parent="Control"]
+offset_left = 1.0
+offset_top = 83.0
+offset_right = 220.0
+offset_bottom = 114.0
+text = "Создать сервер"
 
-[node name="Button" type="Button" parent="MainMenu/VBoxContainer"]
-layout_mode = 2
-text = "Server 1"
+[node name="GameScreen" type="Button" parent="Control"]
+offset_left = 2.0
+offset_top = 43.0
+offset_right = 221.0
+offset_bottom = 74.0
+text = "Выбрать сервер"
 
-[node name="Button2" type="Button" parent="MainMenu/VBoxContainer"]
-layout_mode = 2
-text = "Server 2"
-
-[node name="Button3" type="Button" parent="MainMenu/VBoxContainer"]
-layout_mode = 2
-text = "Server 3"
+[connection signal="pressed" from="Control/GameRoom" to="Control" method="_on_GameRoom_pressed"]
+[connection signal="pressed" from="Control/GameScreen" to="Control" method="_on_GameScreen_pressed"]

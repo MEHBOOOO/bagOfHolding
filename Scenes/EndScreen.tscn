@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://cog1bru5o4xow"]
+
+[ext_resource type="Script" uid="uid://qv8wjxu1unva" path="res://Scripts/end_screen.gd" id="1_gcms0"]
+
+[node name="EndScreen" type="Node2D"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_gcms0")
+
+[node name="Label" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Игра завершена!"
+
+[node name="Label2" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "name: ReasonLabel, текст причины окончания"
+
+[node name="Button" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "\"Выйти в меню\", name: ExitButton"

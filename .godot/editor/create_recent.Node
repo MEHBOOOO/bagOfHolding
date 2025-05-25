@@ -1,4 +1,10 @@
-Button
+Node2D
 Label
-VBoxContainer
+ItemList
 Control
+Button
+VBoxContainer
+LineEdit
+HBoxContainer
+ScrollContainer
+TextureRect

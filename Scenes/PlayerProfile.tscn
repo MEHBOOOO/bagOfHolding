@@ -1,0 +1,65 @@
+[gd_scene load_steps=2 format=3 uid="uid://li3qy3h6t20j"]
+
+[ext_resource type="Script" uid="uid://cvj853rcdl2yo" path="res://Scripts/player_profile.gd" id="1_kbuhv"]
+
+[node name="PlayerProfile" type="Node2D"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Профиль игрока"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Класс:"
+
+[node name="LineEdit" type="LineEdit" parent="Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+placeholder_text = "name: ClassField"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Описание:"
+
+[node name="LineEdit" type="LineEdit" parent="Control/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+placeholder_text = "name: DescriptionField"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Аватар URL:"
+
+[node name="LineEdit" type="LineEdit" parent="Control/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+placeholder_text = "name: AvatarField"
+
+[node name="TextureRect" type="TextureRect" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "\"Сохранить\", name: SaveButton"
+
+[node name="Button2" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "\"Назад\", name: BackButton"
+script = ExtResource("1_kbuhv")
