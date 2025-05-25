@@ -1,5 +1,4 @@
 extends Node
-# class_name CustomGameManager — либо вообще убираем эту строку
 
 var games = {}
 const SAVE_PATH := "user://games.json"

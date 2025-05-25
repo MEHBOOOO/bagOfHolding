@@ -11,7 +11,7 @@ func _ready():
 	reason_label.text = reason
 
 func _on_ExitButton_pressed():
-	# Удалить завершённую игру
+	# удаляет завершённую игру
 	if current_game in game_manager.games:
 		game_manager.games.erase(current_game)
 		game_manager.save_games()

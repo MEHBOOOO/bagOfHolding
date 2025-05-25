@@ -1,5 +1,4 @@
 extends Node
-# class_name CustomGameManager — либо вообще убираем эту строку
 
 var games = {}
 const SAVE_PATH := "user://games.json"
@@ -36,4 +35,4 @@ func get_games():
 
 
 func _on_create_game_button_pressed() -> void:
-	pass # Replace with function body.
+	pass

@@ -37,7 +37,7 @@ func _on_ExitButton_pressed():
 func _on_GameList_item_activated(index):
 	var game_name = game_list.get_item_text(index)
 	var game = preload("res://scenes/GameScreen.tscn").instantiate()
-	game.current_user = current_user  # Теперь работает
+	game.current_user = current_user
 	game.current_game = game_name
 	get_tree().root.add_child(game)
 	queue_free()

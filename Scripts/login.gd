@@ -9,7 +9,7 @@ func _ready():
 
 func _on_Login_pressed():
 	var nick = nickname_field.text.strip_edges()
-	var pwd = password_field.text.strip_edges()  # ⚠️ заменено с "pass"
+	var pwd = password_field.text.strip_edges()
 
 	if user_manager.login_user(nick, pwd):
 		print("Успешный вход!")
@@ -24,10 +24,5 @@ func _on_Login_pressed():
 func _on_Register_pressed():
 	get_tree().change_scene_to_file("res://scenes/Register.tscn")
 
-
-#func _on_войти_pressed() -> void:
-	#pass # Replace with function body.
-
-
 func _on_login_pressed() -> void:
-	pass # Replace with function body.
+	pass

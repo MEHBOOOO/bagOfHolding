@@ -20,7 +20,6 @@ func load_game():
 		for p in game_data["players"]:
 			player_list.add_item(p)
 
-		# Прячем кнопку, если пользователь — гейм-мастер или уже в игре
 		join_button.visible = !(current_user == game_data["master"] or current_user in game_data["players"])
 
 func _on_JoinButton_pressed():
@@ -59,4 +58,4 @@ func _on_EndGameButton_pressed():
 
 
 func _on_label_gui_input(event: InputEvent) -> void:
-	pass # Replace with function body.
+	pass

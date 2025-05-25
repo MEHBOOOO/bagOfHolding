@@ -22,6 +22,7 @@ offset_bottom = 33.0
 text = "Нажать для продолжения"
 
 [node name="GameRoom" type="Button" parent="Control"]
+layout_mode = 0
 offset_left = 1.0
 offset_top = 83.0
 offset_right = 220.0
@@ -29,6 +30,7 @@ offset_bottom = 114.0
 text = "Создать сервер"
 
 [node name="GameScreen" type="Button" parent="Control"]
+layout_mode = 0
 offset_left = 2.0
 offset_top = 43.0
 offset_right = 221.0
