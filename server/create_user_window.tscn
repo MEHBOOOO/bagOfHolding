@@ -1,0 +1,79 @@
+[gd_scene load_steps=2 format=3 uid="uid://3jb71hvd25uu"]
+
+[ext_resource type="Script" uid="uid://d0o32uogqeo5r" path="res://CreateUser.gd" id="1_4v6tb"]
+
+[node name="Create User Window" type="Panel"]
+offset_left = 408.0
+offset_top = 22.0
+offset_right = 711.0
+offset_bottom = 198.0
+script = ExtResource("1_4v6tb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 52.0
+offset_right = -9.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="UserNameLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "UserName"
+
+[node name="UserNameText" type="TextEdit" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="PasswordLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Password"
+
+[node name="PasswordText" type="LineEdit" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+secret = true
+
+[node name="Submit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Submit"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 8.0
+offset_bottom = 38.0
+grow_horizontal = 2
+bbcode_enabled = true
+text = "Create User"
+
+[node name="Close" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_top = 6.0
+offset_right = -8.0
+offset_bottom = 37.0
+grow_horizontal = 0
+text = "x"
+
+[connection signal="button_down" from="VBoxContainer/Submit" to="." method="_on_submit_button_down"]
+[connection signal="button_down" from="Close" to="." method="_on_close_button_down"]
