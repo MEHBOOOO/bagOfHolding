@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://ci71uwfkhfcqy"]
+[gd_scene load_steps=2 format=3 uid="uid://bf5kbg5c8q5x3"]
 
-[ext_resource type="Script" uid="uid://k1rd6mjjif4s" path="res://scripts/sqllite.gd" id="1_5p55f"]
+[ext_resource type="Script" uid="uid://cv6gt5fgluaeo" path="res://scripts/sqllite.gd" id="1_5p55f"]
 
 [node name="Control" type="Control"]
 layout_mode = 3

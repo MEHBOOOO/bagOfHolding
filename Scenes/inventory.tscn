@@ -5,7 +5,8 @@
 [node name="main" type="Node2D"]
 
 [node name="inventory" type="Node2D" parent="."]
+position = Vector2(165, 64)
 script = ExtResource("1_qw0r6")
 
 [node name="Camera2D" type="Camera2D" parent="inventory"]
-position = Vector2(61, 39)
+position = Vector2(198, 120)
