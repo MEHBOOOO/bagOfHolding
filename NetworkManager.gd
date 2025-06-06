@@ -14,7 +14,6 @@ var lobbyValue = ""
 var lobbyInfo = {}
 
 func _ready():
-	connectToServer("")
 	multiplayer.connected_to_server.connect(RTCServerConnected)
 	multiplayer.peer_connected.connect(RTCPeerConnected)
 	multiplayer.peer_disconnected.connect(RTCPeerDisconnected)

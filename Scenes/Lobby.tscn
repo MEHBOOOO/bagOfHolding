@@ -12,6 +12,7 @@ grow_vertical = 2
 script = ExtResource("1_bpe3w")
 
 [node name="JoinLobby" type="Button" parent="."]
+layout_mode = 0
 offset_left = 281.0
 offset_top = 341.0
 offset_right = 420.0
@@ -19,6 +20,7 @@ offset_bottom = 372.0
 text = "Join Lobby"
 
 [node name="Lobby" type="LineEdit" parent="."]
+layout_mode = 0
 offset_left = 449.0
 offset_top = 342.0
 offset_right = 784.0

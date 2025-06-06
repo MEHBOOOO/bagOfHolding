@@ -30,3 +30,13 @@ func _on_login_button_down():
 
 func SetSystemErrorLabel(text):
 	$RichTextLabel3.text = text
+
+
+func _on_client_button_down() -> void:
+	NetworkManager._on_start_client_button_down()
+	pass # Replace with function body.
+
+
+func _on_server_button_down() -> void:
+	Server.StartServer()
+	pass # Replace with function body.

@@ -11,3 +11,20 @@ offset_top = 152.0
 offset_right = 705.0
 offset_bottom = 374.0
 CreateUserWindow = ExtResource("2_767d8")
+
+[node name="Client" type="Button" parent="."]
+offset_left = 117.0
+offset_top = 511.0
+offset_right = 212.0
+offset_bottom = 558.0
+text = "START CLIENT"
+
+[node name="Server" type="Button" parent="."]
+offset_left = 751.0
+offset_top = 507.0
+offset_right = 866.0
+offset_bottom = 554.0
+text = "START SERVER"
+
+[connection signal="button_down" from="Client" to="LoginWindow" method="_on_client_button_down"]
+[connection signal="button_down" from="Server" to="LoginWindow" method="_on_server_button_down"]
