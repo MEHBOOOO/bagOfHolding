@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bcfl5ohsaxsnd"]
+
+[ext_resource type="PackedScene" uid="uid://x5p7woqk4vns" path="res://Scenes/login_window.tscn" id="1_leum0"]
+[ext_resource type="PackedScene" uid="uid://3jb71hvd25uu" path="res://Scenes/create_user_window.tscn" id="2_767d8"]
+
+[node name="Login" type="Node2D"]
+
+[node name="LoginWindow" parent="." instance=ExtResource("1_leum0")]
+offset_left = 314.0
+offset_top = 152.0
+offset_right = 705.0
+offset_bottom = 374.0
+CreateUserWindow = ExtResource("2_767d8")

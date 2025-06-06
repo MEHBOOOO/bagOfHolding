@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://h7r7i18x0f3o"]
+[gd_scene load_steps=2 format=3 uid="uid://bf5kbg5c8q5x3"]
 
-[ext_resource type="Script" uid="uid://k1rd6mjjif4s" path="res://Scripts/sqllite.gd" id="1_5p55f"]
+[ext_resource type="Script" uid="uid://k1rd6mjjif4s" path="res://Scripts/sqllite.gd" id="1_it6rb"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -13,7 +13,7 @@ offset_right = -9.0
 offset_bottom = -68.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_5p55f")
+script = ExtResource("1_it6rb")
 
 [node name="createtable" type="Button" parent="."]
 layout_mode = 0

@@ -1,4 +1,10 @@
 extends Node
+signal login_requested(email, password)
+signal create_user_requested(email, username, password)
+signal login_failed(message)
+signal player_info_received(info)
+signal lobby_join_successful(lobby_info)
+signal lobby_join_failed(reason)
 
 var peer = WebSocketMultiplayerPeer.new()
 var id = 0
@@ -8,14 +14,21 @@ var lobbyValue = ""
 var lobbyInfo = {}
 
 func _ready():
+	connectToServer("")
 	multiplayer.connected_to_server.connect(RTCServerConnected)
 	multiplayer.peer_connected.connect(RTCPeerConnected)
 	multiplayer.peer_disconnected.connect(RTCPeerDisconnected)
-	$LoginWindow.CreateUser.connect(createUser)
-	$LoginWindow.LoginUser.connect(loginUser)
+	login_requested.connect(_on_login_requested)
+	create_user_requested.connect(_on_create_user_requested)
 	pass # Replace with function body.
 
-
+func _on_login_requested(email, password):
+	loginUser(email, password)
+	
+func _on_create_user_requested(email, username, password):
+	createUser(email, username, password)
+	
+	
 func createUser(email,username, password):
 	var data = {
 	"email" : email.strip_edges(true, true), 
@@ -94,11 +107,12 @@ func _process(delta):
 			if data.message == Message.Message.answer:
 				if rtcPeer.has_peer(data.orgPeer):
 					rtcPeer.get_peer(data.orgPeer).connection.set_remote_description("answer", data.data)
-#
+					
 			if data.message == Message.Message.playerinfo:
-				$PlayerPanel/info.text = data.username + "\n"+ str(data.id)
+				get_tree().change_scene_to_file("res://Scenes/Menu.tscn")
+				
 			if data.message == Message.Message.failedToLogin:
-				$LoginWindow.SetSystemErrorLabel(data.text)
+				login_failed.emit(data.text) 
 	pass
 
 func connected(id):

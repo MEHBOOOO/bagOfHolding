@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://blea5q0jwmkdg"]
+
+[ext_resource type="Script" uid="uid://c27t6njaanrnp" path="res://Scripts/lobby.gd" id="1_bpe3w"]
+
+[node name="Lobby" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bpe3w")
+
+[node name="JoinLobby" type="Button" parent="."]
+offset_left = 281.0
+offset_top = 341.0
+offset_right = 420.0
+offset_bottom = 372.0
+text = "Join Lobby"
+
+[node name="Lobby" type="LineEdit" parent="."]
+offset_left = 449.0
+offset_top = 342.0
+offset_right = 784.0
+offset_bottom = 373.0
+
+[connection signal="button_down" from="JoinLobby" to="." method="_on_join_lobby_button_down"]

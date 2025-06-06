@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://3jb71hvd25uu"]
 
-[ext_resource type="Script" uid="uid://d0o32uogqeo5r" path="res://CreateUser.gd" id="1_4v6tb"]
+[ext_resource type="Script" uid="uid://d0o32uogqeo5r" path="res://Scenes/CreateUser.gd" id="1_4v6tb"]
 
 [node name="Create User Window" type="Panel"]
 offset_left = 408.0

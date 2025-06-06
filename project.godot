@@ -11,11 +11,12 @@ config_version=5
 [application]
 
 config/name="test2"
-run/main_scene="uid://q3j70no28lmq"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 
 [autoload]
 
+Server="*res://Server.gd"
+NetworkManager="*res://NetworkManager.gd"
 GameManager="*res://GameManager.gd"
 
 [dotnet]

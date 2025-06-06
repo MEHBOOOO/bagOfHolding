@@ -7,6 +7,7 @@ var dao = DB.new()
 var Characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
 func _ready():
+	StartServer()
 	peer.connect("peer_connected", peer_connected)
 	peer.connect("peer_disconnected", peer_disconnected)
 	pass

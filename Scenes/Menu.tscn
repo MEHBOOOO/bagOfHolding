@@ -1,0 +1,50 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsb8mf0n0xjcn"]
+
+[ext_resource type="Script" uid="uid://4h3oldsvbsel" path="res://Scripts/menu.gd" id="1_3kf3n"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3kf3n")
+
+[node name="Shop" type="Button" parent="."]
+layout_mode = 0
+offset_left = 281.0
+offset_top = 137.0
+offset_right = 376.0
+offset_bottom = 186.0
+text = "shop
+"
+
+[node name="Lobby" type="Button" parent="."]
+layout_mode = 0
+offset_left = 662.0
+offset_top = 301.0
+offset_right = 757.0
+offset_bottom = 350.0
+text = "lobby"
+
+[node name="Create" type="Button" parent="."]
+layout_mode = 0
+offset_left = 258.0
+offset_top = 299.0
+offset_right = 353.0
+offset_bottom = 348.0
+text = "create"
+
+[node name="Inventory" type="Button" parent="."]
+layout_mode = 0
+offset_left = 706.0
+offset_top = 140.0
+offset_right = 801.0
+offset_bottom = 189.0
+text = "inventory"
+
+[connection signal="button_down" from="Shop" to="." method="_on_shop_button_down"]
+[connection signal="button_down" from="Lobby" to="." method="_on_lobby_button_down"]
+[connection signal="button_down" from="Create" to="." method="_on_create_button_down"]
+[connection signal="button_down" from="Inventory" to="." method="_on_inventory_button_down"]
