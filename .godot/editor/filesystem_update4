@@ -1,9 +1,6 @@
 res://Scenes/Login.tscn
-res://LoginWindow.gd
-res://NetworkManager.gd
-res://Server.gd
-res://Scripts/control.tscn
-res://Scenes/Lobby.tscn
+res://Scenes/inventory.tscn
 res://Scenes/login_window.tscn
 res://Scenes/control.tscn
 res://Scenes/create.tscn
+res://Scenes/create_user_window.tscn

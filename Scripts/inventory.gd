@@ -1,12 +1,10 @@
 extends Node2D
 
-const ITEM_SLOT = preload("res://scenes/item_slot.tscn")
-@export var database_path: String = "res://data.db"
+const ITEM_SLOT = preload("res://Scenes/item_slot.tscn")
 @export var grid_rows: int = 3
 @export var grid_columns: int = 3
 @export var slot_size: Vector2 = Vector2(100, 100)
 
-var database: SQLite
 var item_names: Array = []
 var current_page: int = 0
 var slots: Array = []
@@ -14,21 +12,17 @@ var prev_button: Button
 var next_button: Button
 
 func _ready() -> void:
+	$Label.text = "started"
+	NetworkManager.inventory_data_received.connect(_on_inventory_data_received)
 	position = get_viewport_rect().size / 2 - Vector2(
 		(grid_columns * slot_size.x) / 2,
 		(grid_rows * slot_size.y) / 2
 	)
+	create_inventory_grid()
+	create_navigation_buttons()
+	load_item_names_from_db()
+	update_grid()
 	
-	database = SQLite.new()
-	database.path = database_path
-	
-	if database.open_db():
-		load_item_names()
-		create_inventory_grid()
-		create_navigation_buttons()
-		update_grid()
-	else:
-		push_error("Database open failed: ", database.error_message)
 
 func create_inventory_grid() -> void:
 	for row in range(grid_rows):
@@ -72,6 +66,7 @@ func update_grid() -> void:
 			else:
 				label.text = "Empty"
 		else:
+			$Label.text = "label not found"
 			push_warning("Label not found in slot ", i)
 	
 	update_button_states()
@@ -89,14 +84,21 @@ func prev_page() -> void:
 	current_page = max(0, current_page - 1)
 	update_grid()
 
-func load_item_names() -> void:
-	if database.query("SELECT name FROM items ORDER BY id ASC"):
-		for record in database.query_result:
-			item_names.append(str(record["name"]))
-		print("Loaded items: ", item_names)
+# Fixed load_item_names_from_db function
+func load_item_names_from_db() -> void:
+	if NetworkManager:
+		NetworkManager.load_item_names_from_db()
+		item_names = NetworkManager.item_names
+		update_grid()
 	else:
-		push_error("Query failed: ", database.error_message)
+		$Label.text = "NM not av"
+		push_error("NetworkManager not available")
+		update_grid()
+		
+func _on_inventory_data_received(items: Array) -> void:
+	item_names = items
+	update_grid()
 
-func _exit_tree() -> void:
-	if database:
-		database.close_db()
+func _on_button_button_down() -> void:
+	get_tree().change_scene_to_packed(preload("res://Scenes/Menu.tscn"))
+	pass 

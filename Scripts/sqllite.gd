@@ -7,7 +7,7 @@ var ind: int = 0
 
 func _ready() -> void:
 	database = SQLite.new()
-	database.path = "res://data.db"
+	database.path = "user://data.db"
 	var err = database.open_db()
 	
 	var schema = {
@@ -40,3 +40,8 @@ func _on_insertdata_button_down() -> void:
 	database.insert_row("items", data)
 	print("Inserted item '%s' (ind=%d)" % [data.name, data.ind])
 	emit_signal("item_created")
+
+
+func _on_button_button_down() -> void:
+	get_tree().change_scene_to_file("res://Scenes/Menu.tscn")
+	pass # Replace with function body.

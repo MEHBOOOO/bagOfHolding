@@ -13,5 +13,7 @@ enum Message{
 	createUser,
 	loginUser ,
 	playerinfo,
-	failedToLogin
+	failedToLogin,
+	InventoryRequest,
+	InventoryData
 }

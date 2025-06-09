@@ -10,3 +10,19 @@ script = ExtResource("1_qw0r6")
 
 [node name="Camera2D" type="Camera2D" parent="inventory"]
 position = Vector2(198, 120)
+
+[node name="Button" type="Button" parent="inventory"]
+offset_left = 406.0
+offset_top = -10.0
+offset_right = 516.0
+offset_bottom = 33.0
+text = "back"
+
+[node name="Label" type="Label" parent="inventory"]
+offset_left = 532.0
+offset_top = 94.0
+offset_right = 661.0
+offset_bottom = 169.0
+text = "didn't start"
+
+[connection signal="button_down" from="inventory/Button" to="inventory" method="_on_button_button_down"]

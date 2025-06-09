@@ -12,6 +12,14 @@ offset_right = 705.0
 offset_bottom = 374.0
 CreateUserWindow = ExtResource("2_767d8")
 
+[node name="Text" type="Label" parent="LoginWindow"]
+layout_mode = 0
+offset_left = 82.0
+offset_top = 305.0
+offset_right = 323.0
+offset_bottom = 415.0
+text = "not running"
+
 [node name="Client" type="Button" parent="."]
 offset_left = 117.0
 offset_top = 511.0

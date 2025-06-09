@@ -5,6 +5,8 @@ signal login_failed(message)
 signal player_info_received(info)
 signal lobby_join_successful(lobby_info)
 signal lobby_join_failed(reason)
+signal load_inventory(name)
+signal inventory_data_received(items)
 
 var peer = WebSocketMultiplayerPeer.new()
 var id = 0
@@ -12,7 +14,7 @@ var rtcPeer : WebRTCMultiplayerPeer = WebRTCMultiplayerPeer.new()
 var hostId :int
 var lobbyValue = ""
 var lobbyInfo = {}
-
+var item_names : Array = [] 
 func _ready():
 	multiplayer.connected_to_server.connect(RTCServerConnected)
 	multiplayer.peer_connected.connect(RTCPeerConnected)
@@ -67,6 +69,13 @@ func RTCPeerConnected(id):
 func RTCPeerDisconnected(id):
 	print("rtc peer disconnected " + str(id))
 
+func load_item_names_from_db() -> void:
+	var message = {
+		"peer": id,
+		"orgPeer": id,
+		"message": Message.Message.InventoryRequest  
+	}
+	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -112,6 +121,10 @@ func _process(delta):
 				
 			if data.message == Message.Message.failedToLogin:
 				login_failed.emit(data.text) 
+				
+			if data.message == Message.Message.InventoryData:
+				
+				item_names = data.item_names
 	pass
 
 func connected(id):

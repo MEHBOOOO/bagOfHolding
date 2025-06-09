@@ -27,3 +27,8 @@ func join_lobby(lobby_code: String):
 	# Send the message through the peer
 	NetworkManager.peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 	print("Sent lobby join request: ", message)
+
+
+func _on_button_button_down() -> void:
+	get_tree().change_scene_to_file("res://Scenes/Menu.tscn")
+	pass # Replace with function body.

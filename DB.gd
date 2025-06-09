@@ -5,10 +5,29 @@ var db
 
 func _init():
 	db = SQLite.new()
-	db.path = "res://data.db"
-	db.open_db()
-
-	# Define table schema with id, name, email, password, salt
+	var db_path = "user://data.db"
+	
+	if not FileAccess.file_exists(db_path):
+		# If not, copy from res:// (only works for exported projects)
+		var dir = DirAccess.open("user://")
+		dir.make_dir_recursive("user://")
+		
+		# Copy database from res:// to user://
+		var source = FileAccess.open("res://data.db", FileAccess.READ)
+		if source:
+			var buffer = source.get_buffer(source.get_length())
+			source.close()
+			
+			var dest = FileAccess.open(db_path, FileAccess.WRITE)
+			if dest:
+				dest.store_buffer(buffer)
+				dest.close()
+	
+	db.path = db_path
+	if db.open_db() != true:
+		push_error("Database open failed: ", db.error_message)
+		return
+		
 	var table = {
 		"id" : {
 			"data_type": "int",
@@ -51,6 +70,8 @@ func UsernameExists(username: String) -> bool:
 	var paramBindings = [username]
 	db.query_with_bindings(query, paramBindings)
 	return db.query_result.size() > 0
+	
+
 
 func EmailExists(email: String) -> bool:
 	var query = "SELECT email FROM players WHERE email = ?"
@@ -80,6 +101,17 @@ func VerifyUser(email: String, password: String) -> bool:
 		return attempt_hash == user.password
 	return false
 
+
+func load_item_names():
+	var item_names: Array = []
+	if db.query("SELECT name FROM items ORDER BY id ASC") == true:
+		for record in db.query_result:
+			item_names.append(str(record["name"]))
+	else:
+		push_error("DB Query failed: " + db.error_message)
+	
+	return item_names
+	
 func generate_salt() -> String:
 	randomize()
 	var salt = ""

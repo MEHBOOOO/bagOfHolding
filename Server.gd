@@ -36,8 +36,20 @@ func _process(delta):
 			if data.message ==  Message.Message.removeLobby:
 				if lobbies.has(data.lobbyID):
 					lobbies.erase(data.lobbyID)
+					
+			if data.message == Message.Message.InventoryRequest:
+				handle_inventory_request(data)
 	pass
-
+	
+func handle_inventory_request(data: Dictionary) -> void:
+	var items = dao.load_item_names()
+	var response = {
+		"message": Message.Message.InventoryData,
+		"item_names": items if items is Array else [],
+		"orgPeer": data.orgPeer
+	}
+	SendToPlayer(data.orgPeer, response)
+	
 func peer_connected(id):
 	print("Peer Connected: " + str(id))
 	users[id] = {
@@ -159,10 +171,12 @@ func GenString():
 		string += Characters[randi() % Characters.length()]
 	return string
 
+
 func StartServer():
-	peer.create_server(8915)
-	print("Server has started")
+	var error = peer.create_server(8915)
+	if error == OK:
+		return true
+	return false
 
 func _on_start_server_button_down():
 	StartServer()
-	pass

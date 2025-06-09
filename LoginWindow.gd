@@ -36,7 +36,13 @@ func _on_client_button_down() -> void:
 	NetworkManager._on_start_client_button_down()
 	pass # Replace with function body.
 
+@onready var status_label = $Text 
 
 func _on_server_button_down() -> void:
-	Server.StartServer()
+
+	
+	if Server.StartServer():
+		status_label.text = "Server: Running on port 8915"
+	else:
+		status_label.text = "Server: Failed to start (error %d)"
 	pass # Replace with function body.

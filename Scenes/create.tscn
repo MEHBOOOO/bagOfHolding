@@ -85,6 +85,15 @@ popup/item_2/id = 2
 popup/item_3/text = "Other"
 popup/item_3/id = 3
 
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 807.0
+offset_top = 128.0
+offset_right = 917.0
+offset_bottom = 171.0
+text = "back"
+
 [connection signal="button_down" from="createtable" to="." method="_on_createtable_button_down"]
 [connection signal="button_down" from="Insertdata" to="." method="_on_insertdata_button_down"]
 [connection signal="item_selected" from="OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
