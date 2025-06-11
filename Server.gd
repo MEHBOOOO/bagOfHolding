@@ -41,11 +41,10 @@ func _process(delta):
 				handle_inventory_request(data)
 				
 			if data.message == Message.Message.createItem:
-				var db = DB.new()
 				var item_data = data.get("data", {})
 				if item_data.is_empty():
 					push_error("No item data found in createItem request")
-				var success = db.insertItem(item_data)
+				var success = dao.insertItem(item_data)
 	pass
 	
 func handle_inventory_request(data: Dictionary) -> void:

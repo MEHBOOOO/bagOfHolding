@@ -15,13 +15,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5p55f")
 
-[node name="createtable" type="Button" parent="."]
-layout_mode = 0
-offset_left = 91.0
-offset_top = 274.0
-offset_right = 202.0
-offset_bottom = 340.0
-
 [node name="Insertdata" type="Button" parent="."]
 layout_mode = 0
 offset_left = 105.0
@@ -93,7 +86,6 @@ offset_right = 917.0
 offset_bottom = 171.0
 text = "back"
 
-[connection signal="button_down" from="createtable" to="." method="_on_createtable_button_down"]
 [connection signal="button_down" from="Insertdata" to="." method="_on_insertdata_button_down"]
 [connection signal="item_selected" from="OptionButton" to="." method="_on_option_button_item_selected"]
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
