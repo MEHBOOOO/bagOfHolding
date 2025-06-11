@@ -7,6 +7,7 @@ signal lobby_join_successful(lobby_info)
 signal lobby_join_failed(reason)
 signal load_inventory(name)
 signal inventory_data_received(items)
+signal createItem(data)
 
 var peer = WebSocketMultiplayerPeer.new()
 var id = 0
@@ -77,8 +78,16 @@ func load_item_names_from_db() -> void:
 	}
 	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+func request_create_item(data: Dictionary) -> void:
+	var message = {
+		"peer": id,
+		"orgPeer": id,
+		"message": Message.Message.createItem, 
+		"data": data,
+		"Lobby": lobbyValue
+	}
+	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
+	
 func _process(delta):
 	peer.poll()
 	if peer.get_available_packet_count() > 0:

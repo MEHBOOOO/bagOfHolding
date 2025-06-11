@@ -4,3 +4,10 @@ res://Scenes/login_window.tscn
 res://Scenes/control.tscn
 res://Scenes/create.tscn
 res://Scenes/create_user_window.tscn
+res://Message.gd
+res://Scenes/Lobby.tscn
+res://Scripts/inventory.gd
+res://NetworkManager.gd
+res://DB.gd
+res://Scripts/sqllite.gd
+res://Server.gd

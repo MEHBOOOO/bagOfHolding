@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bcfl5ohsaxsnd"]
+[gd_scene load_steps=4 format=3 uid="uid://bcfl5ohsaxsnd"]
 
 [ext_resource type="PackedScene" uid="uid://x5p7woqk4vns" path="res://Scenes/login_window.tscn" id="1_leum0"]
 [ext_resource type="PackedScene" uid="uid://3jb71hvd25uu" path="res://Scenes/create_user_window.tscn" id="2_767d8"]
+[ext_resource type="FontFile" uid="uid://c388nasjg4ct5" path="res://1papyrus.ttf" id="3_xklxs"]
 
 [node name="Login" type="Node2D"]
 
@@ -25,6 +26,7 @@ offset_left = 117.0
 offset_top = 511.0
 offset_right = 212.0
 offset_bottom = 558.0
+theme_override_fonts/font = ExtResource("3_xklxs")
 text = "START CLIENT"
 
 [node name="Server" type="Button" parent="."]

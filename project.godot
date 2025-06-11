@@ -24,6 +24,12 @@ GameManager="*res://GameManager.gd"
 
 project/assembly_name="test2"
 
+[gui]
+
+theme/custom_font="uid://c388nasjg4ct5"
+theme/default_font_multichannel_signed_distance_field=true
+theme/default_font_generate_mipmaps=true
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

@@ -15,5 +15,6 @@ enum Message{
 	playerinfo,
 	failedToLogin,
 	InventoryRequest,
-	InventoryData
+	InventoryData,
+	createItem
 }

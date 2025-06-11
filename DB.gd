@@ -50,8 +50,26 @@ func _init():
 			"data_type": "text"
 		}
 	}
-
+	var items_schema = {
+	"id": {"data_type":"int", "primary_key":true, "not_null":true, "auto_increment":true},
+	"name": {"data_type":"text", "not_null":true},
+	"ind": {"data_type":"int", "not_null":true},
+	"description": {"data_type":"text"}
+}
+	db.create_table("items", items_schema)
 	db.create_table("players", table)
+
+
+func insertItem(data):
+	print("Attempting to insert data: ", data)
+	var result = db.insert_row("items", data)
+	if result == false:
+		var error_msg = "Failed to insert item: " + db.error_message
+		push_error(error_msg)
+		print(error_msg)  # Ensure it shows in console
+		return false
+	print("Item inserted successfully")
+	return true
 
 func InsertUserData(name: String, email: String, password: String) -> void:
 	var salt = generate_salt()
