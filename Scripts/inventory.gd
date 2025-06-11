@@ -5,7 +5,7 @@ const ITEM_SLOT = preload("res://Scenes/item_slot.tscn")
 @export var grid_columns: int = 3
 @export var slot_size: Vector2 = Vector2(100, 100)
 
-var item_names: Array = []
+var Items: Array = []
 var current_page: int = 0
 var slots: Array = []
 var prev_button: Button
@@ -20,8 +20,7 @@ func _ready() -> void:
 	)
 	create_inventory_grid()
 	create_navigation_buttons()
-	load_item_names_from_db()
-	update_grid()
+	load_inventory()
 	
 
 func create_inventory_grid() -> void:
@@ -51,6 +50,7 @@ func create_navigation_buttons() -> void:
 	
 	update_button_states()
 
+
 func update_grid() -> void:
 	var items_per_page = grid_rows * grid_columns
 	var start_index = current_page * items_per_page
@@ -61,10 +61,17 @@ func update_grid() -> void:
 		var label = slot.find_child("Name", true, false)
 		
 		if label:
-			if item_index < item_names.size():
-				label.text = item_names[item_index]
+			if item_index < Items.size():
+				var item = Items[item_index]
+				label.text = item["name"]
+				# Add tooltip with description
+				if item.has("description") and item["description"] != "":
+					label.tooltip_text = item["description"]
+				else:
+					label.tooltip_text = "No description"
 			else:
 				label.text = "Empty"
+				label.tooltip_text = ""
 		else:
 			$Label.text = "label not found"
 			push_warning("Label not found in slot ", i)
@@ -72,7 +79,7 @@ func update_grid() -> void:
 	update_button_states()
 
 func update_button_states() -> void:
-	var total_pages = ceil(item_names.size() / float(grid_rows * grid_columns))
+	var total_pages = ceil(Items.size() / float(grid_rows * grid_columns))
 	prev_button.visible = current_page > 0
 	next_button.visible = current_page < total_pages - 1
 
@@ -85,18 +92,21 @@ func prev_page() -> void:
 	update_grid()
 
 # Fixed load_item_names_from_db function
-func load_item_names_from_db() -> void:
+func load_inventory() -> void:
 	if NetworkManager:
-		NetworkManager.load_item_names_from_db()
-		item_names = NetworkManager.item_names
-		update_grid()
-	else:
-		$Label.text = "NM not av"
-		push_error("NetworkManager not available")
+		# Clear current items
+		Items = []
 		update_grid()
 		
+		# Request fresh inventory from server
+		NetworkManager.load_item_names_from_db()
+		$Label.text = "Loading items..."
+	else:
+		$Label.text = "NetworkManager not available"
+		push_error("NetworkManager not available")
+		
 func _on_inventory_data_received(items: Array) -> void:
-	item_names = items
+	Items = items
 	update_grid()
 
 func _on_button_button_down() -> void:

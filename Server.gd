@@ -5,7 +5,7 @@ var users = {}
 var lobbies = {}
 var dao = DB.new()
 var Characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-
+var user_sessions = {}
 func _ready():
 	peer.connect("peer_connected", peer_connected)
 	peer.connect("peer_disconnected", peer_disconnected)
@@ -42,19 +42,29 @@ func _process(delta):
 				
 			if data.message == Message.Message.createItem:
 				var item_data = data.get("data", {})
-				if item_data.is_empty():
-					push_error("No item data found in createItem request")
+		
+				var peer_id = data.get("orgPeer", -1)
+					
+				item_data["user_id"] = user_sessions[peer_id]
 				var success = dao.insertItem(item_data)
 	pass
 	
 func handle_inventory_request(data: Dictionary) -> void:
-	var items = dao.load_item_names()
+	var peer_id = data.get("orgPeer", -1)
+	
+	if not user_sessions.has(peer_id):
+		push_error("User not authenticated for inventory request")
+		return
+		
+	var user_id = user_sessions[peer_id]
+	var items = dao.load_items_by_user(user_id) 
+	
 	var response = {
 		"message": Message.Message.InventoryData,
-		"item_names": items if items is Array else [],
-		"orgPeer": data.orgPeer
+		"items": items if items is Array else [],
+		"orgPeer": peer_id
 	}
-	SendToPlayer(data.orgPeer, response)
+	SendToPlayer(peer_id, response)
 	
 func peer_connected(id):
 	print("Peer Connected: " + str(id))
@@ -158,6 +168,7 @@ func login(data):
 	
 	if dao.VerifyUser(email, password):
 		var ema = dao.GetUserFromDB(email)
+		user_sessions[data.orgPeer] = ema["id"]
 		var returnData = {
 			"username": ema["name"],
 			"email": ema["email"],

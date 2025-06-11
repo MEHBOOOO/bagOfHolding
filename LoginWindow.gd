@@ -10,7 +10,7 @@ func _ready():
 	NetworkManager.player_info_received.connect(_on_player_info_received)
 
 func _on_player_info_received(info):
-	$RichTextLabel3.text = "Logged in as: " + info
+	$RichTextLabel3.text = "Logged in as: "
 
 func _on_cancel_button_down():
 	queue_free()

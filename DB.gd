@@ -13,7 +13,7 @@ func _init():
 		dir.make_dir_recursive("user://")
 		
 		# Copy database from res:// to user://
-		var source = FileAccess.open("res://data.db", FileAccess.READ)
+		var source = FileAccess.open("user://data.db", FileAccess.READ)
 		if source:
 			var buffer = source.get_buffer(source.get_length())
 			source.close()
@@ -54,12 +54,30 @@ func _init():
 	"id": {"data_type":"int", "primary_key":true, "not_null":true, "auto_increment":true},
 	"name": {"data_type":"text", "not_null":true},
 	"ind": {"data_type":"int", "not_null":true},
-	"description": {"data_type":"text"}
+	"description": {"data_type":"text"},
+	"user_id": {"data_type":"int", "not_null":true}	 
 }
 	db.create_table("items", items_schema)
 	db.create_table("players", table)
 
-
+func load_items_by_user(user_id: int) -> Array:
+	var items = []
+	var query = "SELECT * FROM items WHERE user_id = ?"
+	var params = [user_id]
+	
+	if db.query_with_bindings(query, params):
+		for record in db.query_result:
+			items.append({
+				"id": record["id"],
+				"name": record["name"],
+				"ind": record["ind"],
+				"description": record["description"]
+			})
+	else:
+		push_error("DB Query failed: " + db.error_message)
+	
+	return items
+	
 func insertItem(data):
 	print("Attempting to insert data: ", data)
 	var result = db.insert_row("items", data)

@@ -11,3 +11,7 @@ res://NetworkManager.gd
 res://DB.gd
 res://Scripts/sqllite.gd
 res://Server.gd
+res://Scenes/item_slot.tscn
+res://Scenes/Menu.tscn
+res://LoginWindow.gd
+res://Scripts/menu.gd

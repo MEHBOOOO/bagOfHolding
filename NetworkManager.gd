@@ -5,7 +5,7 @@ signal login_failed(message)
 signal player_info_received(info)
 signal lobby_join_successful(lobby_info)
 signal lobby_join_failed(reason)
-signal load_inventory(name)
+signal load_inventory()
 signal inventory_data_received(items)
 signal createItem(data)
 
@@ -15,7 +15,10 @@ var rtcPeer : WebRTCMultiplayerPeer = WebRTCMultiplayerPeer.new()
 var hostId :int
 var lobbyValue = ""
 var lobbyInfo = {}
-var item_names : Array = [] 
+var current_user_items : Array = [] 
+var current_user_id: int = 0 
+
+
 func _ready():
 	multiplayer.connected_to_server.connect(RTCServerConnected)
 	multiplayer.peer_connected.connect(RTCPeerConnected)
@@ -60,7 +63,16 @@ func loginUser(email, password):
 		"Lobby": lobbyValue
 	}
 	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
-
+	
+func load_item_names_from_db() -> void:
+	# Simplified - server knows which user is requesting
+	var message = {
+		"peer": id,
+		"orgPeer": id,
+		"message": Message.Message.InventoryRequest
+	}
+	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
+	
 func RTCServerConnected():
 	print("RTC server connected")
 
@@ -69,14 +81,6 @@ func RTCPeerConnected(id):
 	
 func RTCPeerDisconnected(id):
 	print("rtc peer disconnected " + str(id))
-
-func load_item_names_from_db() -> void:
-	var message = {
-		"peer": id,
-		"orgPeer": id,
-		"message": Message.Message.InventoryRequest  
-	}
-	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 
 func request_create_item(data: Dictionary) -> void:
 	var message = {
@@ -126,14 +130,16 @@ func _process(delta):
 					rtcPeer.get_peer(data.orgPeer).connection.set_remote_description("answer", data.data)
 					
 			if data.message == Message.Message.playerinfo:
+				current_user_id =  data.get("id", 0)
+				player_info_received.emit(data)
 				get_tree().change_scene_to_file("res://Scenes/Menu.tscn")
 				
 			if data.message == Message.Message.failedToLogin:
 				login_failed.emit(data.text) 
 				
 			if data.message == Message.Message.InventoryData:
-				
-				item_names = data.item_names
+				current_user_items = data.get("items", []) 
+				inventory_data_received.emit(current_user_items)
 	pass
 
 func connected(id):

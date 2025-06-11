@@ -26,6 +26,5 @@ func _on_create_button_down() -> void:
 
 
 func _on_inventory_button_down() -> void:
-	NetworkManager.load_item_names_from_db()
 	get_tree().change_scene_to_file("res://Scenes/inventory.tscn")
 	pass # Replace with function body.

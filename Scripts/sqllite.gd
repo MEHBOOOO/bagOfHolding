@@ -12,6 +12,9 @@ func _on_option_button_item_selected(index: int) -> void:
 	ind = index
 
 func _on_insertdata_button_down() -> void:
+	if $Name.text.strip_edges().is_empty():
+		push_error("name is empty")
+		return
 	var data = {
 		"name": $Name.text,
 		"ind": ind,
