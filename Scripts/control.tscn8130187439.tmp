@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=3 uid="uid://bf5kbg5c8q5x3"]
+
+[ext_resource type="Script" uid="uid://bpey3oey1a7fr" path="res://scripts/slots.gd" id="1_labhj"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="slots" type="GridContainer" parent="."]
+layout_mode = 0
+offset_left = 191.0
+offset_top = 71.0
+offset_right = 417.0
+offset_bottom = 212.0
+columns = 6
+script = ExtResource("1_labhj")
+
+[node name="Slot1" type="Panel" parent="slots"]
+layout_mode = 2
+
+[node name="Slot2" type="Panel" parent="slots"]
+layout_mode = 2
+
+[node name="Slot3" type="Panel" parent="slots"]
+layout_mode = 2
+
+[node name="Slot4" type="Panel" parent="slots"]
+layout_mode = 2
+
+[node name="Slot5" type="Panel" parent="slots"]
+layout_mode = 2
+
+[node name="Slot6" type="Panel" parent="slots"]
+layout_mode = 2
+
+[node name="Slot7" type="Panel" parent="slots"]
+layout_mode = 2
+
+[node name="Slot8" type="Panel" parent="slots"]
+layout_mode = 2
+
+[node name="Slot9" type="Panel" parent="slots"]
+layout_mode = 2

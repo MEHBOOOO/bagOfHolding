@@ -1,0 +1,89 @@
+[gd_scene load_steps=2 format=3 uid="uid://x5p7woqk4vns"]
+
+[ext_resource type="Script" uid="uid://ckyw3rvwdlcx2" path="res://LoginWindow.gd" id="1_5pr1c"]
+
+[node name="LoginWindow" type="Panel"]
+offset_left = 6.0
+offset_top = 30.0
+offset_right = 397.0
+offset_bottom = 252.0
+scale = Vector2(0.197353, 0.264617)
+script = ExtResource("1_5pr1c")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 25.3353
+offset_top = 52.9067
+offset_right = 349.335
+offset_bottom = 209.907
+scale = Vector2(0.234681, 0.216213)
+theme_override_font_sizes/normal_font_size = 100
+text = "email"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 25.3353
+offset_top = 98.2552
+offset_right = 516.335
+offset_bottom = 249.255
+scale = Vector2(0.20654, 0.226893)
+theme_override_font_sizes/normal_font_size = 100
+text = "Password"
+
+[node name="email" type="TextEdit" parent="."]
+layout_mode = 0
+offset_left = 136.0
+offset_top = 54.0
+offset_right = 357.0
+offset_bottom = 89.0
+
+[node name="Password" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 136.0
+offset_top = 96.0
+offset_right = 355.0
+offset_bottom = 131.0
+secret = true
+
+[node name="Cancel" type="Button" parent="."]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 150.0
+offset_right = 131.0
+offset_bottom = 195.0
+scale = Vector2(0.289845, 0.246927)
+theme_override_font_sizes/font_size = 100
+text = "Cancel"
+
+[node name="CreateUser" type="Button" parent="."]
+layout_mode = 0
+offset_left = 228.018
+offset_top = 15.1162
+offset_right = 1010.02
+offset_bottom = 169.116
+scale = Vector2(0.164606, 0.188301)
+theme_override_font_sizes/font_size = 100
+text = "Create New User"
+
+[node name="Login" type="Button" parent="."]
+layout_mode = 0
+offset_left = 248.0
+offset_top = 149.0
+offset_right = 611.0
+offset_bottom = 334.0
+scale = Vector2(0.266267, 0.216019)
+theme_override_font_sizes/font_size = 100
+text = "Login"
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 128.0
+offset_right = 391.0
+offset_bottom = 151.0
+theme_override_colors/default_color = Color(0.913725, 0, 0.152941, 1)
+bbcode_enabled = true
+
+[connection signal="button_down" from="Cancel" to="." method="_on_cancel_button_down"]
+[connection signal="button_down" from="CreateUser" to="." method="_on_create_user_button_down"]
+[connection signal="button_down" from="Login" to="." method="_on_login_button_down"]

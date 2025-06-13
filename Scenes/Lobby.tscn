@@ -1,0 +1,72 @@
+[gd_scene load_steps=5 format=3 uid="uid://blea5q0jwmkdg"]
+
+[ext_resource type="Script" uid="uid://c27t6njaanrnp" path="res://Scripts/lobby.gd" id="1_bpe3w"]
+[ext_resource type="Texture2D" uid="uid://bdoppgv6yc2k3" path="res://Images/background.png" id="2_nsj2m"]
+[ext_resource type="Texture2D" uid="uid://db16pqa2xdj6y" path="res://Images/knopka4(bezbeloi).png" id="3_nsj2m"]
+[ext_resource type="Texture2D" uid="uid://bh5boxrnq33kn" path="res://Images/knopka1(bezbeloi).png" id="4_xy1bw"]
+
+[node name="Lobby" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bpe3w")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(55.875, 82.25)
+scale = Vector2(0.0672962, 0.0744155)
+texture = ExtResource("2_nsj2m")
+
+[node name="JoinLobby" type="Button" parent="."]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 49.0
+offset_right = 558.0
+offset_bottom = 203.0
+scale = Vector2(0.0672326, 0.0864979)
+theme_override_font_sizes/font_size = 100
+text = "Join Lobby"
+flat = true
+
+[node name="Sprite2D" type="Sprite2D" parent="JoinLobby"]
+show_behind_parent = true
+position = Vector2(282.601, 80.9268)
+scale = Vector2(0.171094, 0.119887)
+texture = ExtResource("3_nsj2m")
+
+[node name="Lobby" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 21.0
+offset_right = 325.0
+offset_bottom = 54.0
+scale = Vector2(0.26084, 0.608408)
+
+[node name="Sprite2D" type="Sprite2D" parent="Lobby"]
+show_behind_parent = true
+position = Vector2(161.018, 16.4363)
+scale = Vector2(0.082647, 0.0201379)
+texture = ExtResource("4_xy1bw")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 144.0
+offset_right = 342.0
+offset_bottom = 298.0
+scale = Vector2(0.0753821, 0.0839824)
+theme_override_font_sizes/font_size = 100
+text = "Назад
+"
+flat = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Button"]
+show_behind_parent = true
+position = Vector2(166.337, 89.8163)
+scale = Vector2(0.0936708, 0.118697)
+texture = ExtResource("3_nsj2m")
+
+[connection signal="button_down" from="JoinLobby" to="." method="_on_join_lobby_button_down"]
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

@@ -1,0 +1,143 @@
+[gd_scene load_steps=5 format=3 uid="uid://bf5kbg5c8q5x3"]
+
+[ext_resource type="Script" uid="uid://k1rd6mjjif4s" path="res://Scripts/sqllite.gd" id="1_it6rb"]
+[ext_resource type="Texture2D" uid="uid://bdoppgv6yc2k3" path="res://Images/background.png" id="2_ghdx4"]
+[ext_resource type="Texture2D" uid="uid://db16pqa2xdj6y" path="res://Images/knopka4(bezbeloi).png" id="3_8l78f"]
+[ext_resource type="Texture2D" uid="uid://bh5boxrnq33kn" path="res://Images/knopka1(bezbeloi).png" id="4_t4vtm"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 1.0
+offset_right = 2.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_it6rb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(57, 92)
+scale = Vector2(0.071, 0.0836331)
+texture = ExtResource("2_ghdx4")
+
+[node name="Insertdata" type="Button" parent="."]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 140.0
+offset_right = 659.0
+offset_bottom = 294.0
+scale = Vector2(0.0861899, 0.100849)
+theme_override_font_sizes/font_size = 100
+text = "create an item
+"
+flat = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Insertdata"]
+show_behind_parent = true
+position = Vector2(330.665, 79.3265)
+scale = Vector2(0.178453, 0.104133)
+texture = ExtResource("3_8l78f")
+
+[node name="Name" type="TextEdit" parent="."]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 15.0
+offset_right = 121.0
+offset_bottom = 70.0
+scale = Vector2(0.625016, 0.324639)
+
+[node name="Sprite2D" type="Sprite2D" parent="Name"]
+show_behind_parent = true
+position = Vector2(55.1986, 27.7231)
+scale = Vector2(0.0277337, 0.0359433)
+texture = ExtResource("4_t4vtm")
+
+[node name="Description" type="TextEdit" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 83.0
+offset_right = 114.0
+offset_bottom = 200.0
+scale = Vector2(0.671444, 0.234231)
+
+[node name="Sprite2D" type="Sprite2D" parent="Description"]
+show_behind_parent = true
+position = Vector2(52.0711, 62.4992)
+scale = Vector2(0.0262066, 0.0765222)
+texture = ExtResource("4_t4vtm")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 27.0
+offset_right = 276.0
+offset_bottom = 146.0
+scale = Vector2(0.125117, 0.096726)
+theme_override_font_sizes/font_size = 100
+text = "Name"
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 32.0
+offset_right = 125.0
+offset_bottom = 73.0
+scale = Vector2(0.106978, 0.0820753)
+theme_override_font_sizes/font_size = 100
+text = "type"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 68.0
+offset_right = 540.0
+offset_bottom = 214.0
+scale = Vector2(0.0770123, 0.104859)
+theme_override_font_sizes/font_size = 100
+text = "description"
+
+[node name="OptionButton" type="OptionButton" parent="."]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 47.0
+offset_right = 128.0
+offset_bottom = 98.0
+scale = Vector2(0.578163, 0.349745)
+item_count = 4
+popup/item_0/text = "Artifact"
+popup/item_0/id = 0
+popup/item_1/text = "Weapon"
+popup/item_1/id = 1
+popup/item_2/text = "Armor"
+popup/item_2/id = 2
+popup/item_3/text = "Other"
+popup/item_3/id = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="OptionButton"]
+show_behind_parent = true
+position = Vector2(58.9463, 26.057)
+scale = Vector2(0.0303353, 0.0363214)
+texture = ExtResource("4_t4vtm")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 31.0
+offset_top = 122.0
+offset_right = 263.0
+offset_bottom = 276.0
+scale = Vector2(0.1153, 0.0825301)
+theme_override_font_sizes/font_size = 100
+text = "back"
+flat = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Button"]
+show_behind_parent = true
+position = Vector2(121.423, 66.6423)
+scale = Vector2(0.0804628, 0.120178)
+texture = ExtResource("3_8l78f")
+
+[connection signal="button_down" from="Insertdata" to="." method="_on_insertdata_button_down"]
+[connection signal="item_selected" from="OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

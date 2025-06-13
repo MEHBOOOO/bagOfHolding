@@ -1,0 +1,44 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="test2"
+run/main_scene="uid://bcfl5ohsaxsnd"
+config/features=PackedStringArray("4.4", "GL Compatibility")
+
+[autoload]
+
+Server="*res://Server.gd"
+NetworkManager="*res://NetworkManager.gd"
+GameManager="*res://GameManager.gd"
+
+[display]
+
+window/size/viewport_width=90
+window/size/viewport_height=160
+window/size/window_width_override=360
+window/size/window_height_override=640
+window/stretch/mode="canvas_items"
+
+[dotnet]
+
+project/assembly_name="test2"
+
+[gui]
+
+theme/custom_font="uid://c388nasjg4ct5"
+theme/default_font_multichannel_signed_distance_field=true
+theme/default_font_generate_mipmaps=true
+
+[rendering]
+
+renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true

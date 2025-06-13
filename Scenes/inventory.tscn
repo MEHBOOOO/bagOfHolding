@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://dq1tykyo6h7f3"]
+
+[ext_resource type="Script" uid="uid://bj7nsfx0kil6d" path="res://Scripts/inventory.gd" id="1_qw0r6"]
+[ext_resource type="Texture2D" uid="uid://bdoppgv6yc2k3" path="res://Images/background.png" id="1_yxepq"]
+[ext_resource type="Texture2D" uid="uid://db16pqa2xdj6y" path="res://Images/knopka4(bezbeloi).png" id="3_0n8tc"]
+[ext_resource type="Texture2D" uid="uid://bh5boxrnq33kn" path="res://Images/knopka1(bezbeloi).png" id="4_k1vlg"]
+
+[node name="main" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(45.125, 80.5)
+scale = Vector2(0.056205, 0.0732914)
+texture = ExtResource("1_yxepq")
+
+[node name="inventory" type="Node2D" parent="."]
+position = Vector2(164, 65)
+script = ExtResource("1_qw0r6")
+
+[node name="Camera2D" type="Camera2D" parent="inventory"]
+position = Vector2(-120, 16)
+
+[node name="Button" type="Button" parent="inventory"]
+offset_left = -139.0
+offset_top = 75.0
+offset_right = 316.0
+offset_bottom = 374.0
+scale = Vector2(0.0698418, 0.0604326)
+theme_override_font_sizes/font_size = 200
+text = "back"
+flat = true
+
+[node name="Sprite2D" type="Sprite2D" parent="inventory/Button"]
+show_behind_parent = true
+position = Vector2(239.36, 125.508)
+scale = Vector2(0.13481, 0.204376)
+texture = ExtResource("3_0n8tc")
+
+[node name="Label" type="Label" parent="inventory"]
+offset_left = -136.0
+offset_top = -48.0
+offset_right = 363.0
+offset_bottom = 98.0
+scale = Vector2(0.067938, 0.0915411)
+theme_override_font_sizes/font_size = 100
+text = "didn't start"
+
+[node name="Sprite2D" type="Sprite2D" parent="inventory/Label"]
+show_behind_parent = true
+position = Vector2(250.228, 65.5443)
+scale = Vector2(0.165305, 0.114722)
+texture = ExtResource("4_k1vlg")
+
+[connection signal="button_down" from="inventory/Button" to="inventory" method="_on_button_button_down"]

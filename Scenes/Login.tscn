@@ -1,0 +1,99 @@
+[gd_scene load_steps=7 format=3 uid="uid://bcfl5ohsaxsnd"]
+
+[ext_resource type="Texture2D" uid="uid://bdoppgv6yc2k3" path="res://Images/background.png" id="1_1baen"]
+[ext_resource type="PackedScene" uid="uid://x5p7woqk4vns" path="res://Scenes/login_window.tscn" id="1_leum0"]
+[ext_resource type="PackedScene" uid="uid://3jb71hvd25uu" path="res://Scenes/create_user_window.tscn" id="2_767d8"]
+[ext_resource type="FontFile" uid="uid://c388nasjg4ct5" path="res://1papyrus.ttf" id="3_xklxs"]
+[ext_resource type="Texture2D" uid="uid://bh5boxrnq33kn" path="res://Images/knopka1(bezbeloi).png" id="4_a6huy"]
+[ext_resource type="Texture2D" uid="uid://db16pqa2xdj6y" path="res://Images/knopka4(bezbeloi).png" id="5_7p2kr"]
+
+[node name="Login" type="Node2D"]
+scale = Vector2(0.915077, 1.03485)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(59.0114, 80.2047)
+scale = Vector2(0.0707169, 0.0717808)
+texture = ExtResource("1_1baen")
+
+[node name="LoginWindow" parent="." instance=ExtResource("1_leum0")]
+offset_left = 6.55683
+offset_top = 20.2928
+offset_right = 397.557
+offset_bottom = 242.293
+scale = Vector2(0.217873, 0.26309)
+CreateUserWindow = ExtResource("2_767d8")
+metadata/_edit_use_anchors_ = true
+
+[node name="Text" type="Label" parent="LoginWindow"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.00495799
+anchor_top = 0.0298577
+anchor_right = 0.706039
+anchor_bottom = 0.19202
+offset_left = 87.2069
+offset_top = 239.461
+offset_right = 328.207
+offset_bottom = 349.461
+scale = Vector2(0.207136, 0.296208)
+theme_override_font_sizes/font_size = 100
+text = "not running"
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D2" type="Sprite2D" parent="LoginWindow/Text"]
+show_behind_parent = true
+position = Vector2(640.686, 86.8)
+scale = Vector2(0.349293, 0.112396)
+texture = ExtResource("4_a6huy")
+
+[node name="Sprite2D" type="Sprite2D" parent="LoginWindow"]
+show_behind_parent = true
+position = Vector2(230.726, 104.754)
+scale = Vector2(0.207352, 0.165092)
+texture = ExtResource("5_7p2kr")
+
+[node name="Client" type="Button" parent="."]
+offset_left = 29.5057
+offset_top = 107.262
+offset_right = 830.506
+offset_bottom = 261.262
+scale = Vector2(0.0549654, 0.0933416)
+theme_override_fonts/font = ExtResource("3_xklxs")
+theme_override_font_sizes/font_size = 100
+text = "START CLIENT"
+flat = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D2" type="Sprite2D" parent="Client"]
+show_behind_parent = true
+position = Vector2(-2.28882e-05, -52.8122)
+scale = Vector2(0.773797, 1.03876)
+
+[node name="Button1" type="Sprite2D" parent="Client/Sprite2D2"]
+position = Vector2(523.508, 120.606)
+scale = Vector2(0.283847, 0.104663)
+texture = ExtResource("5_7p2kr")
+
+[node name="Server" type="Button" parent="."]
+offset_left = 31.6913
+offset_top = 128.0
+offset_right = 166.691
+offset_bottom = 161.0
+scale = Vector2(0.0496467, 0.0780442)
+theme_override_font_sizes/font_size = 100
+text = "START SERVER"
+flat = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D2" type="Sprite2D" parent="Server"]
+show_behind_parent = true
+position = Vector2(-2.28882e-05, -52.8122)
+scale = Vector2(0.773797, 1.03876)
+
+[node name="Button1" type="Sprite2D" parent="Server/Sprite2D2"]
+position = Vector2(526.256, 122.827)
+scale = Vector2(0.31252, 0.118224)
+texture = ExtResource("5_7p2kr")
+
+[connection signal="button_down" from="Client" to="LoginWindow" method="_on_client_button_down"]
+[connection signal="button_down" from="Server" to="LoginWindow" method="_on_server_button_down"]

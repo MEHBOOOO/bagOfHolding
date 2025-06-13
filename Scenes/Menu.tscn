@@ -1,0 +1,92 @@
+[gd_scene load_steps=4 format=3 uid="uid://bsb8mf0n0xjcn"]
+
+[ext_resource type="Script" uid="uid://4h3oldsvbsel" path="res://Scripts/menu.gd" id="1_3kf3n"]
+[ext_resource type="Texture2D" uid="uid://bdoppgv6yc2k3" path="res://Images/background.png" id="2_6pedr"]
+[ext_resource type="Texture2D" uid="uid://db16pqa2xdj6y" path="res://Images/knopka4(bezbeloi).png" id="3_syfuq"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3kf3n")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(46.2422, 81.3281)
+scale = Vector2(0.0548655, 0.0734459)
+texture = ExtResource("2_6pedr")
+
+[node name="Shop" type="Button" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 18.0
+offset_right = 432.0
+offset_bottom = 172.0
+scale = Vector2(0.185964, 0.148381)
+theme_override_font_sizes/font_size = 100
+text = "Магазин"
+flat = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Shop"]
+show_behind_parent = true
+position = Vector2(225.85, 77.5032)
+scale = Vector2(0.118156, 0.106163)
+texture = ExtResource("3_syfuq")
+
+[node name="Lobby" type="Button" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 121.0
+offset_right = 788.0
+offset_bottom = 275.0
+scale = Vector2(0.105942, 0.197576)
+theme_override_font_sizes/font_size = 100
+text = "Лобби/комната"
+flat = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Lobby"]
+show_behind_parent = true
+position = Vector2(396.443, 65.7975)
+scale = Vector2(0.207403, 0.0990336)
+texture = ExtResource("3_syfuq")
+
+[node name="Create" type="Button" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 80.0
+offset_right = 896.0
+offset_bottom = 234.0
+scale = Vector2(0.0921344, 0.174087)
+theme_override_font_sizes/font_size = 100
+text = "Создать предмет"
+flat = true
+
+[node name="Sprite2D2" type="Sprite2D" parent="Create"]
+show_behind_parent = true
+position = Vector2(457.349, 92.4158)
+scale = Vector2(0.239214, 0.111088)
+texture = ExtResource("3_syfuq")
+
+[node name="Inventory" type="Button" parent="."]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 51.0
+offset_right = 569.0
+offset_bottom = 205.0
+scale = Vector2(0.138086, 0.135351)
+theme_override_font_sizes/font_size = 100
+text = "Инвентарь"
+flat = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Inventory"]
+show_behind_parent = true
+position = Vector2(289.675, 73.8817)
+scale = Vector2(0.159123, 0.129315)
+texture = ExtResource("3_syfuq")
+
+[connection signal="button_down" from="Shop" to="." method="_on_shop_button_down"]
+[connection signal="button_down" from="Lobby" to="." method="_on_lobby_button_down"]
+[connection signal="button_down" from="Create" to="." method="_on_create_button_down"]
+[connection signal="button_down" from="Inventory" to="." method="_on_inventory_button_down"]
