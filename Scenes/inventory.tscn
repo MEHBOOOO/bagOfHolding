@@ -8,8 +8,8 @@
 [node name="main" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(45.125, 80.5)
-scale = Vector2(0.056205, 0.0732914)
+position = Vector2(-7, 139)
+scale = Vector2(0.333342, 0.4492)
 texture = ExtResource("1_yxepq")
 
 [node name="inventory" type="Node2D" parent="."]
@@ -17,37 +17,38 @@ position = Vector2(164, 65)
 script = ExtResource("1_qw0r6")
 
 [node name="Camera2D" type="Camera2D" parent="inventory"]
-position = Vector2(-120, 16)
+position = Vector2(73, 87)
+zoom = Vector2(0.22, 0.22)
+
+[node name="Sprite2D" type="Sprite2D" parent="inventory"]
+show_behind_parent = true
+position = Vector2(-19, 405)
+scale = Vector2(0.0400391, 0.0373396)
+texture = ExtResource("3_0n8tc")
 
 [node name="Button" type="Button" parent="inventory"]
-offset_left = -139.0
-offset_top = 75.0
-offset_right = 316.0
-offset_bottom = 374.0
+offset_left = -65.0
+offset_top = 379.0
+offset_right = 1226.0
+offset_bottom = 1176.0
 scale = Vector2(0.0698418, 0.0604326)
-theme_override_font_sizes/font_size = 200
+theme_override_font_sizes/font_size = 565
 text = "back"
 flat = true
 
-[node name="Sprite2D" type="Sprite2D" parent="inventory/Button"]
+[node name="Sprite2D2" type="Sprite2D" parent="inventory"]
 show_behind_parent = true
-position = Vector2(239.36, 125.508)
-scale = Vector2(0.13481, 0.204376)
-texture = ExtResource("3_0n8tc")
+position = Vector2(68.5, -175)
+scale = Vector2(0.0446777, 0.0373396)
+texture = ExtResource("4_k1vlg")
 
 [node name="Label" type="Label" parent="inventory"]
-offset_left = -136.0
-offset_top = -48.0
-offset_right = 363.0
-offset_bottom = 98.0
+offset_left = -13.0
+offset_top = -199.5
+offset_right = 2284.0
+offset_bottom = 400.708
 scale = Vector2(0.067938, 0.0915411)
-theme_override_font_sizes/font_size = 100
+theme_override_font_sizes/font_size = 430
 text = "didn't start"
-
-[node name="Sprite2D" type="Sprite2D" parent="inventory/Label"]
-show_behind_parent = true
-position = Vector2(250.228, 65.5443)
-scale = Vector2(0.165305, 0.114722)
-texture = ExtResource("4_k1vlg")
 
 [connection signal="button_down" from="inventory/Button" to="inventory" method="_on_button_button_down"]

@@ -2,8 +2,8 @@ extends Node2D
 
 const ITEM_SLOT = preload("res://Scenes/item_slot.tscn")
 @export var grid_rows: int = 3
-@export var grid_columns: int = 3
-@export var slot_size: Vector2 = Vector2(60, 60)
+@export var grid_columns: int = 2
+@export var slot_size: Vector2 = Vector2(100, 100)
 
 var Items: Array = []
 var current_page: int = 0
