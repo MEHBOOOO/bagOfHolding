@@ -8,7 +8,6 @@ func _init():
 	var db_path = "user://data.db"
 	
 	if not FileAccess.file_exists(db_path):
-		# If not, copy from res:// (only works for exported projects)
 		var dir = DirAccess.open("user://")
 		dir.make_dir_recursive("user://")
 		
@@ -55,11 +54,60 @@ func _init():
 	"name": {"data_type":"text", "not_null":true},
 	"ind": {"data_type":"int", "not_null":true},
 	"description": {"data_type":"text"},
-	"user_id": {"data_type":"int", "not_null":true}	 
+	"user_id": {"data_type":"int", "not_null":true},
+	"lobby_id": {"data_type":"text", "not_null":true}
 }
+	var lobby_schema = {
+		"id": {"data_type":"int", "primary_key":true, "auto_increment":true},
+		"lobby_id": {"data_type":"text", "unique":true, "not_null":true},
+		"host_id": {"data_type":"int", "not_null":true},
+		"lobby_name": {"data_type":"text", "not_null":true},
+		"created_at": {"data_type":"text", "not_null":true}
+	}
+	var user_lobbies_schema = {
+		"user_id": {"data_type":"int", "not_null":true},
+		"lobby_id": {"data_type":"text", "not_null":true}
+	}
+	db.create_table("user_lobbies", user_lobbies_schema)
+	db.create_table("lobbies", lobby_schema)
 	db.create_table("items", items_schema)
 	db.create_table("players", table)
 
+func insert_lobby(data: Dictionary) -> bool:
+	return db.insert_row("lobbies", data) && db.insert_row("user_lobbies", {
+			   "user_id": data["host_id"],
+			   "lobby_id": data["lobby_id"]
+		   })
+
+func get_user_lobbies(user_id: int) -> Array:
+	var query = """
+		SELECT l.lobby_id, l.lobby_name, l.created_at 
+		FROM lobbies l
+		JOIN user_lobbies ul ON l.lobby_id = ul.lobby_id
+		WHERE ul.user_id = ?
+	"""
+	var params = [user_id]
+	db.query_with_bindings(query, params)
+	return db.query_result
+	
+func load_items_by_lobby(lobby_id: String, user_id: String) -> Array:
+	var items = []
+	var query = "SELECT * FROM items WHERE lobby_id = ? AND user_id = ?"
+	var params = [lobby_id, user_id]
+	
+	if db.query_with_bindings(query, params):
+		for record in db.query_result:
+			items.append({
+				"id": record["id"],
+				"name": record["name"],
+				"ind": record["ind"],
+				"description": record["description"],
+				"user_id": record["user_id"]
+			})
+	else:
+		push_error("DB Query failed: " + db.error_message)
+	
+	return items
 func load_items_by_user(user_id: int) -> Array:
 	var items = []
 	var query = "SELECT * FROM items WHERE user_id = ?"

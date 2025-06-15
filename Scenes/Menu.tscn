@@ -13,38 +13,30 @@ script = ExtResource("1_3kf3n")
 
 [node name="Shop" type="Button" parent="."]
 layout_mode = 0
-offset_left = 281.0
-offset_top = 137.0
-offset_right = 376.0
-offset_bottom = 186.0
+offset_left = 496.0
+offset_top = 120.0
+offset_right = 591.0
+offset_bottom = 169.0
 text = "shop
 "
 
 [node name="Lobby" type="Button" parent="."]
 layout_mode = 0
-offset_left = 662.0
-offset_top = 301.0
-offset_right = 757.0
-offset_bottom = 350.0
+offset_left = 488.0
+offset_top = 321.0
+offset_right = 583.0
+offset_bottom = 370.0
 text = "lobby"
 
-[node name="Create" type="Button" parent="."]
+[node name="Button" type="Button" parent="."]
 layout_mode = 0
-offset_left = 258.0
-offset_top = 299.0
-offset_right = 353.0
-offset_bottom = 348.0
-text = "create"
-
-[node name="Inventory" type="Button" parent="."]
-layout_mode = 0
-offset_left = 706.0
-offset_top = 140.0
-offset_right = 801.0
-offset_bottom = 189.0
-text = "inventory"
+offset_left = 483.0
+offset_top = 230.0
+offset_right = 594.0
+offset_bottom = 277.0
+text = "Lobbies
+"
 
 [connection signal="button_down" from="Shop" to="." method="_on_shop_button_down"]
 [connection signal="button_down" from="Lobby" to="." method="_on_lobby_button_down"]
-[connection signal="button_down" from="Create" to="." method="_on_create_button_down"]
-[connection signal="button_down" from="Inventory" to="." method="_on_inventory_button_down"]
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

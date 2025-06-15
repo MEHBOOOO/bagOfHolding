@@ -8,6 +8,9 @@ signal lobby_join_failed(reason)
 signal load_inventory()
 signal inventory_data_received(items)
 signal createItem(data)
+signal lobby_created(lobby_id)
+signal lobbies_received(lobbies)
+
 
 var peer = WebSocketMultiplayerPeer.new()
 var id = 0
@@ -65,10 +68,10 @@ func loginUser(email, password):
 	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 	
 func load_item_names_from_db() -> void:
-	# Simplified - server knows which user is requesting
 	var message = {
 		"peer": id,
 		"orgPeer": id,
+		"lobby_id": GameManager.current_lobby_id,  
 		"message": Message.Message.InventoryRequest
 	}
 	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
@@ -110,7 +113,13 @@ func _process(delta):
 			if data.message == Message.Message.userConnected:
 				#GameManager.Players[data.id] = data.player
 				createPeer(data.id)
+			
+			if data.message == Message.Message.lobbyCreated:
+				lobby_created.emit(data.lobby_id)
 				
+			if data.message == Message.Message.lobbyData:
+				lobbies_received.emit(data.lobbies)
+			
 			if data.message == Message.Message.lobby:
 				GameManager.Players = JSON.parse_string(data.players)
 				hostId = data.host
@@ -140,12 +149,37 @@ func _process(delta):
 			if data.message == Message.Message.InventoryData:
 				current_user_items = data.get("items", []) 
 				inventory_data_received.emit(current_user_items)
+			if data.message == Message.Message.getLobbies:
+				emit_signal("lobbies_received", data["lobbies"])
 	pass
 
 func connected(id):
 	rtcPeer.create_mesh(id)
 	multiplayer.multiplayer_peer = rtcPeer
 
+func create_lobby(lobby_name: String):
+	var message = {
+		"peer": id,
+		"orgPeer": id,
+		"message": Message.Message.createLobby,
+		"lobby_name": lobby_name
+	}
+	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
+	
+func send_request_lobbies(user_id: int):
+	var data = {
+		"message": Message.Message.getLobbies,
+		"user_id": user_id
+	}
+	peer.put_packet(JSON.stringify(data).to_utf8_buffer())
+
+func request_user_lobbies():
+	var message = {
+		"peer": id,
+		"orgPeer": id,
+		"message": Message.Message.requestLobbies
+	}
+	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 #web rtc connection
 func createPeer(id):
 	if id != self.id:
@@ -232,6 +266,7 @@ func _on_join_lobby_button_down():
 		"id" : id,
 		"message" : Message.Message.lobby,
 		"name" : "",
+		"orgPeer": id,
 		"lobbyValue" : $Lobby.text
 	}
 	peer.put_packet(JSON.stringify(message).to_utf8_buffer())

@@ -16,5 +16,10 @@ enum Message{
 	failedToLogin,
 	InventoryRequest,
 	InventoryData,
-	createItem
+	createItem,
+	createLobby,
+	requestLobbies,
+	lobbyData,
+	lobbyCreated,
+	getLobbies
 }

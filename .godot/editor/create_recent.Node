@@ -1,5 +1,10 @@
-Label
 Button
+ScrollContainer
+VBoxContainer
+Label
+PanelContainer
+HBoxContainer
+ShaderGlobalsOverride
 Camera2D
 Sprite2D
 ColorRect
@@ -7,8 +12,3 @@ Node2D
 Control
 Panel
 GridContainer
-OptionButton
-CheckBox
-CheckButton
-BoxContainer
-TextEdit

@@ -1,30 +1,25 @@
 extends Control
 
-# Reference to your lobby input field
 @onready var lobby_input = $LobbyInput  # Replace with your actual node name
 
 
 
 func _on_join_lobby_button_down() -> void:
-	# Get the lobby code from input field
-	var lobby_code = $Lobby.text.strip_edges()
-	
-	# Call the join_lobby function directly
-	join_lobby(lobby_code)
+	var lobby_name = $Lobby.text.strip_edges()
+	if lobby_name == "":
+		return
+	join_lobby(lobby_name)
 
-# This is the function that sends the lobby join message
-func join_lobby(lobby_code: String):
-	# Make sure we have an ID first (if we're connected)
+func join_lobby(lobby_name: String):
 	
-	# Create the message exactly as you specified
+	
 	var message = {
 		"id": NetworkManager.id,
 		"message": Message.Message.lobby,
 		"name": "",
-		"lobbyValue": lobby_code
+		"lobbyValue": lobby_name
 	}
 	
-	# Send the message through the peer
 	NetworkManager.peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 	print("Sent lobby join request: ", message)
 
@@ -32,3 +27,17 @@ func join_lobby(lobby_code: String):
 func _on_button_button_down() -> void:
 	get_tree().change_scene_to_file("res://Scenes/Menu.tscn")
 	pass # Replace with function body.
+
+
+func _on_create_button_down() -> void:
+	var lobby_name = $Lobby.text.strip_edges()
+	var message = {
+		"id": NetworkManager.id,
+		"message": Message.Message.lobby,
+		"name": "",
+		"orgPeer": NetworkManager.id,
+		"lobbyValue": lobby_name
+	}
+	
+	NetworkManager.peer.put_packet(JSON.stringify(message).to_utf8_buffer())
+	pass 

@@ -25,7 +25,12 @@ func _process(delta):
 			
 			if data.message == Message.Message.loginUser:
 				login(data)
-				
+			if data.message == Message.Message.createLobby:
+				create_lobby(data)
+			
+			if data.message == Message.Message.requestLobbies:
+				handle_lobby_request(data)
+			
 			if data.message == Message.Message.createUser:
 				create_user(data)
 				
@@ -49,6 +54,36 @@ func _process(delta):
 				var success = dao.insertItem(item_data)
 	pass
 	
+func create_lobby(data: Dictionary) -> void:
+	var lobby_id = GenString()
+	var user_id = user_sessions[data.orgPeer]
+	
+	var lobby_data = {
+		"lobby_id": lobby_id,
+		"host_id": user_id,
+		"lobby_name": data.get("lobby_name", "Unnamed Lobby"),
+		"created_at": Time.get_datetime_string_from_system()
+	}
+	
+	if dao.insert_lobby(lobby_data):
+		lobbies[lobby_id] = Lobby.new(data.orgPeer)
+		var response = {
+			"message": Message.Message.lobbyCreated,
+			"lobby_id": lobby_id,
+			"orgPeer": data.orgPeer
+		}
+		SendToPlayer(data.orgPeer, response)
+		
+func handle_lobby_request(data: Dictionary) -> void:
+	var user_id = user_sessions[data.orgPeer]
+	var user_lobbies = dao.get_user_lobbies(user_id)
+	
+	var response = {
+		"message": Message.Message.lobbyData,
+		"lobbies": user_lobbies,
+		"orgPeer": data.orgPeer
+	}
+	SendToPlayer(data.orgPeer, response)
 func handle_inventory_request(data: Dictionary) -> void:
 	var peer_id = data.get("orgPeer", -1)
 	
@@ -57,7 +92,8 @@ func handle_inventory_request(data: Dictionary) -> void:
 		return
 		
 	var user_id = user_sessions[peer_id]
-	var items = dao.load_items_by_user(user_id) 
+	# Convert user_id to string before passing to DAO
+	var items = dao.load_items_by_lobby(data.lobby_id, str(user_id))
 	
 	var response = {
 		"message": Message.Message.InventoryData,
@@ -86,7 +122,17 @@ func JoinLobby(user):
 		user.lobbyValue = GenString()
 		lobbies[user.lobbyValue] = Lobby.new(user.id)
 		print(user.lobbyValue)
+		var user_id = user_sessions[user.orgPeer]
+	
+		var lobby_data = {
+			"lobby_id": user.lobbyValue,
+			"host_id": user_id,
+			"lobby_name": user.get("lobby_name", "Unnamed Lobby"),
+			"created_at": Time.get_datetime_string_from_system()
+		}
+		dao.insert_lobby(lobby_data)
 	var player = lobbies[user.lobbyValue].AddPlayer(user.id, user.name)
+	
 	
 	for p in lobbies[user.lobbyValue].Players:
 		

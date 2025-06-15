@@ -110,5 +110,5 @@ func _on_inventory_data_received(items: Array) -> void:
 	update_grid()
 
 func _on_button_button_down() -> void:
-	get_tree().change_scene_to_packed(preload("res://Scenes/Menu.tscn"))
+	get_tree().change_scene_to_file("res://Scenes/LobbyInter.tscn")
 	pass 

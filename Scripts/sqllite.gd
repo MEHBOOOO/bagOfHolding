@@ -18,6 +18,7 @@ func _on_insertdata_button_down() -> void:
 	var data = {
 		"name": $Name.text,
 		"ind": ind,
+		"lobby_id" : GameManager.current_lobby_id,
 		"description": $Description.text
 	}
 	
@@ -27,5 +28,5 @@ func _on_insertdata_button_down() -> void:
 	$Description.text = ""
 	
 func _on_button_button_down() -> void:
-	get_tree().change_scene_to_file("res://Scenes/Menu.tscn")
+	get_tree().change_scene_to_file("res://Scenes/LobbyInter.tscn")
 	pass # Replace with function body.
