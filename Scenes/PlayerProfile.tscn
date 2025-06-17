@@ -1,0 +1,78 @@
+[gd_scene load_steps=4 format=3 uid="uid://vxni3ji6as80"]
+
+[ext_resource type="Texture2D" uid="uid://c8hix86fv6bv8" path="res://Images/войн.png" id="1_kbuhv"]
+[ext_resource type="Script" uid="uid://dnnmrfqle6v21" path="res://scripts/ProfileEditor.gd" id="1_vyb45"]
+[ext_resource type="Texture2D" uid="uid://dxulrilhrrplm" path="res://Images/бард.png" id="2_vyb45"]
+
+[node name="PlayerProfile" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_vyb45")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.986986, 0.981191)
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Сумка хранения"
+
+[node name="AvatarButton" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_vyb45")
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Профиль игрока"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Класс"
+
+[node name="ClassInput" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Описание"
+
+[node name="DescriptionInput" type="LineEdit" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="SaveButton" type="Button" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Сохранить"
+
+[node name="BackButton" type="Button" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Назад"
+
+[node name="AvatarPopup" type="PopupPanel" parent="."]
+min_size = Vector2i(100, 100)
+max_size = Vector2i(100, 100)
+
+[node name="AvatarGrid" type="GridContainer" parent="AvatarPopup"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 2052.0
+offset_bottom = 2056.0
+
+[node name="TextureButton" type="TextureButton" parent="AvatarPopup/AvatarGrid"]
+layout_mode = 2
+
+[node name="TextureButton2" type="TextureButton" parent="AvatarPopup/AvatarGrid"]
+layout_mode = 2
+texture_normal = ExtResource("1_kbuhv")
+
+[connection signal="pressed" from="VBoxContainer/AvatarButton" to="." method="_on_avatar_button_pressed"]
+[connection signal="popup_hide" from="AvatarPopup" to="." method="_on_avatar_popup_popup_hide"]

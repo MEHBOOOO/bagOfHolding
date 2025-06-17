@@ -1,0 +1,66 @@
+[gd_scene load_steps=2 format=3 uid="uid://bg7m866vwrclp"]
+
+[ext_resource type="Script" uid="uid://c0criakqeh07y" path="res://Scripts/lobby_inter.gd" id="1_mmc2u"]
+
+[node name="LobbyInter" type="Node2D"]
+script = ExtResource("1_mmc2u")
+
+[node name="Create" type="Button" parent="."]
+offset_left = 642.0
+offset_top = 464.0
+offset_right = 737.0
+offset_bottom = 513.0
+text = "create"
+
+[node name="Inventory" type="Button" parent="."]
+offset_left = 706.0
+offset_top = 140.0
+offset_right = 801.0
+offset_bottom = 189.0
+text = "inventory"
+
+[node name="Button" type="Button" parent="."]
+offset_left = 606.0
+offset_top = 278.0
+offset_right = 712.0
+offset_bottom = 336.0
+text = "back"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_left = 78.0
+offset_top = 44.0
+offset_right = 449.0
+offset_bottom = 643.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ProfilePopup" type="PopupPanel" parent="."]
+size = Vector2i(100, 117)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ProfilePopup"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 96.0
+offset_bottom = 113.0
+
+[node name="PlayerNameLabel" type="Label" parent="ProfilePopup/VBoxContainer"]
+layout_mode = 2
+
+[node name="PlayerDescriptionLabel" type="Label" parent="ProfilePopup/VBoxContainer"]
+layout_mode = 2
+
+[node name="PlayerClassLabel" type="Label" parent="ProfilePopup/VBoxContainer"]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="ProfilePopup/VBoxContainer"]
+layout_mode = 2
+text = "Close"
+
+[connection signal="button_down" from="Create" to="." method="_on_create_button_down"]
+[connection signal="button_down" from="Inventory" to="." method="_on_inventory_button_down"]
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
