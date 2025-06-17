@@ -1,6 +1,6 @@
 extends Control
 
-@onready var lobby_input = $LobbyInput  # Replace with your actual node name
+@onready var lobby_input = $Lobby  
 
 
 
@@ -11,17 +11,13 @@ func _on_join_lobby_button_down() -> void:
 	join_lobby(lobby_name)
 
 func join_lobby(lobby_name: String):
-	
-	
 	var message = {
-		"id": NetworkManager.id,
-		"message": Message.Message.lobby,
-		"name": "",
-		"lobbyValue": lobby_name
+		"message": Message.Message.lobby,  # Ensure this is the correct enum value
+		"name": "",  # Should ideally be the player's name
+		"lobbyValue": lobby_name,
+		"orgPeer": int(NetworkManager.id)  # Convert to integer
 	}
-	
 	NetworkManager.peer.put_packet(JSON.stringify(message).to_utf8_buffer())
-	print("Sent lobby join request: ", message)
 
 
 func _on_button_button_down() -> void:

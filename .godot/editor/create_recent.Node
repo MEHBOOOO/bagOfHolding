@@ -1,6 +1,7 @@
 Button
-ScrollContainer
 VBoxContainer
+ScrollContainer
+Container
 Label
 PanelContainer
 HBoxContainer
@@ -11,4 +12,3 @@ ColorRect
 Node2D
 Control
 Panel
-GridContainer

@@ -9,8 +9,25 @@ var user_sessions = {}
 func _ready():
 	peer.connect("peer_connected", peer_connected)
 	peer.connect("peer_disconnected", peer_disconnected)
+	load_lobbies()
 	pass
-
+	
+func load_lobbies():
+	var query = "SELECT * FROM lobbies"
+	if dao.db.query(query):
+		for lobby_data in dao.db.query_result:
+			var lobby_id = lobby_data["lobby_id"]
+			var host_user_id = lobby_data["host_id"]
+			
+			var lobby = Lobby.new(host_user_id)  
+			
+			lobby.lobby_name = lobby_data["lobby_name"]
+			lobby.created_at = lobby_data["created_at"]
+			
+			lobbies[lobby_id] = lobby
+			print("Loaded lobby: ", lobby_id)
+	else:
+		push_error("Failed to load lobbies: " + dao.db.error_message)	
 func _process(delta):
 	peer.poll()
 	if peer.get_available_packet_count() > 0:
@@ -52,8 +69,41 @@ func _process(delta):
 					
 				item_data["user_id"] = user_sessions[peer_id]
 				var success = dao.insertItem(item_data)
+				
+			if data.message == Message.Message.requestParticipants:
+				handle_participants_request(data)
 	pass
+
+func handle_participants_request(data: Dictionary):
+	var lobby_id = data.lobby_id
+	var participants = dao.get_lobby_participants(lobby_id)
+	var host_id = dao.get_lobby_host(lobby_id)
 	
+	var response = {
+		"message": Message.Message.participantsData,
+		"participants": participants,
+		"host_id": host_id,
+		"lobby_id": lobby_id,
+		"orgPeer": data.orgPeer
+	}
+	
+	SendToPlayer(data.orgPeer, response)
+
+func broadcast_participant_update(lobby_id: String):
+	var participants = dao.get_lobby_participants(lobby_id)
+	var host_id = dao.get_lobby_host(lobby_id)
+	
+	var update = {
+		"message": Message.Message.participantsData,
+		"participants": participants,
+		"host_id": host_id,
+		"lobby_id": lobby_id
+	}
+	
+	if lobbies.has(lobby_id):
+		for peer_id in lobbies[lobby_id].Players:
+			SendToPlayer(peer_id, update)
+
 func create_lobby(data: Dictionary) -> void:
 	var lobby_id = GenString()
 	var user_id = user_sessions[data.orgPeer]
@@ -66,13 +116,9 @@ func create_lobby(data: Dictionary) -> void:
 	}
 	
 	if dao.insert_lobby(lobby_data):
-		lobbies[lobby_id] = Lobby.new(data.orgPeer)
-		var response = {
-			"message": Message.Message.lobbyCreated,
-			"lobby_id": lobby_id,
-			"orgPeer": data.orgPeer
-		}
-		SendToPlayer(data.orgPeer, response)
+		dao.add_participant(lobby_id, user_id, true)
+		lobbies[lobby_id] = Lobby.new(user_id)
+		
 		
 func handle_lobby_request(data: Dictionary) -> void:
 	var user_id = user_sessions[data.orgPeer]
@@ -92,7 +138,6 @@ func handle_inventory_request(data: Dictionary) -> void:
 		return
 		
 	var user_id = user_sessions[peer_id]
-	# Convert user_id to string before passing to DAO
 	var items = dao.load_items_by_lobby(data.lobby_id, str(user_id))
 	
 	var response = {
@@ -117,53 +162,93 @@ func peer_disconnected(id):
 
 
 func JoinLobby(user):
-	var result = ""
-	if user.lobbyValue == "":
-		user.lobbyValue = GenString()
-		lobbies[user.lobbyValue] = Lobby.new(user.id)
-		print(user.lobbyValue)
-		var user_id = user_sessions[user.orgPeer]
+	var peer_id = user.orgPeer
+	var lobby_id = user.lobbyValue
 	
+	if not user_sessions.has(peer_id):
+		push_error("Unauthorized join attempt")
+		return
+	
+	var user_id = user_sessions[peer_id]
+	
+	# Add to database as participant
+	if not dao.add_participant(lobby_id, user_id, false):
+		push_error("Failed to add participant to DB")
+		return
+	
+	# Existing lobby case
+	if lobbies.has(lobby_id):
+		var lobby = lobbies[lobby_id]
+		var player_name = str(user.get("name", "Anonymous"))
+		
+		# Add player to lobby
+		var player = lobby.AddPlayer(peer_id, player_name)
+		
+		# Prepare players data
+		var players_data = {}
+		for p in lobby.Players:
+			players_data[str(p)] = lobby.Players[p]
+		
+		# Notify all players
+		for p in lobby.Players:
+			var newPlayer = peer_id if p != peer_id else null
+			SendToPlayer(p, {
+				"message": Message.Message.lobbyUpdate,
+				"host": lobby.host_peer_id,
+				"lobbyValue": lobby_id,
+				"players": players_data,
+				"newPlayer": newPlayer
+			})
+	
+	# New lobby case - FIXED
+	else:
+		# Generate new lobby ID
+		var new_lobby_id = GenString()
+		
+		# Create and store new lobby with new ID
+		var lobby = Lobby.new(user_id)
+		lobby.host_peer_id = peer_id  # Set host peer ID
+		lobby.lobby_name = str(user.get("lobby_name", "Unnamed Lobby"))
+		lobbies[new_lobby_id] = lobby
+		
+		# Insert to database
 		var lobby_data = {
-			"lobby_id": user.lobbyValue,
+			"lobby_id": new_lobby_id,
 			"host_id": user_id,
-			"lobby_name": user.get("lobby_name", "Unnamed Lobby"),
+			"lobby_name": lobby.lobby_name,
 			"created_at": Time.get_datetime_string_from_system()
 		}
-		dao.insert_lobby(lobby_data)
-	var player = lobbies[user.lobbyValue].AddPlayer(user.id, user.name)
+		
+		if dao.insert_lobby(lobby_data):
+			# Add host as participant
+			dao.add_participant(new_lobby_id, user_id, true)
+			
+			# Add player to lobby
+			lobby.AddPlayer(peer_id, str(user.get("name", "Anonymous")))
+			
+			# Notify creator
+			SendToPlayer(peer_id, {
+				"message": Message.Message.lobbyCreated,
+				"lobby_id": new_lobby_id,
+				"host": peer_id
+			})
+			
+			lobby_id = new_lobby_id
 	
+	broadcast_participant_update(lobby_id)
 	
-	for p in lobbies[user.lobbyValue].Players:
-		
-		var data = {
-			"message" :  Message.Message.userConnected,
-			"id" : user.id
-		}
-		SendToPlayer(p, data)
-		
-		var data2 = {
-			"message" :  Message.Message.userConnected,
-			"id" : p
-		}
-		SendToPlayer(user.id, data2)
-		
-		var lobbyInfo = {
-			"message" :  Message.Message.lobby,
-			"players" : JSON.stringify(lobbies[user.lobbyValue].Players),
-			"host" : lobbies[user.lobbyValue].HostID,
-			"lobbyValue" : user.lobbyValue
-		}
-		SendToPlayer(p, lobbyInfo)
-		
-	var data = {
-		"message" :  Message.Message.userConnected,
-		"id" : user.id,
-		"host" : lobbies[user.lobbyValue].HostID,
-		"player" : lobbies[user.lobbyValue].Players[user.id],
-		"lobbyValue" : user.lobbyValue
+
+func update_lobby_participants(lobby_id: String):
+	var participants = dao.get_lobby_participants(lobby_id)
+	var participant_data = {
+		"message": Message.Message.lobbyParticipants,
+		"participants": participants,
+		"lobby_id": lobby_id
 	}
-	SendToPlayer(user.id, data)
+	
+	if lobbies.has(lobby_id):
+		for peer_id in lobbies[lobby_id].Players:
+			SendToPlayer(peer_id, participant_data)
 	
 func create_user(data: Dictionary) -> void:
 	var user_data = data.get("data", {})
@@ -214,11 +299,20 @@ func login(data):
 	
 	if dao.VerifyUser(email, password):
 		var ema = dao.GetUserFromDB(email)
-		user_sessions[data.orgPeer] = ema["id"]
+		var user_id = ema["id"] 
+		
+		user_sessions[data.orgPeer] = user_id
+		
+		for lobby_id in lobbies:
+			var lobby = lobbies[lobby_id]
+			if lobby.host_user_id == user_id: 
+				lobby.host_peer_id = data.orgPeer 
+				print("Host reconnected to lobby: ", lobby_id)
+		
 		var returnData = {
 			"username": ema["name"],
 			"email": ema["email"],
-			"id": ema["id"],
+			"id": user_id,
 			"message": Message.Message.playerinfo,
 		}
 		peer.get_peer(data.orgPeer).put_packet(JSON.stringify(returnData).to_utf8_buffer())

@@ -21,5 +21,9 @@ enum Message{
 	requestLobbies,
 	lobbyData,
 	lobbyCreated,
-	getLobbies
+	lobbyUpdate,
+	getLobbies,
+	lobbyParticipants,
+	requestParticipants,
+	participantsData 
 }

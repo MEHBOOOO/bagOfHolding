@@ -22,11 +22,11 @@ text = "shop
 
 [node name="Lobby" type="Button" parent="."]
 layout_mode = 0
-offset_left = 488.0
-offset_top = 321.0
-offset_right = 583.0
-offset_bottom = 370.0
-text = "lobby"
+offset_left = 492.0
+offset_top = 333.0
+offset_right = 587.0
+offset_bottom = 382.0
+text = "my lobbies"
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0

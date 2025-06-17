@@ -10,7 +10,8 @@ signal inventory_data_received(items)
 signal createItem(data)
 signal lobby_created(lobby_id)
 signal lobbies_received(lobbies)
-
+signal participant_update_received(participants_data)
+signal player_disconnected()
 
 var peer = WebSocketMultiplayerPeer.new()
 var id = 0
@@ -151,6 +152,12 @@ func _process(delta):
 				inventory_data_received.emit(current_user_items)
 			if data.message == Message.Message.getLobbies:
 				emit_signal("lobbies_received", data["lobbies"])
+				
+			if data.message == Message.Message.participantsData:
+				participant_update_received.emit(data)
+				
+			if data.message == Message.Message.userDisconnected:
+				player_disconnected.emit()
 	pass
 
 func connected(id):

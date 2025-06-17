@@ -68,10 +68,65 @@ func _init():
 		"user_id": {"data_type":"int", "not_null":true},
 		"lobby_id": {"data_type":"text", "not_null":true}
 	}
+	
+	
+	var lobby_participants_schema = {
+		"lobby_id": {
+			"data_type": "text", 
+			"not_null": true
+		},
+		"user_id": {
+			"data_type": "int", 
+			"not_null": true
+		},
+		"is_host": {
+			"data_type": "bool", 
+			"not_null": true, 
+			"default": false
+		},
+		"joined_at": {
+			"data_type": "text", 
+			"not_null": true
+		}
+	}
+
+	db.create_table("lobby_participants", lobby_participants_schema)
 	db.create_table("user_lobbies", user_lobbies_schema)
 	db.create_table("lobbies", lobby_schema)
 	db.create_table("items", items_schema)
 	db.create_table("players", table)
+
+
+func get_lobby_host(lobby_id: String) -> int:
+	var query = "SELECT host_id FROM lobbies WHERE lobby_id = ? LIMIT 1"
+	if db.query_with_bindings(query, [lobby_id]) and db.query_result.size() > 0:
+		return db.query_result[0]["host_id"]
+	return -1
+
+func add_participant(lobby_id: String, user_id: int, is_host: bool) -> bool:
+	var data = {
+		"lobby_id": lobby_id,
+		"user_id": user_id,
+		"is_host": is_host,
+		"joined_at": Time.get_datetime_string_from_system()
+	}
+	return db.insert_row("lobby_participants", data)
+
+func remove_participant(lobby_id: String, user_id: int) -> bool:
+	var query = "DELETE FROM lobby_participants WHERE lobby_id = ? AND user_id = ?"
+	return db.query_with_bindings(query, [lobby_id, user_id])
+
+func get_lobby_participants(lobby_id: String) -> Array:
+	var query = """
+		SELECT p.id, p.name, lp.is_host
+		FROM players p
+		JOIN lobby_participants lp ON p.id = lp.user_id
+		WHERE lp.lobby_id = ?
+		ORDER BY lp.joined_at
+	"""
+	if db.query_with_bindings(query, [lobby_id]):
+		return db.query_result
+	return []
 
 func insert_lobby(data: Dictionary) -> bool:
 	return db.insert_row("lobbies", data) && db.insert_row("user_lobbies", {
@@ -83,8 +138,8 @@ func get_user_lobbies(user_id: int) -> Array:
 	var query = """
 		SELECT l.lobby_id, l.lobby_name, l.created_at 
 		FROM lobbies l
-		JOIN user_lobbies ul ON l.lobby_id = ul.lobby_id
-		WHERE ul.user_id = ?
+		JOIN lobby_participants lp ON l.lobby_id = lp.lobby_id
+		WHERE lp.user_id = ?
 	"""
 	var params = [user_id]
 	db.query_with_bindings(query, params)
