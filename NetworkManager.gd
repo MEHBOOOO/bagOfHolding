@@ -147,9 +147,6 @@ func _process(delta):
 			if data.message == Message.Message.playerinfo:
 				current_user_id = data.get("id", 0)
 				player_info_received.emit(data)
-				var profile = load_profile_for_user(current_user_id)
-				# можно сразу применить данные профиля в сцене, передав через сигнал
-				# или сохранить в глобальной переменной, если используешь GameManager
 				get_tree().change_scene_to_file("res://Scenes/Menu.tscn")
 				
 			if data.message == Message.Message.failedToLogin:
@@ -166,6 +163,9 @@ func _process(delta):
 				
 			if data.message == Message.Message.userDisconnected:
 				player_disconnected.emit()
+			if data.message == Message.Message.profileData:
+				var profile = data.get("profile", {})
+				emit_signal("profile_data_received", profile)
 	pass
 
 func connected(id):
@@ -287,58 +287,13 @@ func _on_join_lobby_button_down():
 	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 	pass # Replace with function body.
 
-# ---------- Индивидуальный профиль ----------
 
-func get_profile_path(user_id: int) -> String:
-	return "user://profiles/%s_profile.json" % user_id
-
-func save_profile_for_user(user_id: int, profile_data: Dictionary) -> void:
-	var player_data = GameManager.Players.get(user_id, {})  # 🔧 Число, не строка
-	profile_data["name"] = player_data.get("name", "Unknown")  # ✔ сохраняем имя
-
-	var dir = DirAccess.open("user://")
-	if not dir.dir_exists("user://profiles"):
-		dir.make_dir("user://profiles")
-
-	var path = get_profile_path(user_id)
-	var file = FileAccess.open(path, FileAccess.WRITE)
-	file.store_string(JSON.stringify(profile_data))
-	file.close()
-
-	print("✅ Профиль сохранён в", path, "с именем:", profile_data["name"])
-
-
-
-func load_profile_for_user(user_id: int) -> Dictionary:
-	var path = get_profile_path(user_id)
-	var profile: Dictionary = {}
-
-	if FileAccess.file_exists(path):
-		var file = FileAccess.open(path, FileAccess.READ)
-		profile = JSON.parse_string(file.get_as_text())
-		file.close()
-
-	if not profile.has("name"):
-		var player_data = GameManager.Players.get(user_id, null)
-		if player_data:
-			profile["name"] = player_data.get("name", "Unknown")
-		else:
-			profile["name"] = "Unknown"
-
-	print("✅ Профиль загружен:", profile)
-	return profile
-
-
-
-
-signal profile_data_received(user_id: int, profile_data: Dictionary)
+signal profile_data_received(profile_data: Dictionary)
 
 func request_profile_for_user(user_id: int):
-	var path = get_profile_path(user_id)
-	if FileAccess.file_exists(path):
-		var file = FileAccess.open(path, FileAccess.READ)
-		var profile = JSON.parse_string(file.get_as_text())
-		file.close()
-		profile_data_received.emit(user_id, profile)
-	else:
-		profile_data_received.emit(user_id, {})  # Пустой профиль
+	var message = {
+		"message": Message.Message.requestProfile,
+		"user_id": int(user_id),
+		"orgPeer": id
+	}
+	peer.put_packet(JSON.stringify(message).to_utf8_buffer())

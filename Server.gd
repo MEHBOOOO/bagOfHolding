@@ -72,7 +72,28 @@ func _process(delta):
 				
 			if data.message == Message.Message.requestParticipants:
 				handle_participants_request(data)
+			if data.message == Message.Message.requestProfile:
+				handle_profile_request(data)
+
 	pass
+
+
+func handle_profile_request(data: Dictionary):
+	var requested_id = int(data.get("user_id", -1))
+	var peer_id = data.get("orgPeer", -1)
+	
+	var profile = dao.get_user_profile(requested_id)
+	
+	profile["user_id"] = requested_id
+	
+	var response = {
+		"message": Message.Message.profileData,
+		"user_id": requested_id,  
+		"profile": profile,
+		"orgPeer": peer_id
+	}
+	
+	SendToPlayer(peer_id, response)
 
 func handle_participants_request(data: Dictionary):
 	var lobby_id = data.lobby_id

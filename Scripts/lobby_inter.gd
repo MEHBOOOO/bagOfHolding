@@ -98,21 +98,18 @@ func _on_participant_selected(user_id: int, name: String) -> void:
 	selected_user_id = user_id
 	NetworkManager.request_profile_for_user(user_id)
 
-func _on_profile_data_received(user_id: int, profile_data: Dictionary):
-	if user_id != selected_user_id:
+func _on_profile_data_received(data: Dictionary):
+	if data.get("user_id") != selected_user_id:
 		return
-
-	print("✅ Профиль получен: ", profile_data)
-
-	# DEBUG: логируем поля
-	print("class:", profile_data.get("class"))
-	print("description:", profile_data.get("description"))
-	print("name:", profile_data.get("name"))
-
-	profile_name_label.text = "Имя: %s" % profile_data.get("name", "Unknown")
-	profile_class_label.text = "Класс: %s" % profile_data.get("class", "Не указан")
-	profile_description_label.text = "Описание: %s" % profile_data.get("description", "–")
-
+	
+	
+	print("✅ Профиль получен: ", data)
+	
+	profile_name_label.text = "Имя: %s" % data.get("name")
+	print(data.get("name"))
+	profile_class_label.text = "Класс: %s" % data.get("class", "Не указан")
+	profile_description_label.text = "Описание: %s" % data.get("description", "–")
+	
 	profile_popup.popup_centered()
 
 

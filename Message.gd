@@ -26,5 +26,7 @@ enum Message{
 	lobbyParticipants,
 	requestParticipants,
 	participantsData,
-	kickUser
+	kickUser,
+	requestProfile,
+	profileData
 }

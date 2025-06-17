@@ -128,6 +128,20 @@ func get_lobby_participants(lobby_id: String) -> Array:
 		return db.query_result
 	return []
 
+func get_user_profile(user_id: int) -> Dictionary:
+	var query = "SELECT id, name FROM players WHERE id = ?"
+	var params = [user_id]
+	
+	if db.query_with_bindings(query, params) and db.query_result.size() > 0:
+		return db.query_result[0]
+	
+	return {
+		"id": user_id,
+		"name": "Unknown",
+		"class": "Not specified",
+		"description": "No description available"
+	}
+
 func insert_lobby(data: Dictionary) -> bool:
 	return db.insert_row("lobbies", data) && db.insert_row("user_lobbies", {
 			   "user_id": data["host_id"],
