@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://dq1tykyo6h7f3"]
+
+[ext_resource type="Script" uid="uid://bj7nsfx0kil6d" path="res://Scripts/inventory.gd" id="1_qw0r6"]
+
+[node name="main" type="Node2D"]
+
+[node name="inventory" type="Node2D" parent="."]
+position = Vector2(165, 64)
+script = ExtResource("1_qw0r6")
+
+[node name="Camera2D" type="Camera2D" parent="inventory"]
+position = Vector2(198, 120)
+
+[node name="Button" type="Button" parent="inventory"]
+offset_left = 406.0
+offset_top = -10.0
+offset_right = 516.0
+offset_bottom = 33.0
+text = "back"
+
+[node name="Label" type="Label" parent="inventory"]
+offset_left = 532.0
+offset_top = 94.0
+offset_right = 661.0
+offset_bottom = 169.0
+text = "didn't start"
+
+[connection signal="button_down" from="inventory/Button" to="inventory" method="_on_button_button_down"]

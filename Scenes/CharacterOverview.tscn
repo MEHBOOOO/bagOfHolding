@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckjoy10xoln3d"]
+
+[ext_resource type="Script" uid="uid://chslch2rrm74l" path="res://Scripts/character_overview.gd" id="1_wnr6d"]
+
+[node name="CharacterOverview" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_wnr6d")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_top = 2.0
+offset_right = 676.0
+offset_bottom = 453.0
+
+[node name="CharacterList" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TitleLabel" type="Label" parent="."]
+layout_mode = 2
+offset_left = 226.0
+offset_top = 4.0
+offset_right = 438.0
+offset_bottom = 51.0
+text = "TITle"
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 291.0
+offset_top = 371.0
+offset_right = 335.0
+offset_bottom = 404.0
+text = "back"

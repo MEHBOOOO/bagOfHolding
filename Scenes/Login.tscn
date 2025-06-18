@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://bcfl5ohsaxsnd"]
+
+[ext_resource type="PackedScene" uid="uid://x5p7woqk4vns" path="res://Scenes/login_window.tscn" id="1_leum0"]
+[ext_resource type="PackedScene" uid="uid://3jb71hvd25uu" path="res://Scenes/create_user_window.tscn" id="2_767d8"]
+[ext_resource type="FontFile" uid="uid://c388nasjg4ct5" path="res://1papyrus.ttf" id="3_xklxs"]
+
+[node name="Login" type="Node2D"]
+
+[node name="LoginWindow" parent="." instance=ExtResource("1_leum0")]
+offset_left = 314.0
+offset_top = 152.0
+offset_right = 705.0
+offset_bottom = 374.0
+CreateUserWindow = ExtResource("2_767d8")
+
+[node name="Text" type="Label" parent="LoginWindow"]
+layout_mode = 0
+offset_left = 82.0
+offset_top = 305.0
+offset_right = 323.0
+offset_bottom = 415.0
+text = "not running"
+
+[node name="Client" type="Button" parent="."]
+offset_left = 117.0
+offset_top = 511.0
+offset_right = 212.0
+offset_bottom = 558.0
+theme_override_fonts/font = ExtResource("3_xklxs")
+text = "START CLIENT"
+
+[node name="Server" type="Button" parent="."]
+offset_left = 751.0
+offset_top = 507.0
+offset_right = 866.0
+offset_bottom = 554.0
+text = "START SERVER"
+
+[connection signal="button_down" from="Client" to="LoginWindow" method="_on_client_button_down"]
+[connection signal="button_down" from="Server" to="LoginWindow" method="_on_server_button_down"]
