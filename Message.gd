@@ -32,5 +32,7 @@ enum Message{
 	SaveInventory,
 	LoadInventory,
 	requestProfile,
-	profileData
+	profileData,
+	GetAllProfiles,
+	
 }

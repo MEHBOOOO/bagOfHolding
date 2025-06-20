@@ -46,7 +46,7 @@ size = Vector2i(100, 117)
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 96.0
-offset_bottom = 117.0
+offset_bottom = 113.0
 
 [node name="AvatarButton" type="TextureButton" parent="ProfilePopup/VBoxContainer"]
 layout_mode = 2

@@ -12,6 +12,9 @@ signal lobby_created(lobby_id)
 signal lobbies_received(lobbies)
 signal participant_update_received(participants_data)
 signal player_disconnected()
+signal profile_data_received(profile_data)  
+signal profile_save_completed(success)  
+signal profiles_list_received(profiles) 
 
 var peer = WebSocketMultiplayerPeer.new()
 var id = 0
@@ -29,6 +32,7 @@ func _ready():
 	multiplayer.peer_disconnected.connect(RTCPeerDisconnected)
 	login_requested.connect(_on_login_requested)
 	create_user_requested.connect(_on_create_user_requested)
+	load_inventory.connect(_on_load_inventory_requested) 
 	pass # Replace with function body.
 
 func _on_login_requested(email, password):
@@ -152,8 +156,6 @@ func _process(delta):
 			if data.message == Message.Message.playerinfo:
 				current_user_id = data.get("id", 0)
 				player_info_received.emit(data)
-				var profile = load_profile_for_user(current_user_id, GameManager.current_lobby_id)
-				# можно сразу применить данные профиля в сцене, передав через сигнал
 				# или сохранить в глобальной переменной, если используешь GameManager
 				get_tree().change_scene_to_file("res://Scenes/Menu.tscn")
 				
@@ -171,6 +173,25 @@ func _process(delta):
 				
 			if data.message == Message.Message.userDisconnected:
 				player_disconnected.emit()
+				
+			if data.message == Message.Message.LoadProfile:
+				var profile = data.get("profile", {})
+				profile["lobby_id"] = data.get("lobby_id", "")
+				emit_signal("profile_data_received", data)
+				
+			if data.message == Message.Message.SaveProfile:
+				emit_signal("profile_save_completed", data.get("success", false))
+				
+			if data.message == Message.Message.GetAllProfiles:
+				var profiles = data.get("profiles", [])
+				# Add lobby_id to each profile
+				for profile in profiles:
+					profile["lobby_id"] = profile.get("lobby_id", "")
+				emit_signal("profiles_list_received", profiles)
+				
+			if data.message == Message.Message.LoadInventory:
+				var items = data.get("items", [])
+				emit_signal("inventory_data_received", items)
 	pass
 
 func connected(id):
@@ -294,80 +315,54 @@ func _on_join_lobby_button_down():
 
 # ---------- Индивидуальный профиль ----------
 
-func get_profile_path(user_id: int, lobby_id: String) -> String:
-	return "user://profiles/%s_%s_profile.json" % [user_id, lobby_id]
+func _on_load_inventory_requested():
+	# Request inventory for current user and lobby
+	request_inventory(current_user_id, GameManager.current_lobby_id)
 
+func save_profile(user_id: int, lobby_id: String, profile_data: Dictionary):
+	var message = {
+		"peer": id,
+		"orgPeer": id,
+		"message": Message.Message.SaveProfile,
+		"user_id": user_id,
+		"lobby_id": lobby_id,
+		"profile": profile_data
+	}
+	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
+	print("💾 Saving profile for user:%s lobby:%s" % [user_id, lobby_id])
 
-func save_profile_for_user(user_id: int, lobby_id: String, profile_data: Dictionary) -> void:
-	var user_str_id = str(user_id)
-	var player_data = GameManager.Players.get(user_str_id, {})
-	#profile_data["name"] = player_data.get("name", "Unknown")
+func load_profile(user_id: int, lobby_id: String):
+	var message = {
+		"peer": id,
+		"orgPeer": id,
+		"message": Message.Message.LoadProfile,
+		"user_id": user_id,
+		"lobby_id": lobby_id
+	}
+	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
+	print("📥 Loading profile for user:%s lobby:%s" % [user_id, lobby_id])
 
-	var dir = DirAccess.open("user://")
-	if not dir.dir_exists("user://profiles"):
-		dir.make_dir("user://profiles")
-
-	var path = get_profile_path(user_id, lobby_id)
-	var file = FileAccess.open(path, FileAccess.WRITE)
-	file.store_string(JSON.stringify(profile_data))
-	file.close()
-	print("✅ Профиль сохранён в", path, "для лобби:", lobby_id)
-
-
-func load_profile_for_user(user_id: int, lobby_id: String) -> Dictionary:
-	var path = get_profile_path(user_id, lobby_id)
-	var profile: Dictionary = {}
-
-	if FileAccess.file_exists(path):
-		var file = FileAccess.open(path, FileAccess.READ)
-		profile = JSON.parse_string(file.get_as_text())
-		file.close()
-
-	if not profile.has("name"):
-		var player_data = GameManager.Players.get(str(user_id), null)
-		if player_data:
-			profile["name"] = player_data.get("name", "Unknown")
-		else:
-			profile["name"] = "Unknown"
-
-	print("✅ Профиль загружен:", profile)
-	return profile
-
-
-signal profile_data_received(user_id: int, profile_data: Dictionary)
 
 func request_profile_for_user(user_id: int, lobby_id: String):
-	var profile = load_profile_for_user(user_id, lobby_id)
-	profile_data_received.emit(user_id, profile)
+	var message = {
+		"peer": id,
+		"orgPeer": id,
+		"message": Message.Message.LoadProfile,
+		"user_id": user_id,
+		"lobby_id": lobby_id
+	}
+	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
+	print("📥 Requested profile for user:%s in lobby:%s" % [user_id, lobby_id])
 
-func get_all_profiles_for_user(user_id: int) -> Array:
-	var profiles := []
-
-	var dir := DirAccess.open("user://profiles")
-	if dir == null:
-		print("❌ Папка user://profiles не найдена")
-		return profiles
-
-	dir.list_dir_begin()
-	var file_name := dir.get_next()
-
-	while file_name != "":
-		if dir.current_is_dir():
-			file_name = dir.get_next()
-			continue  # Пропускаем папки
-
-		if file_name.ends_with("_profile.json") and file_name.begins_with(str(user_id) + "_"):
-			var path = "user://profiles/" + file_name
-			if FileAccess.file_exists(path):
-				var file = FileAccess.open(path, FileAccess.READ)
-				if file:
-					var profile = JSON.parse_string(file.get_as_text())
-					profile["lobby_id"] = file_name.split("_")[1]
-					profiles.append(profile)
-		file_name = dir.get_next()
-
-	dir.list_dir_end()
-	return profiles
+func request_user_profiles(user_id: int):
+	var message = {
+		"peer": id,
+		"orgPeer": id,
+		"message": Message.Message.GetAllProfiles,
+		"user_id": user_id
+	}
+	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
+	print("📚 Requesting all profiles for user:%s" % user_id)
 
 func request_inventory(user_id: int, lobby_id: String):
 	var message = {

@@ -13,7 +13,7 @@ extends Node2D
 
 var lobby_id: String = GameManager.current_lobby_id
 var refresh_timer: Timer
-var selected_user_id: int = -1  # Нужно для отображения профиля по сигналу
+var selected_user_id: int = -1 
 var avatar_textures = [
 	preload("res://Images/бард.png"),
 	preload("res://Images/войн.png"),
@@ -98,7 +98,7 @@ func add_participant_card(participant: Dictionary, is_host: bool):
 	button.focus_mode = Control.FOCUS_NONE
 	button.custom_minimum_size = Vector2(0, 40)
 
-	if is_host:
+	if participant.get("is_host") == 1:
 		button.text += " 👑"
 		button.add_theme_color_override("font_color", Color.GOLD)
 
@@ -111,33 +111,31 @@ func add_participant_card(participant: Dictionary, is_host: bool):
 func _on_participant_selected(user_id: int, name: String) -> void:
 	print("▶️ Выбран участник: %s (ID: %d)" % [name, user_id])
 	selected_user_id = user_id
-	#NetworkManager.request_profile_for_user(user_id)
+	
 	NetworkManager.request_profile_for_user(user_id, GameManager.current_lobby_id)
 
-func _on_profile_data_received(user_id: int, profile_data: Dictionary):
-	if user_id != selected_user_id:
-		return  # просто выход, больше ничего
-
+func _on_profile_data_received(data: Dictionary):
+	# Extract the user_id from the response
+	var received_user_id = int(data.get("user_id", -1))
+	
+	if received_user_id != selected_user_id:
+		return
+	
+	var profile_data = data.get("profile", {})
+	
 	print("✅ Профиль получен: ", profile_data)
-
-	# ✅ отображение аватарки
-	var avatar_id = int(profile_data.get("avatar_id", 0))
+	
+	var avatar_id = profile_data.get("avatar_id", 0)
 	if avatar_id >= 0 and avatar_id < avatar_textures.size():
 		profile_avatar_button.texture_normal = avatar_textures[avatar_id]
 	else:
-		profile_avatar_button.texture_normal = null  # если id вне диапазона
-
-	# ✅ вывод остальных данных
-	print("class:", profile_data.get("class"))
-	print("description:", profile_data.get("description"))
-	print("name:", profile_data.get("name"))
-
+		profile_avatar_button.texture_normal = null
+	
 	profile_name_label.text = "Имя: %s" % profile_data.get("name", "Unknown")
 	profile_class_label.text = "Класс: %s" % profile_data.get("class", "Не указан")
 	profile_description_label.text = "Описание: %s" % profile_data.get("description", "–")
-
+	
 	profile_popup.popup_centered()
-
 
 
 func _on_create_button_down() -> void:

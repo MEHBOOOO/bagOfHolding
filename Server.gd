@@ -288,12 +288,27 @@ func create_user(data: Dictionary) -> void:
 	if dao.EmailExists(email):
 		send_failure_response(data, "Email already registered")
 		return
-	
+	if data.message == Message.Message.LoadProfile:
+		handle_load_profile(data)
 	# Insert new user with hashed password
 	dao.InsertUserData(username, email, password)
 	
 	# Automatically log in the user after registration
 	login(data)
+	
+func handle_load_profile(data: Dictionary):
+	var user_id = data.get("user_id")
+	var lobby_id = data.get("lobby_id")
+
+	var profile = dao.load_profile(user_id, lobby_id)
+
+	var response = {
+		"message": Message.Message.LoadProfile,
+		"user_id": user_id,
+		"lobby_id": lobby_id,
+		"profile": profile
+	}
+	SendToPlayer(data.get("orgPeer", -1), response)
 	
 func send_failure_response(original_data: Dictionary, reason: String) -> void:
 	var response = {
@@ -347,19 +362,6 @@ func handle_save_profile(data: Dictionary):
 	var success = dao.save_profile(user_id, lobby_id, profile)
 	print("✅ SaveProfile: ", success)
 
-func handle_load_profile(data: Dictionary):
-	var user_id = data.get("user_id")
-	var lobby_id = data.get("lobby_id")
-
-	var profile = dao.load_profile(user_id, lobby_id)
-
-	var response = {
-		"message": Message.Message.LoadProfile,
-		"user_id": user_id,
-		"lobby_id": lobby_id,
-		"profile": profile
-	}
-	SendToPlayer(data.get("orgPeer", -1), response)
 
 func handle_save_inventory(data: Dictionary):
 	var user_id = data.get("user_id")
@@ -385,15 +387,6 @@ func handle_load_inventory(data: Dictionary):
 		"items": items
 	}
 	SendToPlayer(data.get("orgPeer", -1), response)
-
-func request_inventory_for_profile(user_id: int, lobby_id: String):
-	var message = {
-		"message": Message.Message.LoadInventory,
-		"user_id": user_id,
-		"lobby_id": lobby_id,
-		"orgPeer": NetworkManager.id
-	}
-	NetworkManager.peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 
 func handle_profile_request(data: Dictionary):
 	var requested_id = int(data.get("user_id", -1))

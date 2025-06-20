@@ -287,7 +287,6 @@ func load_profile(user_id: int, lobby_id: String) -> Dictionary:
 		return JSON.parse_string(db.query_result[0]["profile_json"])
 	return {}
 
-
 func save_inventory(user_id: int, lobby_id: String, items: Array) -> bool:
 	var json = JSON.stringify(items)
 	var query = "INSERT OR REPLACE INTO inventories (user_id, lobby_id, items_json) VALUES (?, ?, ?)"
