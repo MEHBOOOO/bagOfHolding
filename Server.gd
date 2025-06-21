@@ -199,18 +199,16 @@ func JoinLobby(user):
 	
 	var user_id = user_sessions[peer_id]
 	
-	# Add to database as participant
 	if not dao.add_participant(lobby_id, user_id, false):
 		push_error("Failed to add participant to DB")
 		return
 	
-	# Existing lobby case
 	if lobbies.has(lobby_id):
 		var lobby = lobbies[lobby_id]
 		var player_name = str(user.get("name", "Anonymous"))
 		
-		# Add player to lobby
 		var player = lobby.AddPlayer(peer_id, player_name)
+		lobby.SetPlayerUserId(peer_id, user_id)  
 		
 		# Prepare players data
 		var players_data = {}
@@ -316,27 +314,30 @@ func create_user(data: Dictionary) -> void:
 func handle_kick_participant(data: Dictionary):
 	var lobby_id = data.get("lobby_id", "")
 	var user_id = data.get("user_id", -1)
-	var kicker_id = user_sessions[data.orgPeer]
+	var kicker_id = user_sessions.get(data.get("orgPeer", -1), -1)
 	
-	# Verify kicker is the host
-	if dao.get_lobby_host(lobby_id) != kicker_id:
+	if not lobbies.has(lobby_id) or dao.get_lobby_host(lobby_id) != kicker_id:
 		push_error("Unauthorized kick attempt")
 		return
 	
-	# Remove from database
-	if dao.remove_participant(lobby_id, user_id):
-		# Notify kicked user
-		if lobbies.has(lobby_id):
-			var lobby = lobbies[lobby_id]
-			for peer_id in lobby.Players:
-				if lobby.Players[peer_id].user_id == user_id:
-					SendToPlayer(peer_id, {
-						"message": Message.Message.kickedFromLobby,
-						"reason": "Вы были исключены из лобби"
-					})
-					break
-		
-		broadcast_participant_update(lobby_id)
+	if not dao.remove_participant(lobby_id, user_id):
+		push_error("Failed to remove participant from DB")
+		return
+	
+	var lobby = lobbies[lobby_id]
+	
+	if lobby.Players is Dictionary:
+		for peer_id in lobby.Players:
+			var player_data = lobby.Players.get(peer_id, {})
+			if player_data is Dictionary and player_data.get("user_id", -1) == user_id:
+				SendToPlayer(peer_id, {
+					"message": Message.Message.kickedFromLobby,
+					"reason": "Вы были исключены из лобби"
+				})
+				break
+	
+	# Update participants for all remaining players
+	broadcast_participant_update(lobby_id)
 
 func handle_load_profile(data: Dictionary):
 	var user_id = data.get("user_id")

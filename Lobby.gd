@@ -19,13 +19,18 @@ func _init(initial_host_user_id: int):
 	lobby_name = "Unnamed Lobby"
 	created_at = Time.get_datetime_string_from_system()
 
-func AddPlayer(id: int, name: String) -> Dictionary:
-	Players[id] = {
+func AddPlayer(peer_id: int, name: String) -> Dictionary:
+	Players[peer_id] = {
 		"name": name,
-		"id": id,
+		"peer_id": peer_id,      
+		"user_id": -1,           
 		"index": Players.size() + 1
 	}
-	return Players[id]
+	return Players[peer_id]
+
+func SetPlayerUserId(peer_id: int, user_id: int):
+	if Players.has(peer_id):
+		Players[peer_id]["user_id"] = user_id
 
 func RemovePlayer(id: int):
 	if Players.has(id):
