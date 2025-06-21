@@ -11,7 +11,6 @@ func _init():
 		var dir = DirAccess.open("user://")
 		dir.make_dir_recursive("user://")
 		
-		# Copy database from res:// to user://
 		var source = FileAccess.open("user://data.db", FileAccess.READ)
 		if source:
 			var buffer = source.get_buffer(source.get_length())
