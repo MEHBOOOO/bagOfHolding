@@ -83,6 +83,9 @@ func _process(delta):
 				
 			if data.message == Message.Message.requestParticipants:
 				handle_participants_request(data)
+				
+			if data.message == Message.Message.kickParticipant:
+				handle_kick_participant(data)
 	pass
 
 func handle_load_inventory(data: Dictionary):

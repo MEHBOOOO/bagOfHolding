@@ -218,15 +218,15 @@ func _show_profile_with_inventory() -> void:
 
 func _on_kick_button_pressed():
 	print("🚫 Выгнать пользователя ID:", selected_user_id)
-	# Implement kick logic here
 	var message = {
-		"message": Message.Message.kickParticipant,
+		"message": Message.Message.kickParticipant, 
 		"user_id": selected_user_id,
 		"lobby_id": GameManager.current_lobby_id,
 		"orgPeer": NetworkManager.id
 	}
 	NetworkManager.peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 	profile_popup.hide()
+	request_participants() 
 
 func _on_create_button_down() -> void:
 	get_tree().change_scene_to_file("res://Scenes/create.tscn")

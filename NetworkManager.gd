@@ -199,6 +199,9 @@ func _process(delta):
 				var user_id = data.get("user_id", -1)
 				var items = data.get("items", [])
 				emit_signal("inventory_data_received", user_id, items)
+			if data.message == Message.Message.kickedFromLobby:
+				print("Kicked from lobby:", data.reason)
+				get_tree().change_scene_to_file("res://Scenes/Lobbies.tscn")
 	pass
 
 func connected(id):
