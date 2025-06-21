@@ -6,7 +6,6 @@ signal player_info_received(info)
 signal lobby_join_successful(lobby_info)
 signal lobby_join_failed(reason)
 signal load_inventory()
-signal inventory_data_received(items)
 signal createItem(data)
 signal lobby_created(lobby_id)
 signal lobbies_received(lobbies)
@@ -15,6 +14,8 @@ signal player_disconnected()
 signal profile_data_received(profile_data)  
 signal profile_save_completed(success)  
 signal profiles_list_received(profiles) 
+signal kicked_from_lobby(reason)
+signal inventory_data_received(user_id, items)
 
 var peer = WebSocketMultiplayerPeer.new()
 var id = 0
@@ -192,6 +193,12 @@ func _process(delta):
 			if data.message == Message.Message.LoadInventory:
 				var items = data.get("items", [])
 				emit_signal("inventory_data_received", items)
+			if data.message == Message.Message.kickedFromLobby:
+				kicked_from_lobby.emit(data.reason)
+			if data.message == Message.Message.LoadInventory:
+				var user_id = data.get("user_id", -1)
+				var items = data.get("items", [])
+				emit_signal("inventory_data_received", user_id, items)
 	pass
 
 func connected(id):

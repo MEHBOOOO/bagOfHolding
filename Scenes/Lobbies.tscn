@@ -72,7 +72,7 @@ size = Vector2i(101, 100)
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 97.0
-offset_bottom = 96.0
+offset_bottom = 103.0
 
 [node name="PlayerNameLabel" type="Label" parent="PlayerPopup/VBoxContainer"]
 layout_mode = 2

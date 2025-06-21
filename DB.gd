@@ -89,18 +89,12 @@ func _init():
 			"not_null": true
 		}
 	}
-	var inventories_schema = {
-		"user_id": {"data_type": "int", "not_null": true},
-		"lobby_id": {"data_type": "text", "not_null": true},
-		"items_json": {"data_type": "text", "not_null": true}
-		}
 
 	db.create_table("lobby_participants", lobby_participants_schema)
 	db.create_table("user_lobbies", user_lobbies_schema)
 	db.create_table("lobbies", lobby_schema)
 	db.create_table("items", items_schema)
 	db.create_table("players", table)
-	db.create_table("inventories", inventories_schema)
 	
 
 func get_lobby_host(lobby_id: String) -> int:
@@ -287,13 +281,13 @@ func load_profile(user_id: int, lobby_id: String) -> Dictionary:
 		return JSON.parse_string(db.query_result[0]["profile_json"])
 	return {}
 
-func save_inventory(user_id: int, lobby_id: String, items: Array) -> bool:
-	var json = JSON.stringify(items)
-	var query = "INSERT OR REPLACE INTO inventories (user_id, lobby_id, items_json) VALUES (?, ?, ?)"
-	return db.execute(query, [user_id, lobby_id, json])
-
-func load_inventory(user_id: int, lobby_id: String) -> Array:
-	var query = "SELECT items_json FROM inventories WHERE user_id = ? AND lobby_id = ?"
-	if db.query_with_bindings(query, [user_id, lobby_id]) and db.query_result.size() > 0:
-		return JSON.parse_string(db.query_result[0]["items_json"])
+func get_items_for_user_in_lobby(user_id: int, lobby_id: String) -> Array:
+	var query = """
+		SELECT id, name, ind, description 
+		FROM items 
+		WHERE user_id = ? AND lobby_id = ?
+		ORDER BY ind
+	"""
+	if db.query_with_bindings(query, [user_id, lobby_id]):
+		return db.query_result
 	return []

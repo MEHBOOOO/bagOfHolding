@@ -34,5 +34,6 @@ enum Message{
 	requestProfile,
 	profileData,
 	GetAllProfiles,
-	
+	kickParticipant,
+	kickedFromLobby
 }

@@ -85,6 +85,20 @@ func _process(delta):
 				handle_participants_request(data)
 	pass
 
+func handle_load_inventory(data: Dictionary):
+	var user_id = data.get("user_id")
+	var lobby_id = data.get("lobby_id")
+
+	var items = dao.get_items_for_user_in_lobby(user_id, lobby_id)
+
+	var response = {
+		"message": Message.Message.LoadInventory,
+		"user_id": user_id,
+		"lobby_id": lobby_id,
+		"items": items
+	}
+	SendToPlayer(data.get("orgPeer", -1), response)
+
 func handle_participants_request(data: Dictionary):
 	var lobby_id = data.lobby_id
 	var participants = dao.get_lobby_participants(lobby_id)
@@ -295,7 +309,32 @@ func create_user(data: Dictionary) -> void:
 	
 	# Automatically log in the user after registration
 	login(data)
+
+func handle_kick_participant(data: Dictionary):
+	var lobby_id = data.get("lobby_id", "")
+	var user_id = data.get("user_id", -1)
+	var kicker_id = user_sessions[data.orgPeer]
 	
+	# Verify kicker is the host
+	if dao.get_lobby_host(lobby_id) != kicker_id:
+		push_error("Unauthorized kick attempt")
+		return
+	
+	# Remove from database
+	if dao.remove_participant(lobby_id, user_id):
+		# Notify kicked user
+		if lobbies.has(lobby_id):
+			var lobby = lobbies[lobby_id]
+			for peer_id in lobby.Players:
+				if lobby.Players[peer_id].user_id == user_id:
+					SendToPlayer(peer_id, {
+						"message": Message.Message.kickedFromLobby,
+						"reason": "Вы были исключены из лобби"
+					})
+					break
+		
+		broadcast_participant_update(lobby_id)
+
 func handle_load_profile(data: Dictionary):
 	var user_id = data.get("user_id")
 	var lobby_id = data.get("lobby_id")
@@ -371,22 +410,6 @@ func handle_save_inventory(data: Dictionary):
 	var success = dao.save_inventory(user_id, lobby_id, items)
 	print("✅ SaveInventory: ", success)
 
-func handle_load_inventory(data: Dictionary):
-	var user_id = data.get("user_id")
-	var lobby_id = data.get("lobby_id")
-
-	print("🔍 Загрузка инвентаря для пользователя:", user_id, "лобби:", lobby_id) # ✅ ОБЯЗАТЕЛЬНО добавь!
-	print("🔍 Загрузка инвентаря для пользователя: %s, лобби: %s" % [user_id, lobby_id])
-
-	var items = dao.load_inventory(user_id, lobby_id)
-
-	var response = {
-		"message": Message.Message.LoadInventory,
-		"user_id": user_id,
-		"lobby_id": lobby_id,
-		"items": items
-	}
-	SendToPlayer(data.get("orgPeer", -1), response)
 
 func handle_profile_request(data: Dictionary):
 	var requested_id = int(data.get("user_id", -1))
