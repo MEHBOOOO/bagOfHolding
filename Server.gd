@@ -86,7 +86,40 @@ func _process(delta):
 				
 			if data.message == Message.Message.kickParticipant:
 				handle_kick_participant(data)
+			if data.message == Message.Message.deleteItem:
+				handle_delete_item(data)
 	pass
+
+func handle_delete_item(data: Dictionary):
+	var item_id = data.get("item_id", -1)
+	var user_id = data.get("user_id", -1)
+	var lobby_id = data.get("lobby_id", "")
+	var requester_peer = data.get("orgPeer", -1)
+	
+	if not user_sessions.has(requester_peer):
+		push_error("Unauthenticated user trying to delete item")
+		return
+	
+	var requester_user_id = user_sessions[requester_peer]
+	
+	var host_id = dao.get_lobby_host(lobby_id)
+	if host_id != requester_user_id:
+		push_error("Non-host user trying to delete item")
+		return
+	
+	var success = dao.delete_item(item_id, user_id, lobby_id)
+	
+	var response = {
+		"message": Message.Message.deleteItemResponse,
+		"success": success,
+		"reason": "Item deleted" if success else "Failed to delete item",
+		"orgPeer": requester_peer
+	}
+	
+	SendToPlayer(requester_peer, response)
+	
+	if success:
+		broadcast_participant_update(lobby_id)
 
 func handle_load_inventory(data: Dictionary):
 	var user_id = data.get("user_id")

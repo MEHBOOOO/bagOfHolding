@@ -281,6 +281,10 @@ func load_profile(user_id: int, lobby_id: String) -> Dictionary:
 		return JSON.parse_string(db.query_result[0]["profile_json"])
 	return {}
 
+func delete_item(item_id: int, user_id: int, lobby_id: String) -> bool:
+	var query = "DELETE FROM items WHERE id = ? AND user_id = ? AND lobby_id = ?"
+	return db.query_with_bindings(query, [item_id, user_id, lobby_id])
+
 func get_items_for_user_in_lobby(user_id: int, lobby_id: String) -> Array:
 	var query = """
 		SELECT id, name, ind, description 

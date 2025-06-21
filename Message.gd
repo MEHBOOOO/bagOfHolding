@@ -35,5 +35,7 @@ enum Message{
 	profileData,
 	GetAllProfiles,
 	kickParticipant,
-	kickedFromLobby
+	kickedFromLobby,
+	deleteItem,
+	deleteItemResponse
 }

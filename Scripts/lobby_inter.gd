@@ -122,6 +122,37 @@ func add_participant_card(participant: Dictionary, is_host: bool):
 	button.pressed.connect(_on_participant_selected.bind(user_id, name))
 	participants_container.add_child(button)
 
+
+
+
+func _on_delete_item_pressed(item_id: int) -> void:
+	print("🗑️ Requesting deletion of item: ", item_id)
+	var message = {
+		"message": Message.Message.deleteItem, 
+		"item_id": item_id,
+		"user_id": selected_user_id,
+		"lobby_id": GameManager.current_lobby_id,
+		"orgPeer": NetworkManager.id
+	}
+	NetworkManager.peer.put_packet(JSON.stringify(message).to_utf8_buffer())
+	
+	# Refresh inventory after deletion
+	var timer = Timer.new()
+	timer.wait_time = 0.5  # Short delay for server processing
+	timer.one_shot = true
+	timer.timeout.connect(func():
+		NetworkManager.request_inventory(selected_user_id, GameManager.current_lobby_id)
+		timer.queue_free()
+	)
+	add_child(timer)
+	timer.start()
+
+
+
+
+
+
+
 func _on_participant_selected(user_id: int, name: String) -> void:
 	print("▶️ Выбран участник: %s (ID: %d)" % [name, user_id])
 	selected_user_id = user_id
@@ -181,12 +212,10 @@ func _show_profile_with_inventory() -> void:
 	else:
 		profile_avatar_button.texture_normal = null
 	
-	# Show admin actions
 	var not_viewing_self = (selected_user_id != current_user_id)
 	var not_viewing_host = (selected_user_id != host_id)
 	admin_container.visible = is_admin && not_viewing_self && not_viewing_host
 	
-	# Show inventory only for admins
 	if is_admin:
 		for child in inventory_container.get_children():
 			child.queue_free()
@@ -203,13 +232,24 @@ func _show_profile_with_inventory() -> void:
 			inventory_container.add_child(empty_label)
 		else:
 			for item in pending_inventory_data:
+				var hbox = HBoxContainer.new()
+				hbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+				
 				var item_label = Label.new()
 				item_label.text = "• " + item.get("name", "Безымянный предмет")
 				
 				if item.has("description") && !item["description"].is_empty():
 					item_label.text += " - " + item["description"]
 				
-				inventory_container.add_child(item_label)
+				hbox.add_child(item_label)
+				
+				# Add delete button
+				var delete_button = Button.new()
+				delete_button.text = "Удалить"
+				delete_button.connect("pressed", _on_delete_item_pressed.bind(item["id"]))
+				hbox.add_child(delete_button)
+				
+				inventory_container.add_child(hbox)
 	
 	profile_popup.popup_centered()
 	

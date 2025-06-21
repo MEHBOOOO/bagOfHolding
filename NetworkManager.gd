@@ -202,7 +202,25 @@ func _process(delta):
 			if data.message == Message.Message.kickedFromLobby:
 				print("Kicked from lobby:", data.reason)
 				get_tree().change_scene_to_file("res://Scenes/Lobbies.tscn")
+			if data.message == Message.Message.deleteItemResponse:
+				if data.success:
+					print("✅ Item deleted successfully")
+				else:
+					push_error("Failed to delete item: " + data.reason)
+
 	pass
+
+func request_delete_item(item_id: int, user_id: int, lobby_id: String):
+	var message = {
+		"peer": id,
+		"orgPeer": id,
+		"message": Message.Message.deleteItem,
+		"item_id": item_id,
+		"user_id": user_id,
+		"lobby_id": lobby_id
+	}
+	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
+
 
 func connected(id):
 	rtcPeer.create_mesh(id)

@@ -47,7 +47,7 @@ func _on_save_pressed():
 	print("✅ Профиль сохранён для пользователя ID:", user_id)
 
 func _load_profile():
-	var profile = NetworkManager.load_profile_for_user(user_id, lobby_id)
+	var profile = NetworkManager.request_profile_for_user(user_id, lobby_id)
 	
 	name_input.text = profile.get("name", "")
 
