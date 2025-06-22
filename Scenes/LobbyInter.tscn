@@ -1,36 +1,86 @@
-[gd_scene load_steps=2 format=3 uid="uid://bg7m866vwrclp"]
+[gd_scene load_steps=18 format=3 uid="uid://bg7m866vwrclp"]
 
 [ext_resource type="Script" uid="uid://c0criakqeh07y" path="res://Scripts/lobby_inter.gd" id="1_mmc2u"]
+[ext_resource type="Texture2D" uid="uid://68ld57ho1wue" path="res://Images/button1.png" id="2_7mp2u"]
+[ext_resource type="Texture2D" uid="uid://bqdtlusj1mr7t" path="res://Images/button3.png" id="2_qfihk"]
+[ext_resource type="Texture2D" uid="uid://caqtiignyj1yj" path="res://Images/background.png" id="3_qfihk"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7vlya"]
+texture = ExtResource("2_qfihk")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5r7ot"]
+texture = ExtResource("2_7mp2u")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k7guo"]
+texture = ExtResource("2_qfihk")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eygk3"]
+texture = ExtResource("2_7mp2u")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5p8kn"]
+texture = ExtResource("2_qfihk")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ujaai"]
+texture = ExtResource("2_7mp2u")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mbjvo"]
+texture = ExtResource("2_7mp2u")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6gc1l"]
+texture = ExtResource("2_7mp2u")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_svq7b"]
+texture = ExtResource("2_7mp2u")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lxv6j"]
+texture = ExtResource("2_qfihk")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_05p1t"]
+texture = ExtResource("2_7mp2u")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pb872"]
+texture = ExtResource("2_qfihk")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f34cr"]
+texture = ExtResource("2_7mp2u")
 
 [node name="LobbyInter" type="Node2D"]
 script = ExtResource("1_mmc2u")
 
 [node name="Create" type="Button" parent="."]
-offset_left = 642.0
-offset_top = 464.0
-offset_right = 737.0
-offset_bottom = 513.0
-text = "create"
+offset_left = 146.0
+offset_top = 707.0
+offset_right = 497.0
+offset_bottom = 792.0
+theme_override_font_sizes/font_size = 35
+theme_override_styles/hover = SubResource("StyleBoxTexture_7vlya")
+theme_override_styles/normal = SubResource("StyleBoxTexture_5r7ot")
+text = "Создать предмет"
 
 [node name="Inventory" type="Button" parent="."]
-offset_left = 706.0
-offset_top = 140.0
-offset_right = 801.0
-offset_bottom = 189.0
-text = "inventory"
+offset_left = 198.0
+offset_top = 795.0
+offset_right = 450.0
+offset_bottom = 876.0
+theme_override_font_sizes/font_size = 35
+theme_override_styles/hover = SubResource("StyleBoxTexture_k7guo")
+theme_override_styles/normal = SubResource("StyleBoxTexture_eygk3")
+text = "Инвентарь"
 
 [node name="Button" type="Button" parent="."]
-offset_left = 606.0
-offset_top = 278.0
-offset_right = 712.0
-offset_bottom = 336.0
-text = "back"
+offset_left = 275.0
+offset_top = 1160.0
+offset_right = 447.0
+offset_bottom = 1245.0
+theme_override_font_sizes/font_size = 35
+theme_override_styles/hover = SubResource("StyleBoxTexture_5p8kn")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ujaai")
+text = "Назад"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
-offset_left = 78.0
-offset_top = 44.0
-offset_right = 449.0
-offset_bottom = 643.0
+offset_top = 4.0
+offset_right = 720.0
+offset_bottom = 520.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -53,12 +103,15 @@ layout_mode = 2
 
 [node name="PlayerNameLabel" type="Label" parent="ProfilePopup/VBoxContainer"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_mbjvo")
 
 [node name="PlayerDescriptionLabel" type="Label" parent="ProfilePopup/VBoxContainer"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_6gc1l")
 
 [node name="PlayerClassLabel" type="Label" parent="ProfilePopup/VBoxContainer"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_svq7b")
 
 [node name="InventoryScroll" type="ScrollContainer" parent="ProfilePopup/VBoxContainer"]
 layout_mode = 2
@@ -80,26 +133,39 @@ layout_mode = 2
 text = "Kick Player"
 
 [node name="PlayerProfile" type="Button" parent="."]
-offset_left = 789.0
-offset_top = 281.0
-offset_right = 846.0
-offset_bottom = 314.0
-text = "Profile
-"
+offset_left = 37.0
+offset_top = 888.0
+offset_right = 681.0
+offset_bottom = 967.0
+theme_override_font_sizes/font_size = 35
+theme_override_styles/hover = SubResource("StyleBoxTexture_lxv6j")
+theme_override_styles/normal = SubResource("StyleBoxTexture_05p1t")
+text = "Мой Персонаж / Редактировать"
 
 [node name="LobbyId" type="VBoxContainer" parent="."]
-offset_left = 579.0
-offset_top = 1.0
-offset_right = 715.0
-offset_bottom = 58.0
+offset_left = 26.0
+offset_top = 568.0
+offset_right = 280.0
+offset_bottom = 677.0
 
 [node name="LobbyIdLabel" type="Label" parent="LobbyId"]
 layout_mode = 2
-text = "Lobby ID:"
+theme_override_font_sizes/font_size = 35
+text = "ID Комнаты:"
 
 [node name="CopyLobbyButton" type="Button" parent="LobbyId"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 25
+theme_override_styles/hover = SubResource("StyleBoxTexture_pb872")
+theme_override_styles/normal = SubResource("StyleBoxTexture_f34cr")
 text = "Скопировать ID"
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+show_behind_parent = true
+z_index = -2
+position = Vector2(445, 722)
+scale = Vector2(0.534173, 0.652878)
+texture = ExtResource("3_qfihk")
 
 [connection signal="button_down" from="Create" to="." method="_on_create_button_down"]
 [connection signal="button_down" from="Inventory" to="." method="_on_inventory_button_down"]

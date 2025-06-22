@@ -1,12 +1,39 @@
-[gd_scene load_steps=2 format=3 uid="uid://3jb71hvd25uu"]
+[gd_scene load_steps=12 format=3 uid="uid://3jb71hvd25uu"]
 
+[ext_resource type="Texture2D" uid="uid://bqdtlusj1mr7t" path="res://Images/button3.png" id="1_0t0wf"]
 [ext_resource type="Script" uid="uid://d0o32uogqeo5r" path="res://Scenes/CreateUser.gd" id="1_4v6tb"]
+[ext_resource type="Texture2D" uid="uid://68ld57ho1wue" path="res://Images/button1.png" id="3_nyv3c"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f1ml2"]
+texture = ExtResource("1_0t0wf")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0t0wf"]
+texture = ExtResource("3_nyv3c")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nyv3c"]
+texture = ExtResource("3_nyv3c")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2go2j"]
+texture = ExtResource("3_nyv3c")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fk3pf"]
+texture = ExtResource("1_0t0wf")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_utg2m"]
+texture = ExtResource("3_nyv3c")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0bhyl"]
+texture = ExtResource("1_0t0wf")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o3tp5"]
+texture = ExtResource("3_nyv3c")
 
 [node name="Create User Window" type="Panel"]
-offset_left = 408.0
-offset_top = 22.0
-offset_right = 758.0
-offset_bottom = 243.0
+offset_left = 139.0
+offset_top = 94.0
+offset_right = 544.0
+offset_bottom = 351.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_f1ml2")
 script = ExtResource("1_4v6tb")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -14,10 +41,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = 52.0
-offset_right = -9.0
-offset_bottom = -15.0
+offset_left = 24.0
+offset_top = 65.0
+offset_right = -27.0
+offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -28,12 +55,14 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "email"
+theme_override_font_sizes/normal_font_size = 25
+text = "Email"
 
 [node name="EmailText" type="TextEdit" parent="VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxTexture_0t0wf")
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -42,12 +71,14 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 25
 text = "UserName"
 
 [node name="UserNameText" type="TextEdit" parent="VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxTexture_nyv3c")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -56,37 +87,47 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 25
 text = "Password"
 
 [node name="PasswordText" type="LineEdit" parent="VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxTexture_2go2j")
 secret = true
 
 [node name="Submit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "Submit"
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("StyleBoxTexture_fk3pf")
+theme_override_styles/normal = SubResource("StyleBoxTexture_utg2m")
+text = "Зарегистрироваться"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = 8.0
-offset_bottom = 38.0
+offset_left = 100.0
+offset_top = 19.0
+offset_right = -94.0
+offset_bottom = 65.0
 grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 30
 bbcode_enabled = true
-text = "Create User"
+text = "Регистрация"
 
 [node name="Close" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -40.0
-offset_top = 6.0
-offset_right = -8.0
-offset_bottom = 37.0
+offset_left = -66.0
+offset_top = 27.0
+offset_right = -34.0
+offset_bottom = 60.0
 grow_horizontal = 0
+theme_override_styles/hover = SubResource("StyleBoxTexture_0bhyl")
+theme_override_styles/normal = SubResource("StyleBoxTexture_o3tp5")
 text = "x"
 
 [connection signal="button_down" from="VBoxContainer/Submit" to="." method="_on_submit_button_down"]

@@ -136,8 +136,8 @@ func _process(delta):
 			
 			#if data.message == Message.Message.LoadInventory:
 				#emit_signal("inventory_data_received", data.get("items", []))
-			if data.message == Message.Message.LoadInventory:
-				emit_signal("inventory_data_received", data.get("items", []))
+			#if data.message == Message.Message.LoadInventory:
+				#emit_signal("inventory_data_received", data.get("items", []))
 
 			
 				
@@ -177,6 +177,7 @@ func _process(delta):
 				
 			if data.message == Message.Message.LoadProfile:
 				var profile = data.get("profile", {})
+				profile["user_id"] = data.get("user_id", -1)
 				profile["lobby_id"] = data.get("lobby_id", "")
 				emit_signal("profile_data_received", data)
 				
@@ -191,8 +192,9 @@ func _process(delta):
 				emit_signal("profiles_list_received", profiles)
 				
 			if data.message == Message.Message.LoadInventory:
+				var user_id = data.get("user_id", -1)
 				var items = data.get("items", [])
-				emit_signal("inventory_data_received", items)
+				emit_signal("inventory_data_received", user_id, items)
 			if data.message == Message.Message.kickedFromLobby:
 				kicked_from_lobby.emit(data.reason)
 			if data.message == Message.Message.LoadInventory:

@@ -115,7 +115,11 @@ func _on_lobbies_received(lobbies: Array):
 func add_lobby_card(lobby: Dictionary):
 	var card = PanelContainer.new()
 	card.custom_minimum_size = Vector2(0, 60)
+	
+	var stylebox = StyleBoxTexture.new()
+	stylebox.texture = preload("res://Images/button1.png")  # укажи свой путь к картинке
 
+	card.add_theme_stylebox_override("panel", stylebox)
 	var hbox = HBoxContainer.new()
 	card.add_child(hbox)
 
@@ -124,17 +128,27 @@ func add_lobby_card(lobby: Dictionary):
 
 	var name_label = Label.new()
 	name_label.text = lobby.get("lobby_name", "Unnamed Group")
-	name_label.add_theme_font_size_override("font_size", 16)
+	name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART  # перенос по словам
+	name_label.add_theme_font_size_override("font_size", 25)
 	vbox.add_child(name_label)
 
 	var date_label = Label.new()
 	date_label.text = "Created: %s" % lobby.get("created_at", "?").replace("T", " ").substr(0, 16)
-	date_label.add_theme_font_size_override("font_size", 12)
+	date_label.add_theme_font_size_override("font_size", 25)
 	vbox.add_child(date_label)
 
+	#var open_btn = Button.new()
+	#open_btn.text = "OPEN"
+	#open_btn.pressed.connect(_on_open_group.bind(lobby["lobby_id"]))
+	#stylebox.texture = preload("res://Images/button1.png")  # укажи свой путь к картинке
 	var open_btn = Button.new()
-	open_btn.text = "OPEN"
+	open_btn.text = ""  # скрыть текст, если картинка содержит надпись
+	open_btn.expand_icon = true  # растягивать иконку по размеру кнопки
+	open_btn.icon = preload("res://Images/button1.png")  # установить картинку
+	open_btn.custom_minimum_size = Vector2(150, 50)  # нужный размер
+	open_btn.focus_mode = Control.FOCUS_NONE
 	open_btn.pressed.connect(_on_open_group.bind(lobby["lobby_id"]))
+
 	hbox.add_child(open_btn)
 
 	lobby_container.add_child(card)

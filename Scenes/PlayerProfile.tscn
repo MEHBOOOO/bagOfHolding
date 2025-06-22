@@ -1,83 +1,160 @@
-[gd_scene load_steps=5 format=3 uid="uid://vxni3ji6as80"]
+[gd_scene load_steps=18 format=3 uid="uid://vxni3ji6as80"]
 
 [ext_resource type="Texture2D" uid="uid://c8hix86fv6bv8" path="res://Images/войн.png" id="1_kbuhv"]
 [ext_resource type="Script" uid="uid://dnnmrfqle6v21" path="res://Scripts/ProfileEditor.gd" id="1_vyb45"]
-[ext_resource type="Texture2D" uid="uid://dxulrilhrrplm" path="res://Images/бард.png" id="2_vyb45"]
+[ext_resource type="Texture2D" uid="uid://caqtiignyj1yj" path="res://Images/background.png" id="2_t8os5"]
 [ext_resource type="Texture2D" uid="uid://beoheqioppto0" path="res://Images/паладин.png" id="3_5np7k"]
+[ext_resource type="Texture2D" uid="uid://68ld57ho1wue" path="res://Images/button1.png" id="4_4tudy"]
+[ext_resource type="Texture2D" uid="uid://bqdtlusj1mr7t" path="res://Images/button3.png" id="4_t8os5"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cqg7c"]
+texture = ExtResource("4_4tudy")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4tudy"]
+texture = ExtResource("4_4tudy")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t8os5"]
+texture = ExtResource("4_4tudy")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x4di8"]
+texture = ExtResource("4_4tudy")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ait7d"]
+texture = ExtResource("4_4tudy")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_slqai"]
+texture = ExtResource("4_4tudy")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hq7qm"]
+texture = ExtResource("4_4tudy")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k167p"]
+texture = ExtResource("4_t8os5")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ig270"]
+texture = ExtResource("4_4tudy")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yp2sv"]
+texture = ExtResource("4_t8os5")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uqv5a"]
+texture = ExtResource("4_4tudy")
 
 [node name="PlayerProfile" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+offset_left = 254.0
+offset_top = 132.0
+offset_right = 254.0
+offset_bottom = 132.0
 script = ExtResource("1_vyb45")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -254.0
+offset_top = -129.0
+offset_right = 484.0
+offset_bottom = 1174.0
 scale = Vector2(0.986986, 0.981191)
+theme_override_constants/separation = 30
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "Сумка хранения"
+theme_override_font_sizes/font_size = 80
+text = "Сумка
+хранения"
+horizontal_alignment = 1
 
 [node name="AvatarButton" type="TextureButton" parent="VBoxContainer"]
 layout_mode = 2
-texture_normal = ExtResource("2_vyb45")
+texture_normal = ExtResource("1_kbuhv")
+stretch_mode = 3
 
 [node name="Label2" type="Label" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxTexture_cqg7c")
 text = "Профиль игрока"
+horizontal_alignment = 1
 
 [node name="HBoxContainer_Name" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 100
+alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer_Name"]
 layout_mode = 2
-text = "Имя"
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxTexture_4tudy")
+text = "Имя "
+horizontal_alignment = 1
 
 [node name="NameInput" type="LineEdit" parent="VBoxContainer/HBoxContainer_Name"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxTexture_t8os5")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 100
+alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxTexture_x4di8")
 text = "Класс"
 
 [node name="ClassInput" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxTexture_ait7d")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 100
+alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxTexture_slqai")
 text = "Описание"
 
 [node name="DescriptionInput" type="LineEdit" parent="VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxTexture_hq7qm")
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
 
 [node name="SaveButton" type="Button" parent="VBoxContainer/HBoxContainer3"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 60
+theme_override_styles/hover = SubResource("StyleBoxTexture_k167p")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ig270")
 text = "Сохранить"
 
 [node name="BackButton" type="Button" parent="VBoxContainer/HBoxContainer3"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 65
+theme_override_styles/hover = SubResource("StyleBoxTexture_yp2sv")
+theme_override_styles/normal = SubResource("StyleBoxTexture_uqv5a")
 text = "Назад"
 
 [node name="AvatarPopup" type="PopupPanel" parent="."]
-min_size = Vector2i(100, 100)
+size = Vector2i(500, 500)
+min_size = Vector2i(500, 500)
 max_size = Vector2i(100, 100)
 
 [node name="AvatarGrid" type="GridContainer" parent="AvatarPopup"]
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 96.0
-offset_bottom = 136.0
+offset_right = 496.0
+offset_bottom = 496.0
 
 [node name="TextureButton" type="TextureButton" parent="AvatarPopup/AvatarGrid"]
 layout_mode = 2
@@ -86,6 +163,13 @@ texture_normal = ExtResource("3_5np7k")
 [node name="TextureButton2" type="TextureButton" parent="AvatarPopup/AvatarGrid"]
 layout_mode = 2
 texture_normal = ExtResource("1_kbuhv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+show_behind_parent = true
+z_index = -2
+position = Vector2(192, 594)
+scale = Vector2(0.534173, 0.652878)
+texture = ExtResource("2_t8os5")
 
 [connection signal="pressed" from="VBoxContainer/AvatarButton" to="." method="_on_avatar_button_pressed"]
 [connection signal="popup_hide" from="AvatarPopup" to="." method="_on_avatar_popup_popup_hide"]

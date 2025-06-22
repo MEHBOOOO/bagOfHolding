@@ -1,40 +1,87 @@
-[gd_scene load_steps=4 format=3 uid="uid://bcfl5ohsaxsnd"]
+[gd_scene load_steps=12 format=3 uid="uid://bcfl5ohsaxsnd"]
 
 [ext_resource type="PackedScene" uid="uid://x5p7woqk4vns" path="res://Scenes/login_window.tscn" id="1_leum0"]
 [ext_resource type="PackedScene" uid="uid://3jb71hvd25uu" path="res://Scenes/create_user_window.tscn" id="2_767d8"]
+[ext_resource type="Texture2D" uid="uid://68ld57ho1wue" path="res://Images/button1.png" id="3_bhoxy"]
 [ext_resource type="FontFile" uid="uid://c388nasjg4ct5" path="res://1papyrus.ttf" id="3_xklxs"]
+[ext_resource type="Texture2D" uid="uid://caqtiignyj1yj" path="res://Images/background.png" id="4_1baen"]
+[ext_resource type="Texture2D" uid="uid://bqdtlusj1mr7t" path="res://Images/button3.png" id="5_a6huy"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a6huy"]
+texture = ExtResource("3_bhoxy")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sgmcn"]
+texture = ExtResource("5_a6huy")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7p2kr"]
+texture = ExtResource("3_bhoxy")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ucsfu"]
+texture = ExtResource("5_a6huy")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g1u07"]
+texture = ExtResource("3_bhoxy")
 
 [node name="Login" type="Node2D"]
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+show_behind_parent = true
+z_index = -2
+position = Vector2(445, 722)
+scale = Vector2(0.534173, 0.652878)
+texture = ExtResource("4_1baen")
+
 [node name="LoginWindow" parent="." instance=ExtResource("1_leum0")]
-offset_left = 314.0
-offset_top = 152.0
-offset_right = 705.0
-offset_bottom = 374.0
+offset_left = 75.0
+offset_top = 126.0
+offset_right = 466.0
+offset_bottom = 348.0
 CreateUserWindow = ExtResource("2_767d8")
 
 [node name="Text" type="Label" parent="LoginWindow"]
 layout_mode = 0
-offset_left = 82.0
-offset_top = 305.0
-offset_right = 323.0
-offset_bottom = 415.0
+offset_left = 108.0
+offset_top = 351.0
+offset_right = 479.0
+offset_bottom = 437.0
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxTexture_a6huy")
 text = "not running"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Client" type="Button" parent="."]
-offset_left = 117.0
-offset_top = 511.0
-offset_right = 212.0
-offset_bottom = 558.0
+offset_left = 157.0
+offset_top = 640.0
+offset_right = 596.0
+offset_bottom = 744.0
 theme_override_fonts/font = ExtResource("3_xklxs")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/hover = SubResource("StyleBoxTexture_sgmcn")
+theme_override_styles/normal = SubResource("StyleBoxTexture_7p2kr")
 text = "START CLIENT"
 
 [node name="Server" type="Button" parent="."]
-offset_left = 751.0
-offset_top = 507.0
-offset_right = 866.0
-offset_bottom = 554.0
+offset_left = 134.0
+offset_top = 764.0
+offset_right = 596.0
+offset_bottom = 866.0
+theme_override_font_sizes/font_size = 50
+theme_override_styles/hover = SubResource("StyleBoxTexture_ucsfu")
+theme_override_styles/normal = SubResource("StyleBoxTexture_g1u07")
 text = "START SERVER"
+
+[node name="Label" type="Label" parent="."]
+offset_left = -101.0
+offset_top = 1007.0
+offset_right = 838.0
+offset_bottom = 1280.0
+theme_override_font_sizes/font_size = 45
+text = "Создано при
+ поддержке клуба 
+Настольных игр 
+«Сычевальня» и Gamedev Center"
+horizontal_alignment = 1
 
 [connection signal="button_down" from="Client" to="LoginWindow" method="_on_client_button_down"]
 [connection signal="button_down" from="Server" to="LoginWindow" method="_on_server_button_down"]

@@ -1,6 +1,42 @@
-[gd_scene load_steps=2 format=3 uid="uid://bf5kbg5c8q5x3"]
+[gd_scene load_steps=16 format=3 uid="uid://bf5kbg5c8q5x3"]
 
 [ext_resource type="Script" uid="uid://k1rd6mjjif4s" path="res://Scripts/sqllite.gd" id="1_it6rb"]
+[ext_resource type="Texture2D" uid="uid://bqdtlusj1mr7t" path="res://Images/button3.png" id="2_8l78f"]
+[ext_resource type="Texture2D" uid="uid://68ld57ho1wue" path="res://Images/button1.png" id="3_t4vtm"]
+[ext_resource type="Texture2D" uid="uid://caqtiignyj1yj" path="res://Images/background.png" id="4_7m0wi"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p6gyi"]
+texture = ExtResource("3_t4vtm")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8l78f"]
+texture = ExtResource("3_t4vtm")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t4vtm"]
+texture = ExtResource("3_t4vtm")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7m0wi"]
+texture = ExtResource("2_8l78f")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sthlh"]
+texture = ExtResource("3_t4vtm")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i24li"]
+texture = ExtResource("3_t4vtm")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iyk48"]
+texture = ExtResource("3_t4vtm")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_888rj"]
+texture = ExtResource("2_8l78f")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2y7kr"]
+texture = ExtResource("3_t4vtm")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kiupr"]
+texture = ExtResource("2_8l78f")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yp82f"]
+texture = ExtResource("3_t4vtm")
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -15,59 +51,49 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_it6rb")
 
-[node name="Insertdata" type="Button" parent="."]
+[node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 105.0
-offset_top = 120.0
-offset_right = 247.0
-offset_bottom = 211.0
-text = "create an item
-"
+offset_left = 109.0
+offset_top = 550.0
+offset_right = 369.0
+offset_bottom = 660.0
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxTexture_p6gyi")
+text = "Название
+предмета"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Name" type="TextEdit" parent="."]
 layout_mode = 0
-offset_left = 466.0
-offset_top = 123.0
-offset_right = 594.0
-offset_bottom = 174.0
-
-[node name="Description" type="TextEdit" parent="."]
-layout_mode = 0
-offset_left = 466.0
-offset_top = 383.0
-offset_right = 672.0
-offset_bottom = 502.0
-
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_left = 341.0
-offset_top = 118.0
-offset_right = 433.0
-offset_bottom = 159.0
-text = "Name"
+offset_left = 409.0
+offset_top = 550.0
+offset_right = 669.0
+offset_bottom = 660.0
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxTexture_8l78f")
 
 [node name="Label3" type="Label" parent="."]
 layout_mode = 0
-offset_left = 343.0
-offset_top = 203.0
-offset_right = 435.0
-offset_bottom = 244.0
-text = "type"
-
-[node name="Label2" type="Label" parent="."]
-layout_mode = 0
-offset_left = 341.0
-offset_top = 378.0
-offset_right = 433.0
-offset_bottom = 419.0
-text = "description"
+offset_left = 111.0
+offset_top = 685.0
+offset_right = 371.0
+offset_bottom = 795.0
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxTexture_t4vtm")
+text = "Тип предмета"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="OptionButton" type="OptionButton" parent="."]
 layout_mode = 0
-offset_left = 466.0
-offset_top = 207.0
-offset_right = 577.0
-offset_bottom = 253.0
+offset_left = 409.0
+offset_top = 688.0
+offset_right = 669.0
+offset_bottom = 798.0
+theme_override_font_sizes/font_size = 25
+theme_override_styles/hover = SubResource("StyleBoxTexture_7m0wi")
+theme_override_styles/normal = SubResource("StyleBoxTexture_sthlh")
 item_count = 4
 popup/item_0/text = "Artifact"
 popup/item_0/id = 0
@@ -78,14 +104,66 @@ popup/item_2/id = 2
 popup/item_3/text = "Other"
 popup/item_3/id = 3
 
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 113.0
+offset_top = 816.0
+offset_right = 373.0
+offset_bottom = 926.0
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxTexture_i24li")
+text = "Описание"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Description" type="TextEdit" parent="."]
+layout_mode = 0
+offset_left = 409.0
+offset_top = 820.0
+offset_right = 669.0
+offset_bottom = 930.0
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxTexture_iyk48")
+
+[node name="Insertdata" type="Button" parent="."]
+layout_mode = 0
+offset_left = 183.0
+offset_top = 997.0
+offset_right = 547.0
+offset_bottom = 1103.0
+theme_override_font_sizes/font_size = 35
+theme_override_styles/hover = SubResource("StyleBoxTexture_888rj")
+theme_override_styles/normal = SubResource("StyleBoxTexture_2y7kr")
+text = "Создать предмет"
+
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
-offset_left = 807.0
-offset_top = 128.0
-offset_right = 917.0
-offset_bottom = 171.0
-text = "back"
+offset_left = 277.0
+offset_top = 1137.0
+offset_right = 455.0
+offset_bottom = 1220.0
+theme_override_font_sizes/font_size = 35
+theme_override_styles/hover = SubResource("StyleBoxTexture_kiupr")
+theme_override_styles/normal = SubResource("StyleBoxTexture_yp82f")
+text = "Назад"
 
-[connection signal="button_down" from="Insertdata" to="." method="_on_insertdata_button_down"]
+[node name="Sprite2D" type="Sprite2D" parent="."]
+show_behind_parent = true
+z_index = -2
+position = Vector2(455, 793)
+scale = Vector2(0.534173, 0.652878)
+texture = ExtResource("4_7m0wi")
+
+[node name="Label4" type="Label" parent="."]
+offset_left = 16.0
+offset_top = 74.0
+offset_right = 738.0
+offset_bottom = 369.0
+theme_override_font_sizes/font_size = 100
+text = "Создание
+предмета"
+horizontal_alignment = 1
+
 [connection signal="item_selected" from="OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="button_down" from="Insertdata" to="." method="_on_insertdata_button_down"]
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

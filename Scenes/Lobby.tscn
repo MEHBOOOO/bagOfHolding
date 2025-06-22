@@ -1,6 +1,30 @@
-[gd_scene load_steps=2 format=3 uid="uid://blea5q0jwmkdg"]
+[gd_scene load_steps=12 format=3 uid="uid://blea5q0jwmkdg"]
 
 [ext_resource type="Script" uid="uid://c27t6njaanrnp" path="res://Scripts/lobby.gd" id="1_bpe3w"]
+[ext_resource type="Texture2D" uid="uid://caqtiignyj1yj" path="res://Images/background.png" id="2_lolwk"]
+[ext_resource type="Texture2D" uid="uid://bqdtlusj1mr7t" path="res://Images/button3.png" id="3_nsj2m"]
+[ext_resource type="Texture2D" uid="uid://68ld57ho1wue" path="res://Images/button1.png" id="4_xy1bw"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vmftg"]
+texture = ExtResource("3_nsj2m")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s3paf"]
+texture = ExtResource("4_xy1bw")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gqa7q"]
+texture = ExtResource("3_nsj2m")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yg8gm"]
+texture = ExtResource("4_xy1bw")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sup6t"]
+texture = ExtResource("4_xy1bw")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r753w"]
+texture = ExtResource("3_nsj2m")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_idhfa"]
+texture = ExtResource("4_xy1bw")
 
 [node name="Lobby" type="Control"]
 layout_mode = 3
@@ -11,36 +35,63 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bpe3w")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+show_behind_parent = true
+z_index = -2
+position = Vector2(445, 722)
+scale = Vector2(0.534173, 0.652878)
+texture = ExtResource("2_lolwk")
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_right = 722.0
+offset_bottom = 295.0
+theme_override_font_sizes/font_size = 100
+text = "Сумка
+хранения"
+horizontal_alignment = 1
+
 [node name="JoinLobby" type="Button" parent="."]
 layout_mode = 0
-offset_left = 281.0
-offset_top = 341.0
-offset_right = 420.0
-offset_bottom = 372.0
-text = "Join Lobby"
+offset_left = 142.0
+offset_top = 481.0
+offset_right = 653.0
+offset_bottom = 606.0
+theme_override_font_sizes/font_size = 50
+theme_override_styles/hover = SubResource("StyleBoxTexture_vmftg")
+theme_override_styles/normal = SubResource("StyleBoxTexture_s3paf")
+text = "Присоединиться"
 
 [node name="Create" type="Button" parent="."]
 layout_mode = 0
-offset_left = 813.0
-offset_top = 339.0
-offset_right = 952.0
-offset_bottom = 372.0
-text = "Create Lobby"
+offset_left = 138.0
+offset_top = 606.0
+offset_right = 652.0
+offset_bottom = 743.0
+theme_override_font_sizes/font_size = 50
+theme_override_styles/hover = SubResource("StyleBoxTexture_gqa7q")
+theme_override_styles/normal = SubResource("StyleBoxTexture_yg8gm")
+text = "Создать комнату"
 
 [node name="Lobby" type="LineEdit" parent="."]
 layout_mode = 0
-offset_left = 449.0
-offset_top = 342.0
-offset_right = 784.0
-offset_bottom = 373.0
+offset_left = 77.0
+offset_top = 753.0
+offset_right = 693.0
+offset_bottom = 865.0
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxTexture_sup6t")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
-offset_left = 807.0
-offset_top = 128.0
-offset_right = 917.0
-offset_bottom = 171.0
-text = "back"
+offset_left = 267.0
+offset_top = 1148.0
+offset_right = 508.0
+offset_bottom = 1243.0
+theme_override_font_sizes/font_size = 50
+theme_override_styles/hover = SubResource("StyleBoxTexture_r753w")
+theme_override_styles/normal = SubResource("StyleBoxTexture_idhfa")
+text = "Назад"
 
 [connection signal="button_down" from="JoinLobby" to="." method="_on_join_lobby_button_down"]
 [connection signal="button_down" from="Create" to="." method="_on_create_button_down"]

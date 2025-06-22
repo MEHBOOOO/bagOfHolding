@@ -68,6 +68,11 @@ func _init():
 		"lobby_id": {"data_type":"text", "not_null":true}
 	}
 	
+	var profiles_schema = {
+	"user_id": {"data_type": "int", "not_null": true},
+	"lobby_id": {"data_type": "text", "not_null": true},
+	"profile_json": {"data_type": "text", "not_null": true}
+}
 	
 	var lobby_participants_schema = {
 		"lobby_id": {
@@ -94,7 +99,7 @@ func _init():
 	db.create_table("lobbies", lobby_schema)
 	db.create_table("items", items_schema)
 	db.create_table("players", table)
-	
+	db.create_table("profiles", profiles_schema)
 
 func get_lobby_host(lobby_id: String) -> int:
 	var query = "SELECT host_id FROM lobbies WHERE lobby_id = ? LIMIT 1"
@@ -272,7 +277,8 @@ func hash_password(password: String, salt: String) -> String:
 func save_profile(user_id: int, lobby_id: String, profile: Dictionary) -> bool:
 	var json = JSON.stringify(profile)
 	var query = "INSERT OR REPLACE INTO profiles (user_id, lobby_id, profile_json) VALUES (?, ?, ?)"
-	return db.execute(query, [user_id, lobby_id, json])
+	#return db.execute(query, [user_id, lobby_id, json])
+	return db.query_with_bindings(query, [user_id, lobby_id, json])
 
 func load_profile(user_id: int, lobby_id: String) -> Dictionary:
 	var query = "SELECT profile_json FROM profiles WHERE user_id = ? AND lobby_id = ?"

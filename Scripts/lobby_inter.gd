@@ -176,7 +176,8 @@ func _on_profile_data_received(data: Dictionary):
 		return
 	
 	print("✅ Профиль получен: ", data.get("profile", {}))
-	pending_profile_data = data
+	#pending_profile_data = data
+	pending_profile_data = data.get("profile", {})  # ❗ Только сам профиль
 	
 	# Show popup only if we have both datasets or if we're not waiting for inventory
 	if !waiting_for_inventory || !pending_inventory_data.is_empty():
@@ -200,7 +201,8 @@ func _show_profile_with_inventory() -> void:
 	var is_admin = (current_user_id == host_id)
 	
 	# Set profile information
-	var profile_data = pending_profile_data.get("profile", {})
+	#var profile_data = pending_profile_data.get("profile", {})
+	var profile_data = pending_profile_data  # ❗ Уже сам профиль
 	profile_name_label.text = "Имя: %s" % profile_data.get("name", "Unknown")
 	profile_class_label.text = "Класс: %s" % profile_data.get("class", "Не указан")
 	profile_description_label.text = "Описание: %s" % profile_data.get("description", "–")

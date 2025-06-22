@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="test2"
+config/name="SumkaHraneniya"
 run/main_scene="uid://bcfl5ohsaxsnd"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 
@@ -19,6 +19,13 @@ config/features=PackedStringArray("4.4", "GL Compatibility")
 Server="*res://Server.gd"
 NetworkManager="*res://NetworkManager.gd"
 GameManager="*res://GameManager.gd"
+
+[display]
+
+window/size/viewport_width=720
+window/size/viewport_height=1280
+window/stretch/mode="viewport"
+window/handheld/orientation=1
 
 [dotnet]
 

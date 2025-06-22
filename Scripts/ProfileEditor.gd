@@ -25,7 +25,12 @@ func _ready():
 		var btn := avatar_grid.get_child(i)
 		btn.pressed.connect(_on_avatar_selected.bind(i, btn))
 
-	_load_profile()
+	# 🔗 Подключаем сигнал
+	if not NetworkManager.profile_data_received.is_connected(_on_profile_loaded):
+		NetworkManager.profile_data_received.connect(_on_profile_loaded)
+
+	# 📥 Запрашиваем профиль асинхронно
+	NetworkManager.request_profile_for_user(user_id, lobby_id)
 
 func _on_avatar_pressed():
 	avatar_popup.popup_centered()
@@ -43,24 +48,36 @@ func _on_save_pressed():
 		"description": description_input.text
 	}
 
-	NetworkManager.save_profile_for_user(user_id, lobby_id, data)
+	NetworkManager.save_profile(user_id, lobby_id, data)
 	print("✅ Профиль сохранён для пользователя ID:", user_id)
 
-func _load_profile():
-	var profile = NetworkManager.request_profile_for_user(user_id, lobby_id)
-	
-	name_input.text = profile.get("name", "")
+#func _load_profile():
+	##var profile = NetworkManager.request_profile_for_user(user_id, lobby_id)
+	##name_input.text = profile.get("name", "")
+#
+	#if profile:
+		#class_input.text = profile.get("class", "")
+		#description_input.text = profile.get("description", "")
+		#selected_avatar_index = profile.get("avatar_id", 0)
+#
+		#if selected_avatar_index < avatar_grid.get_child_count():
+			#var avatar_btn = avatar_grid.get_child(selected_avatar_index)
+			#if avatar_btn:
+				#avatar_button.texture_normal = avatar_btn.texture_normal
 
-	if profile:
-		class_input.text = profile.get("class", "")
-		description_input.text = profile.get("description", "")
-		selected_avatar_index = profile.get("avatar_id", 0)
+func _on_profile_loaded(profile_data: Dictionary):
+	if profile_data.get("user_id") != user_id:
+		return
 
-		if selected_avatar_index < avatar_grid.get_child_count():
-			var avatar_btn = avatar_grid.get_child(selected_avatar_index)
-			if avatar_btn:
-				avatar_button.texture_normal = avatar_btn.texture_normal
+	name_input.text = profile_data.get("name", "")
+	class_input.text = profile_data.get("class", "")
+	description_input.text = profile_data.get("description", "")
+	selected_avatar_index = profile_data.get("avatar_id", 0)
 
+	if selected_avatar_index < avatar_grid.get_child_count():
+		var avatar_btn = avatar_grid.get_child(selected_avatar_index)
+		if avatar_btn:
+			avatar_button.texture_normal = avatar_btn.texture_normal
 
 func _on_back_pressed():
 	get_tree().change_scene_to_file("res://Scenes/Menu.tscn")
