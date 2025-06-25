@@ -51,10 +51,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Client" type="Button" parent="."]
-offset_left = 157.0
-offset_top = 640.0
-offset_right = 596.0
-offset_bottom = 744.0
+offset_left = 133.0
+offset_top = 638.0
+offset_right = 597.0
+offset_bottom = 742.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_xklxs")
 theme_override_font_sizes/font_size = 50
 theme_override_styles/hover = SubResource("StyleBoxTexture_sgmcn")
@@ -66,6 +67,7 @@ offset_left = 134.0
 offset_top = 764.0
 offset_right = 596.0
 offset_bottom = 866.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 theme_override_styles/hover = SubResource("StyleBoxTexture_ucsfu")
 theme_override_styles/normal = SubResource("StyleBoxTexture_g1u07")

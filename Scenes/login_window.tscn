@@ -6,9 +6,14 @@
 [ext_resource type="Texture2D" uid="uid://bqdtlusj1mr7t" path="res://Images/button3.png" id="4_quhaw"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x76ax"]
+content_margin_left = 20.0
+content_margin_top = 15.0
 texture = ExtResource("3_t3cvr")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lrxm7"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_bottom = 5.0
 texture = ExtResource("3_t3cvr")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t3cvr"]
@@ -58,6 +63,7 @@ offset_left = 290.0
 offset_top = 60.0
 offset_right = 547.0
 offset_bottom = 117.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxTexture_x76ax")
 
@@ -67,7 +73,8 @@ offset_left = 290.0
 offset_top = 128.0
 offset_right = 547.0
 offset_bottom = 185.0
-theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxTexture_lrxm7")
 secret = true
 
@@ -77,6 +84,7 @@ offset_left = 314.0
 offset_top = 4.0
 offset_right = 547.0
 offset_bottom = 55.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 25
 theme_override_styles/hover = SubResource("StyleBoxTexture_t3cvr")
 theme_override_styles/normal = SubResource("StyleBoxTexture_to1eu")
@@ -87,7 +95,8 @@ layout_mode = 0
 offset_left = 112.0
 offset_top = 202.0
 offset_right = 444.0
-offset_bottom = 247.0
+offset_bottom = 294.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 theme_override_styles/hover = SubResource("StyleBoxTexture_quhaw")
 theme_override_styles/normal = SubResource("StyleBoxTexture_u6e6u")

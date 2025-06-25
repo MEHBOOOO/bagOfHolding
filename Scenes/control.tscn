@@ -15,6 +15,14 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5p55f")
 
+[node name="Label4" type="Label" parent="."]
+layout_mode = 0
+offset_left = 328.0
+offset_top = 74.0
+offset_right = 420.0
+offset_bottom = 115.0
+text = "ТЕСТОВОЕ"
+
 [node name="Insertdata" type="Button" parent="."]
 layout_mode = 0
 offset_left = 105.0
@@ -87,6 +95,7 @@ offset_bottom = 171.0
 text = "back"
 
 [node name="Button2" type="Button" parent="."]
+layout_mode = 0
 offset_left = 202.0
 offset_top = 442.0
 offset_right = 312.0

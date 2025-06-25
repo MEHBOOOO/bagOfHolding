@@ -71,6 +71,7 @@ offset_right = 514.0
 offset_bottom = 1108.0
 size_flags_horizontal = 0
 size_flags_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 theme_override_styles/hover = SubResource("StyleBoxTexture_wxynx")
 theme_override_styles/normal = SubResource("StyleBoxTexture_3u315")
@@ -82,6 +83,7 @@ offset_left = 196.0
 offset_top = 1136.0
 offset_right = 493.0
 offset_bottom = 1252.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 theme_override_styles/hover = SubResource("StyleBoxTexture_v00v8")
 theme_override_styles/normal = SubResource("StyleBoxTexture_ep3nd")
@@ -115,9 +117,12 @@ offset_bottom = 496.0
 
 [node name="PlayerNameLabel" type="Label" parent="PlayerPopup/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
 
 [node name="ViewProfileButton" type="Button" parent="PlayerPopup/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_styles/hover = SubResource("StyleBoxTexture_edbvc")
 theme_override_styles/normal = SubResource("StyleBoxTexture_x8ij6")
 text = "Профиль"

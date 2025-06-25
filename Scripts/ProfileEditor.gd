@@ -80,4 +80,4 @@ func _on_profile_loaded(profile_data: Dictionary):
 			avatar_button.texture_normal = avatar_btn.texture_normal
 
 func _on_back_pressed():
-	get_tree().change_scene_to_file("res://Scenes/Menu.tscn")
+	get_tree().change_scene_to_file("res://Scenes/LobbyInter.tscn")

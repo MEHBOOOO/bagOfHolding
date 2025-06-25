@@ -8,37 +8,72 @@
 [ext_resource type="Texture2D" uid="uid://bqdtlusj1mr7t" path="res://Images/button3.png" id="4_t8os5"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cqg7c"]
+content_margin_top = 15.0
+content_margin_bottom = 15.0
 texture = ExtResource("4_4tudy")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4tudy"]
 texture = ExtResource("4_4tudy")
+expand_margin_left = 50.0
+expand_margin_top = 10.0
+expand_margin_right = 50.0
+expand_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t8os5"]
 texture = ExtResource("4_4tudy")
+expand_margin_top = 5.0
+expand_margin_right = 10.0
+expand_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x4di8"]
 texture = ExtResource("4_4tudy")
+expand_margin_left = 36.0
+expand_margin_top = 10.0
+expand_margin_right = 36.0
+expand_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ait7d"]
 texture = ExtResource("4_4tudy")
+expand_margin_left = 10.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_slqai"]
 texture = ExtResource("4_4tudy")
+expand_margin_left = 35.0
+expand_margin_top = 15.0
+expand_margin_right = 35.0
+expand_margin_bottom = 15.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hq7qm"]
 texture = ExtResource("4_4tudy")
+expand_margin_top = 5.0
+expand_margin_right = 23.0
+expand_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k167p"]
 texture = ExtResource("4_t8os5")
+expand_margin_left = 30.0
+expand_margin_right = 30.0
+expand_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ig270"]
 texture = ExtResource("4_4tudy")
+expand_margin_left = 30.0
+expand_margin_right = 30.0
+expand_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yp2sv"]
 texture = ExtResource("4_t8os5")
+expand_margin_left = 5.0
+expand_margin_right = 10.0
+expand_margin_bottom = 8.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uqv5a"]
 texture = ExtResource("4_4tudy")
+expand_margin_left = 5.0
+expand_margin_right = 10.0
+expand_margin_bottom = 8.0
 
 [node name="PlayerProfile" type="Control"]
 layout_mode = 3
@@ -72,6 +107,7 @@ stretch_mode = 3
 
 [node name="Label2" type="Label" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = SubResource("StyleBoxTexture_cqg7c")
 text = "Профиль игрока"
@@ -84,6 +120,7 @@ alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer_Name"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxTexture_4tudy")
 text = "Имя "
@@ -91,7 +128,8 @@ horizontal_alignment = 1
 
 [node name="NameInput" type="LineEdit" parent="VBoxContainer/HBoxContainer_Name"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 45
 theme_override_styles/normal = SubResource("StyleBoxTexture_t8os5")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
@@ -101,13 +139,15 @@ alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxTexture_x4di8")
 text = "Класс"
 
 [node name="ClassInput" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 45
 theme_override_styles/normal = SubResource("StyleBoxTexture_ait7d")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
@@ -117,30 +157,35 @@ alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxTexture_slqai")
 text = "Описание"
 
 [node name="DescriptionInput" type="LineEdit" parent="VBoxContainer/HBoxContainer2"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 45
 theme_override_styles/normal = SubResource("StyleBoxTexture_hq7qm")
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 4
 theme_override_constants/separation = 30
 alignment = 1
 
 [node name="SaveButton" type="Button" parent="VBoxContainer/HBoxContainer3"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 60
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 55
 theme_override_styles/hover = SubResource("StyleBoxTexture_k167p")
 theme_override_styles/normal = SubResource("StyleBoxTexture_ig270")
 text = "Сохранить"
 
 [node name="BackButton" type="Button" parent="VBoxContainer/HBoxContainer3"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 65
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 55
 theme_override_styles/hover = SubResource("StyleBoxTexture_yp2sv")
 theme_override_styles/normal = SubResource("StyleBoxTexture_uqv5a")
 text = "Назад"

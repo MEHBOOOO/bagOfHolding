@@ -8,12 +8,18 @@
 texture = ExtResource("1_0t0wf")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0t0wf"]
+content_margin_left = 20.0
+content_margin_top = 6.0
 texture = ExtResource("3_nyv3c")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nyv3c"]
+content_margin_left = 20.0
+content_margin_top = 6.0
 texture = ExtResource("3_nyv3c")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2go2j"]
+content_margin_left = 20.0
+content_margin_top = 6.0
 texture = ExtResource("3_nyv3c")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fk3pf"]
@@ -29,106 +35,119 @@ texture = ExtResource("1_0t0wf")
 texture = ExtResource("3_nyv3c")
 
 [node name="Create User Window" type="Panel"]
-offset_left = 139.0
-offset_top = 94.0
-offset_right = 544.0
-offset_bottom = 351.0
+offset_top = 93.0
+offset_right = 718.0
+offset_bottom = 520.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_f1ml2")
 script = ExtResource("1_4v6tb")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 214.0
+offset_top = 40.0
+offset_right = -207.0
+offset_bottom = 109.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 45
+bbcode_enabled = true
+text = "Регистрация"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 24.0
-offset_top = 65.0
-offset_right = -27.0
-offset_bottom = -12.0
+offset_left = 42.0
+offset_top = 110.0
+offset_right = -42.0
+offset_bottom = 72.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 3
 
 [node name="EmailLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(0, 35)
+custom_minimum_size = Vector2(0, 55)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/normal_font_size = 25
+theme_override_font_sizes/normal_font_size = 35
 text = "Email"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="EmailText" type="TextEdit" parent="VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxTexture_0t0wf")
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
 [node name="UserNameLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer3"]
-custom_minimum_size = Vector2(0, 35)
+custom_minimum_size = Vector2(0, 55)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/normal_font_size = 25
+theme_override_font_sizes/normal_font_size = 35
 text = "UserName"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="UserNameText" type="TextEdit" parent="VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxTexture_nyv3c")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
 [node name="PasswordLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(0, 35)
+custom_minimum_size = Vector2(0, 55)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/normal_font_size = 25
+theme_override_font_sizes/normal_font_size = 35
 text = "Password"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PasswordText" type="LineEdit" parent="VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxTexture_2go2j")
 secret = true
 
 [node name="Submit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 35
 theme_override_styles/hover = SubResource("StyleBoxTexture_fk3pf")
 theme_override_styles/normal = SubResource("StyleBoxTexture_utg2m")
 text = "Зарегистрироваться"
-
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 100.0
-offset_top = 19.0
-offset_right = -94.0
-offset_bottom = 65.0
-grow_horizontal = 2
-theme_override_font_sizes/normal_font_size = 30
-bbcode_enabled = true
-text = "Регистрация"
 
 [node name="Close" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -66.0
-offset_top = 27.0
-offset_right = -34.0
-offset_bottom = 60.0
+offset_left = -95.0
+offset_top = 49.0
+offset_right = -55.0
+offset_bottom = 86.0
 grow_horizontal = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
 theme_override_styles/hover = SubResource("StyleBoxTexture_0bhyl")
 theme_override_styles/normal = SubResource("StyleBoxTexture_o3tp5")
-text = "x"
+text = "X"
 
 [connection signal="button_down" from="VBoxContainer/Submit" to="." method="_on_submit_button_down"]
 [connection signal="button_down" from="Close" to="." method="_on_close_button_down"]
