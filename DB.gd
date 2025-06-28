@@ -276,15 +276,37 @@ func hash_password(password: String, salt: String) -> String:
 
 func save_profile(user_id: int, lobby_id: String, profile: Dictionary) -> bool:
 	var json = JSON.stringify(profile)
+	if json == "":
+		printerr("JSON serialization failed for profile: ", profile)
+		return false
+	
 	var query = "INSERT OR REPLACE INTO profiles (user_id, lobby_id, profile_json) VALUES (?, ?, ?)"
-	#return db.execute(query, [user_id, lobby_id, json])
-	return db.query_with_bindings(query, [user_id, lobby_id, json])
+	
+	db.query_with_bindings(query, [user_id, lobby_id, json])
+	
+	# Check for errors AFTER execution
+	if db.error_message != "" && db.error_message != "not an error":
+		printerr("DB Error: ", db.error_message)
+		return false
+		
+	return true
 
 func load_profile(user_id: int, lobby_id: String) -> Dictionary:
 	var query = "SELECT profile_json FROM profiles WHERE user_id = ? AND lobby_id = ?"
-	if db.query_with_bindings(query, [user_id, lobby_id]) and db.query_result.size() > 0:
-		return JSON.parse_string(db.query_result[0]["profile_json"])
-	return {}
+	db.query_with_bindings(query, [user_id, lobby_id])
+	
+	if db.query_result.size() > 0:
+		var json = db.query_result[0]["profile_json"]
+		var profile = JSON.parse_string(json)
+		if profile is Dictionary:
+			return profile
+	
+	return {
+		"name": "",
+		"avatar_id": 0,
+		"class": "",
+		"description": ""
+	}
 
 func delete_item(item_id: int, user_id: int, lobby_id: String) -> bool:
 	var query = "DELETE FROM items WHERE id = ? AND user_id = ? AND lobby_id = ?"

@@ -98,13 +98,13 @@ func setup_connections():
 	NetworkManager.lobbies_received.connect(_on_lobbies_received)
 
 func _on_lobbies_received(lobbies: Array):
-	$ScrollContainer/VBoxContainer/Label.text = "Received %d groups".format([lobbies.size()])
+	$ScrollContainer/VBoxContainer/Label.text = "Доступные лобби".format([lobbies.size()])
 	for child in lobby_container.get_children():
 		child.queue_free()
 
 	if lobbies.is_empty():
 		var empty = Label.new()
-		empty.text = "You're not in any groups yet"
+		empty.text = "Вы еще не состоите ни в одной группе"
 		empty.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		lobby_container.add_child(empty)
 		return

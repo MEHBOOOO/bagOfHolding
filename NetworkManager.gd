@@ -176,10 +176,15 @@ func _process(delta):
 				player_disconnected.emit()
 				
 			if data.message == Message.Message.LoadProfile:
-				var profile = data.get("profile", {})
-				profile["user_id"] = data.get("user_id", -1)
-				profile["lobby_id"] = data.get("lobby_id", "")
-				emit_signal("profile_data_received", data)
+				emit_signal("profile_data_received", {
+					"user_id": data.get("user_id", -1),
+					"lobby_id": data.get("lobby_id", ""),
+					# Map root-level fields to profile
+					"name": data.get("name", ""),
+					"avatar_id": data.get("avatar_id", 0),
+					"class": data.get("class", ""),
+					"description": data.get("description", "")
+				})
 				
 			if data.message == Message.Message.SaveProfile:
 				emit_signal("profile_save_completed", data.get("success", false))

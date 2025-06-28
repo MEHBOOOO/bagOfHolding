@@ -54,10 +54,10 @@ horizontal_alignment = 1
 
 [node name="JoinLobby" type="Button" parent="."]
 layout_mode = 0
-offset_left = 142.0
-offset_top = 481.0
-offset_right = 653.0
-offset_bottom = 606.0
+offset_left = 99.0
+offset_top = 447.0
+offset_right = 610.0
+offset_bottom = 572.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 theme_override_styles/hover = SubResource("StyleBoxTexture_vmftg")
@@ -66,10 +66,10 @@ text = "Присоединиться"
 
 [node name="Create" type="Button" parent="."]
 layout_mode = 0
-offset_left = 138.0
-offset_top = 606.0
-offset_right = 652.0
-offset_bottom = 743.0
+offset_left = 86.0
+offset_top = 595.0
+offset_right = 600.0
+offset_bottom = 732.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 theme_override_styles/hover = SubResource("StyleBoxTexture_gqa7q")
@@ -78,20 +78,20 @@ text = "Создать комнату"
 
 [node name="Lobby" type="LineEdit" parent="."]
 layout_mode = 0
-offset_left = 134.0
-offset_top = 867.0
-offset_right = 750.0
-offset_bottom = 979.0
+offset_left = 79.0
+offset_top = 869.0
+offset_right = 695.0
+offset_bottom = 981.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxTexture_sup6t")
 
 [node name="lobbyname" type="LineEdit" parent="."]
 layout_mode = 0
-offset_left = 150.0
-offset_top = 763.0
-offset_right = 532.0
-offset_bottom = 849.0
+offset_left = 90.0
+offset_top = 750.0
+offset_right = 472.0
+offset_bottom = 836.0
 theme_override_colors/font_placeholder_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 35

@@ -375,15 +375,21 @@ func handle_kick_participant(data: Dictionary):
 func handle_load_profile(data: Dictionary):
 	var user_id = data.get("user_id")
 	var lobby_id = data.get("lobby_id")
-
+	
+	# Get the profile from DAO
 	var profile = dao.load_profile(user_id, lobby_id)
-
+	
 	var response = {
 		"message": Message.Message.LoadProfile,
 		"user_id": user_id,
 		"lobby_id": lobby_id,
-		"profile": profile
+		# Send profile fields directly at root level
+		"name": profile.get("name", ""),
+		"avatar_id": profile.get("avatar_id", 0),
+		"class": profile.get("class", ""),
+		"description": profile.get("description", "")
 	}
+	
 	SendToPlayer(data.get("orgPeer", -1), response)
 	
 func send_failure_response(original_data: Dictionary, reason: String) -> void:
