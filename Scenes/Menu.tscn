@@ -99,6 +99,7 @@ text = "Создать /
 Присоединиться"
 
 [node name="ExitButton" type="Button" parent="."]
+layout_mode = 0
 offset_left = 113.0
 offset_top = 919.0
 offset_right = 624.0
@@ -179,6 +180,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Button" type="Button" parent="AuthorPopup/AuthorText"]
+layout_mode = 0
 offset_left = 4.0
 offset_top = -105.0
 offset_right = 822.0

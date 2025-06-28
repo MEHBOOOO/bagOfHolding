@@ -18,6 +18,7 @@ texture = ExtResource("3_nsj2m")
 texture = ExtResource("4_xy1bw")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sup6t"]
+content_margin_left = 40.0
 texture = ExtResource("4_xy1bw")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r753w"]
@@ -77,13 +78,25 @@ text = "Создать комнату"
 
 [node name="Lobby" type="LineEdit" parent="."]
 layout_mode = 0
-offset_left = 77.0
-offset_top = 753.0
-offset_right = 693.0
-offset_bottom = 865.0
+offset_left = 134.0
+offset_top = 867.0
+offset_right = 750.0
+offset_bottom = 979.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxTexture_sup6t")
+
+[node name="lobbyname" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 763.0
+offset_right = 532.0
+offset_bottom = 849.0
+theme_override_colors/font_placeholder_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxTexture_sup6t")
+placeholder_text = "имя "
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0

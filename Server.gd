@@ -267,7 +267,7 @@ func JoinLobby(user):
 		# Create and store new lobby with new ID
 		var lobby = Lobby.new(user_id)
 		lobby.host_peer_id = peer_id  # Set host peer ID
-		lobby.lobby_name = str(user.get("lobby_name", "Unnamed Lobby"))
+		lobby.lobby_name = str(user.get("name", "Unnamed Lobby"))
 		lobbies[new_lobby_id] = lobby
 		
 		# Insert to database

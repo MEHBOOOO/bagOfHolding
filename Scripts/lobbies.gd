@@ -113,45 +113,82 @@ func _on_lobbies_received(lobbies: Array):
 		add_lobby_card(lobby)
 
 func add_lobby_card(lobby: Dictionary):
+	# Skip if lobby doesn't have a name
+	if not lobby.get("lobby_name"):
+		return
+		
+	# Create main card container
 	var card = PanelContainer.new()
-	card.custom_minimum_size = Vector2(0, 60)
+	card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	card.custom_minimum_size = Vector2(0, 60)  # Minimum height
 	
-	var stylebox = StyleBoxTexture.new()
-	stylebox.texture = preload("res://Images/button1.png")  # укажи свой путь к картинке
-
-	card.add_theme_stylebox_override("panel", stylebox)
+	# Apply card background texture
+	var card_style = StyleBoxTexture.new()
+	card_style.texture = preload("res://Images/button1.png")
+	card_style.expand_margin_left = 5  # Increased left margin
+	card_style.expand_margin_right = 20  # Increased right margin
+	card_style.expand_margin_top = 10
+	card_style.expand_margin_bottom = 10
+	card.add_theme_stylebox_override("panel", card_style)
+	
+	# Create horizontal container for name and button
 	var hbox = HBoxContainer.new()
+	hbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	card.add_child(hbox)
-
-	var vbox = VBoxContainer.new()
-	hbox.add_child(vbox)
-
+	
+	# Create lobby name label (left side)
 	var name_label = Label.new()
 	name_label.text = lobby.get("lobby_name", "Unnamed Group")
-	name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART  # перенос по словам
-	name_label.add_theme_font_size_override("font_size", 25)
-	vbox.add_child(name_label)
-
-	var date_label = Label.new()
-	date_label.text = "Created: %s" % lobby.get("created_at", "?").replace("T", " ").substr(0, 16)
-	date_label.add_theme_font_size_override("font_size", 25)
-	vbox.add_child(date_label)
-
-	#var open_btn = Button.new()
-	#open_btn.text = "OPEN"
-	#open_btn.pressed.connect(_on_open_group.bind(lobby["lobby_id"]))
-	#stylebox.texture = preload("res://Images/button1.png")  # укажи свой путь к картинке
+	name_label.add_theme_font_size_override("font_size", 30)  # Reduced font size
+	name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	name_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	name_label.add_theme_color_override("font_color", Color.BLACK)
+	
+	# Add padding to label
+	var label_style = StyleBoxFlat.new()
+	label_style.bg_color = Color.TRANSPARENT
+	label_style.content_margin_left = 20  # Push text right
+	name_label.add_theme_stylebox_override("normal", label_style)
+	
+	hbox.add_child(name_label)
+	
+	# Create OPEN button (right side)
 	var open_btn = Button.new()
-	open_btn.text = ""  # скрыть текст, если картинка содержит надпись
-	open_btn.expand_icon = true  # растягивать иконку по размеру кнопки
-	open_btn.icon = preload("res://Images/button1.png")  # установить картинку
-	open_btn.custom_minimum_size = Vector2(150, 50)  # нужный размер
-	open_btn.focus_mode = Control.FOCUS_NONE
+	open_btn.text = "OPEN"
+	open_btn.custom_minimum_size = Vector2(120, 40)
+	open_btn.size_flags_horizontal = Control.SIZE_SHRINK_END
 	open_btn.pressed.connect(_on_open_group.bind(lobby["lobby_id"]))
-
+	
+	# Apply button styling
+	var btn_style = StyleBoxTexture.new()
+	btn_style.texture = preload("res://Images/button1.png")
+	btn_style.expand_margin_left = 10
+	btn_style.expand_margin_right = 20  # Increased right margin for button
+	btn_style.expand_margin_top = 5
+	btn_style.expand_margin_bottom = 5
+	
+	open_btn.add_theme_stylebox_override("normal", btn_style)
+	open_btn.add_theme_stylebox_override("hover", btn_style)
+	open_btn.add_theme_stylebox_override("pressed", btn_style)
+	
+	# Button text styling - black text
+	open_btn.add_theme_font_size_override("font_size", 18)
+	open_btn.add_theme_color_override("font_color", Color.BLACK)
+	open_btn.add_theme_color_override("font_hover_color", Color(0.2, 0.2, 0.2))
+	open_btn.add_theme_color_override("font_pressed_color", Color(0.1, 0.1, 0.1))
+	
+	var btn_text_style = StyleBoxFlat.new()
+	btn_text_style.bg_color = Color.TRANSPARENT
+	btn_text_style.content_margin_left = 10  # Push button text right
+	open_btn.add_theme_stylebox_override("normal", btn_text_style)
+	
 	hbox.add_child(open_btn)
-
+	
 	lobby_container.add_child(card)
+	
+	var spacer = Control.new()
+	spacer.custom_minimum_size = Vector2(0, 5)
+	lobby_container.add_child(spacer)
 
 func _on_open_group(lobby_id: String):
 	print("Opening Lobby: ", lobby_id)

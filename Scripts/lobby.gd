@@ -2,6 +2,7 @@ extends Control
 
 @onready var lobby_input = $Lobby  
 
+@onready var lobbyname: LineEdit = $lobbyname
 
 
 func _on_join_lobby_button_down() -> void:
@@ -30,10 +31,10 @@ func _on_create_button_down() -> void:
 	var message = {
 		"id": NetworkManager.id,
 		"message": Message.Message.lobby,
-		"name": "",
+		"name": lobbyname.text,
 		"orgPeer": NetworkManager.id,
 		"lobbyValue": lobby_name
 	}
-	
+	lobbyname.text = ""
 	NetworkManager.peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 	pass 
