@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://vxni3ji6as80"]
+[gd_scene load_steps=29 format=3 uid="uid://vxni3ji6as80"]
 
 [ext_resource type="Texture2D" uid="uid://c8hix86fv6bv8" path="res://Images/войн.png" id="1_kbuhv"]
 [ext_resource type="Script" uid="uid://dnnmrfqle6v21" path="res://Scripts/ProfileEditor.gd" id="1_vyb45"]
@@ -6,6 +6,17 @@
 [ext_resource type="Texture2D" uid="uid://beoheqioppto0" path="res://Images/паладин.png" id="3_5np7k"]
 [ext_resource type="Texture2D" uid="uid://68ld57ho1wue" path="res://Images/button1.png" id="4_4tudy"]
 [ext_resource type="Texture2D" uid="uid://bqdtlusj1mr7t" path="res://Images/button3.png" id="4_t8os5"]
+[ext_resource type="Texture2D" uid="uid://dxulrilhrrplm" path="res://Images/бард.png" id="5_y84yr"]
+[ext_resource type="Texture2D" uid="uid://bmowaiit6vkss" path="res://Images/варвар.png" id="6_6i63n"]
+[ext_resource type="Texture2D" uid="uid://c5f841pbdsf3c" path="res://Images/волшебник.png" id="7_58jvu"]
+[ext_resource type="Texture2D" uid="uid://bdsor8xpqqr6r" path="res://Images/друид.png" id="8_okrfr"]
+[ext_resource type="Texture2D" uid="uid://bl1dn0odgiuma" path="res://Images/жрец.png" id="9_ol4yw"]
+[ext_resource type="Texture2D" uid="uid://cew8oaect5c6g" path="res://Images/изобретатель.png" id="10_l1daw"]
+[ext_resource type="Texture2D" uid="uid://ce1mxsc4caaie" path="res://Images/колдун.png" id="11_1py78"]
+[ext_resource type="Texture2D" uid="uid://cy0pisawlotc3" path="res://Images/монах.png" id="12_kd8aq"]
+[ext_resource type="Texture2D" uid="uid://cm45s3ssxqb1t" path="res://Images/плут.png" id="14_n078r"]
+[ext_resource type="Texture2D" uid="uid://21jbxixfoqme" path="res://Images/следопыт.png" id="15_cu0tu"]
+[ext_resource type="Texture2D" uid="uid://ibe8phf5thvh" path="res://Images/чародей.png" id="16_wsq8l"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cqg7c"]
 content_margin_top = 15.0
@@ -191,23 +202,79 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_uqv5a")
 text = "Назад"
 
 [node name="AvatarPopup" type="PopupPanel" parent="."]
-size = Vector2i(500, 500)
-min_size = Vector2i(500, 500)
-max_size = Vector2i(100, 100)
+initial_position = 1
+size = Vector2i(270, 510)
+max_size = Vector2i(500, 660)
 
-[node name="AvatarGrid" type="GridContainer" parent="AvatarPopup"]
+[node name="ScrollContainer" type="ScrollContainer" parent="AvatarPopup"]
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 496.0
-offset_bottom = 496.0
+offset_right = 266.0
+offset_bottom = 506.0
 
-[node name="TextureButton" type="TextureButton" parent="AvatarPopup/AvatarGrid"]
+[node name="AvatarGrid" type="GridContainer" parent="AvatarPopup/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TextureButton" type="TextureButton" parent="AvatarPopup/ScrollContainer/AvatarGrid"]
+layout_mode = 2
+texture_normal = ExtResource("5_y84yr")
+stretch_mode = 3
+
+[node name="TextureButton2" type="TextureButton" parent="AvatarPopup/ScrollContainer/AvatarGrid"]
+layout_mode = 2
+texture_normal = ExtResource("6_6i63n")
+stretch_mode = 3
+
+[node name="TextureButton3" type="TextureButton" parent="AvatarPopup/ScrollContainer/AvatarGrid"]
+layout_mode = 2
+texture_normal = ExtResource("7_58jvu")
+stretch_mode = 3
+
+[node name="TextureButton4" type="TextureButton" parent="AvatarPopup/ScrollContainer/AvatarGrid"]
+layout_mode = 2
+texture_normal = ExtResource("8_okrfr")
+stretch_mode = 3
+
+[node name="TextureButton5" type="TextureButton" parent="AvatarPopup/ScrollContainer/AvatarGrid"]
+layout_mode = 2
+texture_normal = ExtResource("9_ol4yw")
+stretch_mode = 3
+
+[node name="TextureButton6" type="TextureButton" parent="AvatarPopup/ScrollContainer/AvatarGrid"]
+layout_mode = 2
+texture_normal = ExtResource("10_l1daw")
+stretch_mode = 3
+
+[node name="TextureButton7" type="TextureButton" parent="AvatarPopup/ScrollContainer/AvatarGrid"]
+layout_mode = 2
+texture_normal = ExtResource("11_1py78")
+stretch_mode = 3
+
+[node name="TextureButton8" type="TextureButton" parent="AvatarPopup/ScrollContainer/AvatarGrid"]
+layout_mode = 2
+texture_normal = ExtResource("12_kd8aq")
+stretch_mode = 3
+
+[node name="TextureButton9" type="TextureButton" parent="AvatarPopup/ScrollContainer/AvatarGrid"]
 layout_mode = 2
 texture_normal = ExtResource("3_5np7k")
+stretch_mode = 3
 
-[node name="TextureButton2" type="TextureButton" parent="AvatarPopup/AvatarGrid"]
+[node name="TextureButton10" type="TextureButton" parent="AvatarPopup/ScrollContainer/AvatarGrid"]
 layout_mode = 2
-texture_normal = ExtResource("1_kbuhv")
+texture_normal = ExtResource("14_n078r")
+stretch_mode = 3
+
+[node name="TextureButton11" type="TextureButton" parent="AvatarPopup/ScrollContainer/AvatarGrid"]
+layout_mode = 2
+texture_normal = ExtResource("15_cu0tu")
+stretch_mode = 3
+
+[node name="TextureButton12" type="TextureButton" parent="AvatarPopup/ScrollContainer/AvatarGrid"]
+layout_mode = 2
+texture_normal = ExtResource("16_wsq8l")
+stretch_mode = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 show_behind_parent = true

@@ -8,7 +8,20 @@ signal CreateUser(email, user, password)
 func _ready():
 	NetworkManager.login_failed.connect(SetSystemErrorLabel)
 	NetworkManager.player_info_received.connect(_on_player_info_received)
+	
+	#if $AuthorPopup.has_node("CloseButton"):
+		#$AuthorPopup/CloseButton.connect("pressed", Callable(self, "_on_close_button_pressed"))
 
+func _on_author_image_pressed():
+	var author_popup = get_node("/root/Login/AuthorPopup")  # Полный путь
+	if author_popup.is_visible():
+		author_popup.hide()
+	else:
+		author_popup.popup_centered()
+		
+func _on_close_button_pressed():
+	$AuthorPopup.hide()
+			
 func _on_player_info_received(info):
 	$RichTextLabel3.text = "Logged in as: "
 
@@ -45,4 +58,8 @@ func _on_server_button_down() -> void:
 		status_label.text = "Server: Running on port 8915"
 	else:
 		status_label.text = "Server: Failed to start (error %d)"
+	pass # Replace with function body.
+
+
+func _on_author_image_gui_input(event: InputEvent) -> void:
 	pass # Replace with function body.

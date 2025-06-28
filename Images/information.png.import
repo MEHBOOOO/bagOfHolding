@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cew8oaect5c6g"
-path="res://.godot/imported/изобретатель .png-d015a6dec351d9b1cb80795720d5c347.ctex"
+uid="uid://b1ywh2gid2ry4"
+path="res://.godot/imported/information.png-2e6f326b9f5ac8b1913ea50c71ad2e96.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/изобретатель .png"
-dest_files=["res://.godot/imported/изобретатель .png-d015a6dec351d9b1cb80795720d5c347.ctex"]
+source_file="res://Images/information.png"
+dest_files=["res://.godot/imported/information.png-2e6f326b9f5ac8b1913ea50c71ad2e96.ctex"]
 
 [params]
 

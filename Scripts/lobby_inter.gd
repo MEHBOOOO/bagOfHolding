@@ -12,7 +12,8 @@ extends Node2D
 @onready var kick_button = $ProfilePopup/VBoxContainer/AdminContainer/KickButton
 @onready var lobby_id_label = $LobbyId/LobbyIdLabel
 @onready var copy_lobby_id_button = $LobbyId/CopyLobbyButton
-
+@onready var player_name_label = $ProfilePopup/VBoxContainer/PlayerNameLabel
+#@onready var avatar_grid = $AvatarPopup/ScrollContainer/AvatarGrid
 
 var pending_profile_data: Dictionary = {}
 var pending_inventory_data: Array = []
@@ -24,8 +25,18 @@ var host_id: int = -1  # Track the lobby host ID
 var current_user_id: int = NetworkManager.current_user_id  # Current viewer's ID
 var avatar_textures = [
 	preload("res://Images/бард.png"),
+	preload("res://Images/варвар.png"),
 	preload("res://Images/войн.png"),
-	preload("res://Images/паладин.png")
+	preload("res://Images/волшебник.png"),
+	preload("res://Images/друид.png"),
+	preload("res://Images/жрец.png"),
+	preload("res://Images/изобретатель.png"),
+	preload("res://Images/колдун.png"),
+	preload("res://Images/монах.png"),
+	preload("res://Images/паладин.png"),
+	preload("res://Images/плут.png"),
+	preload("res://Images/следопыт.png"),
+	preload("res://Images/чародей.png")
 ]
 
 
@@ -43,7 +54,15 @@ func _ready():
 		DisplayServer.clipboard_set(GameManager.current_lobby_id)
 		print("📋 Lobby ID скопирован:", GameManager.current_lobby_id)
 	)
+	var user_id = NetworkManager.current_user_id
+	var lobby_id = GameManager.current_lobby_id
 	
+	# Подключаемся к сигналу
+	if not NetworkManager.profile_data_received.is_connected(_on_profile_loaded):
+		NetworkManager.profile_data_received.connect(_on_profile_loaded)
+	
+	# Запрашиваем заново данные профиля
+	NetworkManager.request_profile_for_user(user_id, lobby_id)
 	lobby_id = GameManager.current_lobby_id
 	setup_participants_container()
 
@@ -62,6 +81,21 @@ func _ready():
 	refresh_timer.start()
 
 	request_participants()
+func _on_profile_loaded(profile_data: Dictionary):
+	if profile_data.get("user_id") != NetworkManager.current_user_id:
+		return
+	
+	# Обновить UI — имя, аватар и т.д.
+	profile_name_label.text = "Имя: %s" % profile_data.get("name", "Игрок")
+	#$AvatarPopup/ScrollContainer/AvatarGrid.texture = get_avatar_texture(profile_data.get("avatar_id", 0))
+
+func get_avatar_texture(avatar_index: int) -> Texture:
+	var avatar_grid = preload("res://Scenes/PlayerProfile.tscn").instantiate().get_node("AvatarPopup/ScrollContainer/AvatarGrid")
+	if avatar_index >= 0 and avatar_index < avatar_grid.get_child_count():
+		var btn := avatar_grid.get_child(avatar_index)
+		return btn.texture_normal
+	else:
+		return null
 
 func setup_participants_container():
 	for child in participants_container.get_children():
@@ -123,8 +157,6 @@ func add_participant_card(participant: Dictionary, is_host: bool):
 	participants_container.add_child(button)
 
 
-
-
 func _on_delete_item_pressed(item_id: int) -> void:
 	print("🗑️ Requesting deletion of item: ", item_id)
 	var message = {
@@ -146,11 +178,6 @@ func _on_delete_item_pressed(item_id: int) -> void:
 	)
 	add_child(timer)
 	timer.start()
-
-
-
-
-
 
 
 func _on_participant_selected(user_id: int, name: String) -> void:

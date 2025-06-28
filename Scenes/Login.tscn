@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bcfl5ohsaxsnd"]
+[gd_scene load_steps=17 format=3 uid="uid://bcfl5ohsaxsnd"]
 
 [ext_resource type="PackedScene" uid="uid://x5p7woqk4vns" path="res://Scenes/login_window.tscn" id="1_leum0"]
 [ext_resource type="PackedScene" uid="uid://3jb71hvd25uu" path="res://Scenes/create_user_window.tscn" id="2_767d8"]
@@ -6,6 +6,10 @@
 [ext_resource type="FontFile" uid="uid://c388nasjg4ct5" path="res://1papyrus.ttf" id="3_xklxs"]
 [ext_resource type="Texture2D" uid="uid://caqtiignyj1yj" path="res://Images/background.png" id="4_1baen"]
 [ext_resource type="Texture2D" uid="uid://bqdtlusj1mr7t" path="res://Images/button3.png" id="5_a6huy"]
+[ext_resource type="Texture2D" uid="uid://b1ywh2gid2ry4" path="res://Images/information.png" id="7_g1u07"]
+[ext_resource type="Texture2D" uid="uid://m8um680nkoph" path="res://Images/information2.png" id="8_sgmcn"]
+[ext_resource type="Texture2D" uid="uid://76jcqkcw0x6r" path="res://Images/gamedev1.png" id="9_ucsfu"]
+[ext_resource type="Texture2D" uid="uid://dd0x13dahmywy" path="res://Images/sych1.png" id="10_jbojw"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a6huy"]
 texture = ExtResource("3_bhoxy")
@@ -21,6 +25,14 @@ texture = ExtResource("5_a6huy")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g1u07"]
 texture = ExtResource("3_bhoxy")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ucsfu"]
+content_margin_top = 100.0
+bg_color = Color(0.0980392, 0.164706, 0.254902, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
 
 [node name="Login" type="Node2D"]
 
@@ -74,6 +86,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_g1u07")
 text = "START SERVER"
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = -101.0
 offset_top = 1007.0
 offset_right = 838.0
@@ -85,5 +98,90 @@ text = "Создано при
 «Сычевальня» и Gamedev Center"
 horizontal_alignment = 1
 
+[node name="About" type="Button" parent="."]
+offset_left = 132.0
+offset_top = 888.0
+offset_right = 594.0
+offset_bottom = 990.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+theme_override_styles/hover = SubResource("StyleBoxTexture_ucsfu")
+theme_override_styles/normal = SubResource("StyleBoxTexture_g1u07")
+text = "Об игре"
+
+[node name="AuthorImage" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(150, 0)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 548.0
+offset_top = 1116.0
+offset_right = 2336.0
+offset_bottom = 2895.0
+grow_horizontal = 2
+scale = Vector2(0.0911741, 0.0822248)
+texture_normal = ExtResource("7_g1u07")
+texture_hover = ExtResource("8_sgmcn")
+stretch_mode = 0
+
+[node name="AuthorPopup" type="PopupPanel" parent="."]
+auto_translate_mode = 1
+size = Vector2i(800, 1150)
+theme_override_styles/panel = SubResource("StyleBoxFlat_ucsfu")
+
+[node name="AuthorText" type="Label" parent="AuthorPopup"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = 100.0
+offset_right = 800.0
+offset_bottom = 1150.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.962677, 0.902142)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "Создано при
+ поддержке Gamedev Center и 
+клуба 
+Настольных игр 
+«Сычевальня»
+GameDev Center:
+Developers:
+DarkDeception-Erasyl
+MEHBOO-Bauyrzhan
+Designer:
+faēni-Adiya
+Game Designer:
+Sherkhan
+Сычевальня:
+Game Designer:
+Dark_Sword-Arman"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="AuthorPopup/AuthorText"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = -105.0
+offset_right = 822.0
+offset_bottom = 1167.0
+flat = true
+
+[node name="Gamedev1" type="Sprite2D" parent="."]
+position = Vector2(176.5, 1185)
+scale = Vector2(0.698, 0.724)
+texture = ExtResource("9_ucsfu")
+
+[node name="Sych1" type="Sprite2D" parent="."]
+position = Vector2(444, 1187)
+scale = Vector2(0.0898438, 0.0902099)
+texture = ExtResource("10_jbojw")
+
 [connection signal="button_down" from="Client" to="LoginWindow" method="_on_client_button_down"]
 [connection signal="button_down" from="Server" to="LoginWindow" method="_on_server_button_down"]
+[connection signal="button_down" from="About" to="LoginWindow" method="_on_server_button_down"]
+[connection signal="pressed" from="AuthorImage" to="LoginWindow" method="_on_author_image_pressed"]
+[connection signal="pressed" from="AuthorPopup/AuthorText/Button" to="LoginWindow" method="_on_close_button_pressed"]

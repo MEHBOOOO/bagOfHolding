@@ -4,7 +4,7 @@ extends Control
 @onready var class_input = $VBoxContainer/HBoxContainer/ClassInput
 @onready var description_input = $VBoxContainer/HBoxContainer2/DescriptionInput
 @onready var avatar_popup = $AvatarPopup
-@onready var avatar_grid = $AvatarPopup/AvatarGrid
+@onready var avatar_grid = $AvatarPopup/ScrollContainer/AvatarGrid
 @onready var save_button = $VBoxContainer/HBoxContainer3/SaveButton
 @onready var back_button = $VBoxContainer/HBoxContainer3/BackButton
 @onready var name_input = $VBoxContainer/HBoxContainer_Name/NameInput
@@ -45,7 +45,8 @@ func _on_save_pressed():
 		"name": name_input.text,
 		"avatar_id": selected_avatar_index,
 		"class": class_input.text,
-		"description": description_input.text
+		"description": description_input.text,
+		"lobby_id": lobby_id
 	}
 
 	NetworkManager.save_profile(user_id, lobby_id, data)

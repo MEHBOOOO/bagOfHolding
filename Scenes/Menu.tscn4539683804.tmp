@@ -1,19 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://bsb8mf0n0xjcn"]
+[gd_scene load_steps=13 format=3 uid="uid://bsb8mf0n0xjcn"]
 
 [ext_resource type="Script" uid="uid://4h3oldsvbsel" path="res://Scripts/menu.gd" id="1_3kf3n"]
 [ext_resource type="Texture2D" uid="uid://caqtiignyj1yj" path="res://Images/background.png" id="2_6pedr"]
 [ext_resource type="Texture2D" uid="uid://bqdtlusj1mr7t" path="res://Images/button3.png" id="3_s2c3o"]
 [ext_resource type="Texture2D" uid="uid://68ld57ho1wue" path="res://Images/button1.png" id="4_ma218"]
-[ext_resource type="Texture2D" uid="uid://m8um680nkoph" path="res://Images/information2.png" id="6_3jcrr"]
+[ext_resource type="Texture2D" uid="uid://dxulrilhrrplm" path="res://Images/бард.png" id="5_idohh"]
 [ext_resource type="Texture2D" uid="uid://b1ywh2gid2ry4" path="res://Images/information.png" id="6_wfhf6"]
-[ext_resource type="Texture2D" uid="uid://76jcqkcw0x6r" path="res://Images/gamedev1.png" id="7_3jcrr"]
-[ext_resource type="Texture2D" uid="uid://dd0x13dahmywy" path="res://Images/sych1.png" id="8_aobxe"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_idohh"]
-texture = ExtResource("3_s2c3o")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wfhf6"]
-texture = ExtResource("4_ma218")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3jcrr"]
 texture = ExtResource("3_s2c3o")
@@ -21,19 +13,17 @@ texture = ExtResource("3_s2c3o")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aobxe"]
 texture = ExtResource("4_ma218")
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_idohh"]
+texture = ExtResource("3_s2c3o")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wfhf6"]
+texture = ExtResource("4_ma218")
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ab40c"]
 texture = ExtResource("3_s2c3o")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sjh0l"]
 texture = ExtResource("4_ma218")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_idohh"]
-content_margin_top = 100.0
-bg_color = Color(0.0980392, 0.164706, 0.254902, 1)
-corner_radius_top_left = 100
-corner_radius_top_right = 100
-corner_radius_bottom_right = 100
-corner_radius_bottom_left = 100
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -43,6 +33,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3kf3n")
+
+[node name="ExitButton" type="Button" parent="."]
+offset_left = 111.0
+offset_top = 926.0
+offset_right = 622.0
+offset_bottom = 1051.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 60
+theme_override_styles/hover = SubResource("StyleBoxTexture_3jcrr")
+theme_override_styles/normal = SubResource("StyleBoxTexture_aobxe")
+text = "Выйти из игры"
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 show_behind_parent = true
@@ -61,12 +62,11 @@ text = "Сумка
 horizontal_alignment = 1
 
 [node name="ViewCharactersButton" type="Button" parent="."]
-visible = false
 layout_mode = 0
 offset_left = 88.0
-offset_top = 330.0
+offset_top = 370.0
 offset_right = 675.0
-offset_bottom = 467.0
+offset_bottom = 507.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 60
 theme_override_styles/hover = SubResource("StyleBoxTexture_idohh")
@@ -76,9 +76,9 @@ text = "Мой Персонажи"
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
 offset_left = 119.0
-offset_top = 479.0
+offset_top = 519.0
 offset_right = 630.0
-offset_bottom = 604.0
+offset_bottom = 644.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 60
 theme_override_styles/hover = SubResource("StyleBoxTexture_3jcrr")
@@ -88,26 +88,15 @@ text = "Комнаты"
 [node name="Lobby" type="Button" parent="."]
 layout_mode = 0
 offset_left = 84.0
-offset_top = 629.0
+offset_top = 669.0
 offset_right = 660.0
-offset_bottom = 891.0
+offset_bottom = 931.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 60
 theme_override_styles/hover = SubResource("StyleBoxTexture_ab40c")
 theme_override_styles/normal = SubResource("StyleBoxTexture_sjh0l")
 text = "Создать / 
 Присоединиться"
-
-[node name="ExitButton" type="Button" parent="."]
-offset_left = 113.0
-offset_top = 919.0
-offset_right = 624.0
-offset_bottom = 1044.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 60
-theme_override_styles/hover = SubResource("StyleBoxTexture_3jcrr")
-theme_override_styles/normal = SubResource("StyleBoxTexture_aobxe")
-text = "Выйти из игры"
 
 [node name="Label" type="Label" parent="."]
 visible = false
@@ -124,7 +113,6 @@ text = "Создано при
 horizontal_alignment = 1
 
 [node name="AuthorImage" type="TextureButton" parent="."]
-visible = false
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 1
 anchors_preset = 5
@@ -137,67 +125,34 @@ offset_bottom = 2666.0
 grow_horizontal = 2
 scale = Vector2(0.0911741, 0.0822248)
 texture_normal = ExtResource("6_wfhf6")
-texture_hover = ExtResource("6_3jcrr")
 stretch_mode = 0
 
 [node name="AuthorPopup" type="PopupPanel" parent="."]
-position = Vector2i(-40, 65)
-size = Vector2i(800, 1150)
-theme_override_styles/panel = SubResource("StyleBoxFlat_idohh")
+size = Vector2i(243, 100)
 
 [node name="AuthorText" type="Label" parent="AuthorPopup"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_top = 100.0
-offset_right = 800.0
-offset_bottom = 1150.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.962677, 0.902142)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 40
-text = "Создано при
- поддержке Gamedev Center и 
-клуба 
-Настольных игр 
-«Сычевальня»
-GameDev Center:
-Developers:
-DarkDeception-Erasyl
-MEHBOO-Bauyrzhan
-Designer:
-faēni-Adiya
-Game Designer:
-Sherkhan
-Сычевальня:
-Game Designer:
-Dark_Sword-Arman"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="AuthorPopup/AuthorText"]
 offset_left = 4.0
-offset_top = -105.0
-offset_right = 822.0
-offset_bottom = 1167.0
+offset_top = 4.0
+offset_right = 239.0
+offset_bottom = 96.0
+text = "Создано при
+ поддержке клуба 
+Настольных игр 
+«Сычевальня» и Gamedev Center"
+
+[node name="Бард" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(664, 1177)
+texture = ExtResource("5_idohh")
+
+[node name="Button" type="Button" parent="Бард"]
+offset_left = -34.0
+offset_top = -31.0
+offset_right = 36.0
+offset_bottom = 37.0
 flat = true
 
-[node name="Gamedev1" type="Sprite2D" parent="."]
-position = Vector2(238, 1185)
-scale = Vector2(0.81, 0.724)
-texture = ExtResource("7_3jcrr")
-
-[node name="Sych1" type="Sprite2D" parent="."]
-position = Vector2(564, 1190)
-scale = Vector2(0.106934, 0.0902099)
-texture = ExtResource("8_aobxe")
-
+[connection signal="pressed" from="ExitButton" to="." method="_on_ExitButton_pressed"]
 [connection signal="button_down" from="ViewCharactersButton" to="." method="_on_profile_button_down"]
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
 [connection signal="button_down" from="Lobby" to="." method="_on_lobby_button_down"]
-[connection signal="pressed" from="ExitButton" to="." method="_on_ExitButton_pressed"]
-[connection signal="pressed" from="AuthorImage" to="." method="_on_author_image_pressed"]
-[connection signal="pressed" from="AuthorPopup/AuthorText/Button" to="." method="_on_close_button_pressed"]
