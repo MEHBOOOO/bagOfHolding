@@ -39,14 +39,8 @@ func _process(delta):
 			if data.message == Message.Message.SaveProfile:
 				handle_save_profile(data)
 
-			if data.message == Message.Message.LoadProfile:
-				handle_load_profile(data)
-
 			if data.message == Message.Message.SaveInventory:
 				handle_save_inventory(data)
-
-			if data.message == Message.Message.LoadInventory:
-				handle_load_inventory(data)
 
 			if data.message ==  Message.Message.lobby:
 				JoinLobby(data)
@@ -88,6 +82,10 @@ func _process(delta):
 				handle_kick_participant(data)
 			if data.message == Message.Message.deleteItem:
 				handle_delete_item(data)
+			if data.message == Message.Message.LoadProfile:
+				handle_load_profile(data)
+			if data.message == Message.Message.LoadInventory:
+				handle_load_inventory(data)
 	pass
 
 func handle_delete_item(data: Dictionary):

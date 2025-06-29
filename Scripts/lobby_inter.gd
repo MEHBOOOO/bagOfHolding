@@ -183,45 +183,63 @@ func _on_delete_item_pressed(item_id: int) -> void:
 func _on_participant_selected(user_id: int, name: String) -> void:
 	print("▶️ Выбран участник: %s (ID: %d)" % [name, user_id])
 	selected_user_id = user_id
-	
 	inventory_container.get_children().map(func(c): c.queue_free())
 	admin_container.visible = false
 	
-	pending_profile_data = {}
-	pending_inventory_data = []
-	waiting_for_inventory = true
-	
-	# Request both profile and inventory
 	NetworkManager.request_profile_for_user(user_id, GameManager.current_lobby_id)
 	NetworkManager.request_inventory(user_id, GameManager.current_lobby_id)
 
 
-func _on_profile_data_received(data: Dictionary):
-	var received_user_id = int(data.get("user_id", -1))
+func _on_profile_data_received(user_id: int, profile_data: Dictionary):
+	if user_id != selected_user_id: return
 	
-	if received_user_id != selected_user_id:
-		return
+	# Update profile UI
+	profile_name_label.text = "Имя: %s" % profile_data.get("name", "Unknown")
+	profile_class_label.text = "Класс: %s" % profile_data.get("class", "Не указан")
+	profile_description_label.text = "Описание: %s" % profile_data.get("description", "–")
 	
-	print("✅ Профиль получен: ", data.get("profile", {}))
-	#pending_profile_data = data
-	pending_profile_data = data.get("profile", {})  # ❗ Только сам профиль
+	# Set avatar
+	var avatar_id = profile_data.get("avatar_id", 0)
+	if avatar_id >= 0 and avatar_id < avatar_textures.size():
+		profile_avatar_button.texture_normal = avatar_textures[avatar_id]
 	
-	# Show popup only if we have both datasets or if we're not waiting for inventory
-	if !waiting_for_inventory || !pending_inventory_data.is_empty():
-		_show_profile_with_inventory()
+	# Show profile immediately
+	profile_popup.popup_centered()
 
 func _on_inventory_data_received(user_id: int, items: Array):
-	if user_id != selected_user_id:
-		return
-		
-	print("📦 Инвентарь получен для: ", user_id)
-	pending_inventory_data = items
-	waiting_for_inventory = false
+	if user_id != selected_user_id: return
 	
-	# Show popup only if we have profile data
-	if !pending_profile_data.is_empty():
-		_show_profile_with_inventory()
-
+	# Update inventory UI
+	for child in inventory_container.get_children():
+		child.queue_free()
+	
+	var title = Label.new()
+	title.text = "Инвентарь:"
+	title.add_theme_font_size_override("font_size", 16)
+	inventory_container.add_child(title)
+	
+	if items.size() == 0:
+		var empty_label = Label.new()
+		empty_label.text = "Пусто"
+		inventory_container.add_child(empty_label)
+	else:
+		for item in items:
+			var hbox = HBoxContainer.new()
+			var item_label = Label.new()
+			item_label.text = "• " + item.get("name", "Безымянный предмет")
+			hbox.add_child(item_label)
+			
+			var delete_button = Button.new()
+			delete_button.text = "Удалить"
+			delete_button.connect("pressed", _on_delete_item_pressed.bind(item["id"]))
+			hbox.add_child(delete_button)
+			
+			inventory_container.add_child(hbox)
+	
+	var is_admin = (current_user_id == host_id)
+	var not_viewing_self = (selected_user_id != current_user_id)
+	var not_viewing_host = (selected_user_id != host_id)
+	admin_container.visible = is_admin && not_viewing_self && not_viewing_host
 
 func _show_profile_with_inventory() -> void:
 	# Only admins should see the inventory

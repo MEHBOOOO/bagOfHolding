@@ -11,12 +11,11 @@ signal lobby_created(lobby_id)
 signal lobbies_received(lobbies)
 signal participant_update_received(participants_data)
 signal player_disconnected()
-signal profile_data_received(profile_data)  
 signal profile_save_completed(success)  
 signal profiles_list_received(profiles) 
 signal kicked_from_lobby(reason)
-signal inventory_data_received(user_id, items)
-
+signal profile_data_received(user_id, profile_data)  # For profile data
+signal inventory_data_received(user_id, items) 
 var peer = WebSocketMultiplayerPeer.new()
 var id = 0
 var rtcPeer : WebRTCMultiplayerPeer = WebRTCMultiplayerPeer.new()
@@ -176,15 +175,15 @@ func _process(delta):
 				player_disconnected.emit()
 				
 			if data.message == Message.Message.LoadProfile:
-				emit_signal("profile_data_received", {
-					"user_id": data.get("user_id", -1),
-					"lobby_id": data.get("lobby_id", ""),
-					# Map root-level fields to profile
-					"name": data.get("name", ""),
-					"avatar_id": data.get("avatar_id", 0),
-					"class": data.get("class", ""),
-					"description": data.get("description", "")
-				})
+				emit_signal("profile_data_received", 
+					data.get("user_id", -1), 
+					{
+						"name": data.get("name", ""),
+						"avatar_id": data.get("avatar_id", 0),
+						"class": data.get("class", ""),
+						"description": data.get("description", "")
+					}
+				)
 				
 			if data.message == Message.Message.SaveProfile:
 				emit_signal("profile_save_completed", data.get("success", false))

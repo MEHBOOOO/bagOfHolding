@@ -113,10 +113,6 @@ func _on_lobbies_received(lobbies: Array):
 		add_lobby_card(lobby)
 
 func add_lobby_card(lobby: Dictionary):
-	# Skip if lobby doesn't have a name
-	if not lobby.get("lobby_name"):
-		return
-		
 	# Create main card container
 	var card = PanelContainer.new()
 	card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
