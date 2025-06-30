@@ -64,7 +64,7 @@ offset_top = 234.0
 offset_right = 547.0
 offset_bottom = 320.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = SubResource("StyleBoxTexture_x76ax")
 
 [node name="Password" type="LineEdit" parent="."]
@@ -74,7 +74,7 @@ offset_top = 346.0
 offset_right = 556.0
 offset_bottom = 434.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = SubResource("StyleBoxTexture_lrxm7")
 secret = true
 

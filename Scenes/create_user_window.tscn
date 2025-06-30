@@ -35,9 +35,10 @@ texture = ExtResource("1_0t0wf")
 texture = ExtResource("3_nyv3c")
 
 [node name="Create User Window" type="Panel"]
-offset_top = 93.0
-offset_right = 718.0
-offset_bottom = 520.0
+offset_left = -68.0
+offset_top = 90.0
+offset_right = 600.0
+offset_bottom = 506.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_f1ml2")
 script = ExtResource("1_4v6tb")
 
@@ -47,10 +48,10 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_left = 214.0
 offset_top = 40.0
-offset_right = -207.0
-offset_bottom = 109.0
+offset_right = -170.0
+offset_bottom = 101.0
 grow_horizontal = 2
-theme_override_font_sizes/normal_font_size = 45
+theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
 text = "Регистрация"
 
