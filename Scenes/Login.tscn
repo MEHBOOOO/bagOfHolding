@@ -147,6 +147,6 @@ scale = Vector2(0.0898438, 0.0902099)
 texture = ExtResource("10_jbojw")
 
 [connection signal="button_down" from="Server" to="LoginWindow" method="_on_server_button_down"]
-[connection signal="button_down" from="About" to="LoginWindow" method="_on_server_button_down"]
+[connection signal="button_down" from="About" to="LoginWindow" method="_on_about_button_down"]
 [connection signal="pressed" from="AuthorImage" to="LoginWindow" method="_on_author_image_pressed"]
 [connection signal="pressed" from="AuthorPopup/AuthorText/Button" to="LoginWindow" method="_on_close_button_pressed"]

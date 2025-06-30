@@ -13,10 +13,11 @@ func _on_join_lobby_button_down() -> void:
 
 func join_lobby(lobby_name: String):
 	var message = {
-		"message": Message.Message.lobby,  # Ensure this is the correct enum value
-		"name": "",  # Should ideally be the player's name
+		"message": Message.Message.lobby,
+		"name": "", 
 		"lobbyValue": lobby_name,
-		"orgPeer": int(NetworkManager.id)  # Convert to integer
+		"orgPeer": int(NetworkManager.id),
+		"user_id": GameManager.current_user_id  # Add this
 	}
 	NetworkManager.peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 

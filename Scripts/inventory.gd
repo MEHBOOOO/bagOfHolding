@@ -107,14 +107,26 @@ func update_grid() -> void:
 		var label = slot.find_child("Name", true, false)
 		
 		if label:
+			# Correct text handling for Godot 4
+			label.autowrap_mode = TextServer.AUTOWRAP_OFF
+			label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+			label.clip_text = true  # Add this to prevent text overflow
+			
 			if item_index < Items.size():
 				var item = Items[item_index]
-				label.text = item["name"]
-				# Add tooltip with description
+				var full_name = item["name"]
+				
+				# Set truncated text in label
+				label.text = full_name
+				
+				# Create tooltip with full name + description
+				var tooltip_text = full_name
 				if item.has("description") and item["description"] != "":
-					label.tooltip_text = item["description"]
+					tooltip_text += "\n\n" + item["description"]
 				else:
-					label.tooltip_text = "No description"
+					tooltip_text += "\n\nNo description"
+				
+				label.tooltip_text = tooltip_text
 			else:
 				label.text = "Empty"
 				label.tooltip_text = ""

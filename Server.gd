@@ -219,6 +219,13 @@ func peer_disconnected(id):
 	users.erase(id)
 	pass
 
+func is_user_in_lobby(lobby_id: String, user_id: int) -> bool:
+	if lobbies.has(lobby_id):
+		for peer_id in lobbies[lobby_id].Players:
+			var player_data = lobbies[lobby_id].Players.get(peer_id, {})
+			if player_data is Dictionary and player_data.get("user_id", -1) == user_id:
+				return true
+	return false
 
 func JoinLobby(user):
 	var peer_id = user.orgPeer
@@ -229,7 +236,9 @@ func JoinLobby(user):
 		return
 	
 	var user_id = user_sessions[peer_id]
-	
+	if is_user_in_lobby(lobby_id, user_id):
+		print("User already in lobby: ", user_id)
+		return
 	if not dao.add_participant(lobby_id, user_id, false):
 		push_error("Failed to add participant to DB")
 		return

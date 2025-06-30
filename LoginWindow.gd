@@ -54,3 +54,7 @@ func _on_server_button_down() -> void:
 
 func _on_author_image_gui_input(event: InputEvent) -> void:
 	pass # Replace with function body.
+
+
+func _on_about_button_down(event: InputEvent) -> void:
+	pass # Replace with function body.

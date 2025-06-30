@@ -217,29 +217,33 @@ func _on_inventory_data_received(user_id: int, items: Array):
 	title.text = "Инвентарь:"
 	title.add_theme_font_size_override("font_size", 16)
 	inventory_container.add_child(title)
-	
-	if items.size() == 0:
-		var empty_label = Label.new()
-		empty_label.text = "Пусто"
-		inventory_container.add_child(empty_label)
-	else:
-		for item in items:
-			var hbox = HBoxContainer.new()
-			var item_label = Label.new()
-			item_label.text = "• " + item.get("name", "Безымянный предмет")
-			hbox.add_child(item_label)
-			
-			var delete_button = Button.new()
-			delete_button.text = "Удалить"
-			delete_button.connect("pressed", _on_delete_item_pressed.bind(item["id"]))
-			hbox.add_child(delete_button)
-			
-			inventory_container.add_child(hbox)
-	
 	var is_admin = (current_user_id == host_id)
 	var not_viewing_self = (selected_user_id != current_user_id)
 	var not_viewing_host = (selected_user_id != host_id)
 	admin_container.visible = is_admin && not_viewing_self && not_viewing_host
+	if is_admin:
+		if items.size() == 0:
+			var empty_label = Label.new()
+			empty_label.text = "Пусто"
+			inventory_container.add_child(empty_label)
+		else:
+			for item in items:
+				var hbox = HBoxContainer.new()
+				var item_label = Label.new()
+				item_label.text = "• " + item.get("name", "Безымянный предмет")
+				if item.has("description") and not item["description"].is_empty():# ВОТ ЭТО Я ДОБАВИЛ
+					item_label.text += " - " + item["description"] # ВОТ ЭТО Я ДОБАВИЛ
+				hbox.add_child(item_label)
+				
+				
+				var delete_button = Button.new()
+				delete_button.text = "Удалить"
+				delete_button.connect("pressed", _on_delete_item_pressed.bind(item["id"]))
+				hbox.add_child(delete_button)
+				
+				inventory_container.add_child(hbox)
+	
+
 
 func _show_profile_with_inventory() -> void:
 	# Only admins should see the inventory

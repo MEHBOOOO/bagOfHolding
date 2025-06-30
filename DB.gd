@@ -122,12 +122,16 @@ func get_lobby_host(lobby_id: String) -> int:
 	return -1
 
 func add_participant(lobby_id: String, user_id: int, is_host: bool) -> bool:
+	var query = "SELECT 1 FROM lobby_participants WHERE lobby_id = ? AND user_id = ?"
+	if db.query_with_bindings(query, [lobby_id, user_id]) and db.query_result.size() > 0:
+		return true
 	var data = {
 		"lobby_id": lobby_id,
 		"user_id": user_id,
 		"is_host": is_host,
 		"joined_at": Time.get_datetime_string_from_system()
 	}
+	
 	return db.insert_row("lobby_participants", data)
 
 func remove_participant(lobby_id: String, user_id: int) -> bool:
