@@ -1,24 +1,14 @@
-[gd_scene load_steps=17 format=3 uid="uid://bcfl5ohsaxsnd"]
+[gd_scene load_steps=13 format=3 uid="uid://bcfl5ohsaxsnd"]
 
 [ext_resource type="PackedScene" uid="uid://x5p7woqk4vns" path="res://Scenes/login_window.tscn" id="1_leum0"]
 [ext_resource type="PackedScene" uid="uid://3jb71hvd25uu" path="res://Scenes/create_user_window.tscn" id="2_767d8"]
 [ext_resource type="Texture2D" uid="uid://68ld57ho1wue" path="res://Images/button1.png" id="3_bhoxy"]
-[ext_resource type="FontFile" uid="uid://c388nasjg4ct5" path="res://1papyrus.ttf" id="3_xklxs"]
 [ext_resource type="Texture2D" uid="uid://caqtiignyj1yj" path="res://Images/background.png" id="4_1baen"]
 [ext_resource type="Texture2D" uid="uid://bqdtlusj1mr7t" path="res://Images/button3.png" id="5_a6huy"]
 [ext_resource type="Texture2D" uid="uid://b1ywh2gid2ry4" path="res://Images/information.png" id="7_g1u07"]
 [ext_resource type="Texture2D" uid="uid://m8um680nkoph" path="res://Images/information2.png" id="8_sgmcn"]
 [ext_resource type="Texture2D" uid="uid://76jcqkcw0x6r" path="res://Images/gamedev1.png" id="9_ucsfu"]
 [ext_resource type="Texture2D" uid="uid://dd0x13dahmywy" path="res://Images/sych1.png" id="10_jbojw"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a6huy"]
-texture = ExtResource("3_bhoxy")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sgmcn"]
-texture = ExtResource("5_a6huy")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7p2kr"]
-texture = ExtResource("3_bhoxy")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ucsfu"]
 texture = ExtResource("5_a6huy")
@@ -50,35 +40,11 @@ offset_right = 466.0
 offset_bottom = 348.0
 CreateUserWindow = ExtResource("2_767d8")
 
-[node name="Text" type="Label" parent="LoginWindow"]
-layout_mode = 0
-offset_left = 108.0
-offset_top = 351.0
-offset_right = 479.0
-offset_bottom = 437.0
-theme_override_font_sizes/font_size = 25
-theme_override_styles/normal = SubResource("StyleBoxTexture_a6huy")
-text = "not running"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Client" type="Button" parent="."]
-offset_left = 133.0
-offset_top = 638.0
-offset_right = 597.0
-offset_bottom = 742.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("3_xklxs")
-theme_override_font_sizes/font_size = 50
-theme_override_styles/hover = SubResource("StyleBoxTexture_sgmcn")
-theme_override_styles/normal = SubResource("StyleBoxTexture_7p2kr")
-text = "START CLIENT"
-
 [node name="Server" type="Button" parent="."]
-offset_left = 134.0
-offset_top = 764.0
-offset_right = 596.0
-offset_bottom = 866.0
+offset_left = 622.0
+offset_top = 830.0
+offset_right = 1084.0
+offset_bottom = 932.0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 theme_override_styles/hover = SubResource("StyleBoxTexture_ucsfu")
@@ -99,10 +65,10 @@ text = "Создано при
 horizontal_alignment = 1
 
 [node name="About" type="Button" parent="."]
-offset_left = 132.0
-offset_top = 888.0
-offset_right = 594.0
-offset_bottom = 990.0
+offset_left = 127.0
+offset_top = 950.0
+offset_right = 589.0
+offset_bottom = 1052.0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 theme_override_styles/hover = SubResource("StyleBoxTexture_ucsfu")
@@ -180,7 +146,6 @@ position = Vector2(444, 1187)
 scale = Vector2(0.0898438, 0.0902099)
 texture = ExtResource("10_jbojw")
 
-[connection signal="button_down" from="Client" to="LoginWindow" method="_on_client_button_down"]
 [connection signal="button_down" from="Server" to="LoginWindow" method="_on_server_button_down"]
 [connection signal="button_down" from="About" to="LoginWindow" method="_on_server_button_down"]
 [connection signal="pressed" from="AuthorImage" to="LoginWindow" method="_on_author_image_pressed"]

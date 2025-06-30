@@ -33,6 +33,7 @@ func _ready():
 	login_requested.connect(_on_login_requested)
 	create_user_requested.connect(_on_create_user_requested)
 	load_inventory.connect(_on_load_inventory_requested) 
+	connectToServer("")
 	pass # Replace with function body.
 
 func _on_login_requested(email, password):

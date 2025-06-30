@@ -7,7 +7,6 @@ signal CreateUser(email, user, password)
 
 func _ready():
 	NetworkManager.login_failed.connect(SetSystemErrorLabel)
-	NetworkManager.player_info_received.connect(_on_player_info_received)
 	
 	#if $AuthorPopup.has_node("CloseButton"):
 		#$AuthorPopup/CloseButton.connect("pressed", Callable(self, "_on_close_button_pressed"))
@@ -22,8 +21,7 @@ func _on_author_image_pressed():
 func _on_close_button_pressed():
 	$AuthorPopup.hide()
 			
-func _on_player_info_received(info):
-	$RichTextLabel3.text = "Logged in as: "
+
 
 func _on_cancel_button_down():
 	queue_free()
@@ -49,16 +47,9 @@ func _on_client_button_down() -> void:
 	NetworkManager._on_start_client_button_down()
 	pass # Replace with function body.
 
-@onready var status_label = $Text 
 
 func _on_server_button_down() -> void:
-
-	
-	if Server.StartServer():
-		status_label.text = "Server: Running on port 8915"
-	else:
-		status_label.text = "Server: Failed to start (error %d)"
-	pass # Replace with function body.
+	Server.StartServer()
 
 
 func _on_author_image_gui_input(event: InputEvent) -> void:

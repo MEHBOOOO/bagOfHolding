@@ -38,41 +38,41 @@ script = ExtResource("1_5pr1c")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 layout_mode = 0
-offset_left = 55.0
-offset_top = 60.0
-offset_right = 253.0
-offset_bottom = 139.0
+offset_left = -8.0
+offset_top = 234.0
+offset_right = 224.0
+offset_bottom = 330.0
 theme_override_fonts/normal_font = ExtResource("2_to1eu")
-theme_override_font_sizes/normal_font_size = 50
+theme_override_font_sizes/normal_font_size = 60
 text = "Email"
 horizontal_alignment = 1
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="."]
 layout_mode = 0
-offset_left = 41.0
-offset_top = 130.0
-offset_right = 278.0
-offset_bottom = 204.0
+offset_left = -2.0
+offset_top = 367.0
+offset_right = 235.0
+offset_bottom = 441.0
 theme_override_fonts/normal_font = ExtResource("2_to1eu")
 theme_override_font_sizes/normal_font_size = 50
 text = "Password"
 
 [node name="email" type="TextEdit" parent="."]
 layout_mode = 0
-offset_left = 290.0
-offset_top = 60.0
+offset_left = 267.0
+offset_top = 234.0
 offset_right = 547.0
-offset_bottom = 117.0
+offset_bottom = 320.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxTexture_x76ax")
 
 [node name="Password" type="LineEdit" parent="."]
 layout_mode = 0
-offset_left = 290.0
-offset_top = 128.0
-offset_right = 547.0
-offset_bottom = 185.0
+offset_left = 253.0
+offset_top = 346.0
+offset_right = 556.0
+offset_bottom = 434.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxTexture_lrxm7")
@@ -80,10 +80,10 @@ secret = true
 
 [node name="CreateUser" type="Button" parent="."]
 layout_mode = 0
-offset_left = 314.0
-offset_top = 4.0
-offset_right = 547.0
-offset_bottom = 55.0
+offset_left = 280.0
+offset_top = 126.0
+offset_right = 533.0
+offset_bottom = 203.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 25
 theme_override_styles/hover = SubResource("StyleBoxTexture_t3cvr")
@@ -92,30 +92,21 @@ text = "Create New User"
 
 [node name="Login" type="Button" parent="."]
 layout_mode = 0
-offset_left = 112.0
-offset_top = 202.0
-offset_right = 444.0
-offset_bottom = 294.0
+offset_left = 97.0
+offset_top = 493.0
+offset_right = 458.0
+offset_bottom = 622.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 theme_override_styles/hover = SubResource("StyleBoxTexture_quhaw")
 theme_override_styles/normal = SubResource("StyleBoxTexture_u6e6u")
 text = "Login"
 
-[node name="RichTextLabel3" type="RichTextLabel" parent="."]
-layout_mode = 0
-offset_left = 2.0
-offset_top = 128.0
-offset_right = 391.0
-offset_bottom = 151.0
-theme_override_colors/default_color = Color(0.913725, 0, 0.152941, 1)
-bbcode_enabled = true
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 show_behind_parent = true
-position = Vector2(294.256, 152.279)
+position = Vector2(290.189, 347.644)
 rotation = 0.00834062
-scale = Vector2(0.163385, 0.247063)
+scale = Vector2(0.168563, 0.453466)
 texture = ExtResource("4_quhaw")
 
 [connection signal="button_down" from="CreateUser" to="." method="_on_create_user_button_down"]
