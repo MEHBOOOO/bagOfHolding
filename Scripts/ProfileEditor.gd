@@ -28,8 +28,7 @@ func _ready():
 		btn.pressed.connect(_on_avatar_selected.bind(i))
 
 	# Connect profile data signal
-	if not NetworkManager.profile_data_received.is_connected(_on_profile_loaded):
-		NetworkManager.profile_data_received.connect(_on_profile_loaded)
+	NetworkManager.profile_data_received.connect(_on_profile_loaded)
 
 	# Request profile (will load asynchronously via signal)
 	
@@ -66,8 +65,8 @@ func _on_save_pressed():
 	NetworkManager.save_profile(user_id, lobby_id, data)
 	print("💾 Saving profile for lobby: ", lobby_id)
 
-func _on_profile_loaded(profile_data: Dictionary):
-	if profile_data.get("user_id") != user_id:
+func _on_profile_loaded(received_user_id: int, profile_data: Dictionary) -> void:
+	if received_user_id != user_id:
 		return
 	
 	print("📥 Received profile data: ", profile_data)
