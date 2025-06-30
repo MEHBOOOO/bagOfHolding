@@ -32,6 +32,8 @@ func _ready():
 		NetworkManager.profile_data_received.connect(_on_profile_loaded)
 
 	# Request profile (will load asynchronously via signal)
+	
+	lobby_id = GameManager.current_lobby_id  # Ensure this is set correctly
 	NetworkManager.request_profile_for_user(user_id, lobby_id)
 	
 	# Set default avatar immediately
@@ -55,14 +57,14 @@ func _on_avatar_selected(index: int):
 func _on_save_pressed():
 	var data = {
 		"name": name_input.text,
-		"avatar_id": selected_avatar_index,
+		"avatar_id": selected_avatar_index,  # Use avatar_id instead of index
 		"class": class_input.text,
-		"description": description_input.text,
-		"lobby_id": lobby_id
+		"description": description_input.text
 	}
 
+	# Save with current lobby_id
 	NetworkManager.save_profile(user_id, lobby_id, data)
-	print("✅ Профиль сохранён для пользователя ID:", user_id)
+	print("💾 Saving profile for lobby: ", lobby_id)
 
 func _on_profile_loaded(profile_data: Dictionary):
 	if profile_data.get("user_id") != user_id:

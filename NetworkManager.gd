@@ -354,13 +354,21 @@ func _on_load_inventory_requested():
 	request_inventory(current_user_id, GameManager.current_lobby_id)
 
 func save_profile(user_id: int, lobby_id: String, profile_data: Dictionary):
+	var data = {
+		"name": profile_data.get("name", ""),
+		"avatar_id": profile_data.get("avatar_id", 0),
+		"class": profile_data.get("class", ""),
+		"description": profile_data.get("description", ""),
+		"lobby_id": lobby_id  # Critical for per-lobby profiles
+	}
+
 	var message = {
 		"peer": id,
 		"orgPeer": id,
 		"message": Message.Message.SaveProfile,
 		"user_id": user_id,
 		"lobby_id": lobby_id,
-		"profile": profile_data
+		"profile": data
 	}
 	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 	print("💾 Saving profile for user:%s lobby:%s" % [user_id, lobby_id])

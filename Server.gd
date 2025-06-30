@@ -438,9 +438,22 @@ func handle_save_profile(data: Dictionary):
 	var user_id = data.get("user_id")
 	var lobby_id = data.get("lobby_id")
 	var profile = data.get("profile", {})
-
+	
+	# Add lobby_id to profile data for validation
+	profile["lobby_id"] = lobby_id
+	
 	var success = dao.save_profile(user_id, lobby_id, profile)
-	print("✅ SaveProfile: ", success)
+	print("💾 SaveProfile: ", success)
+	
+	# Send response back to client
+	var response = {
+		"message": Message.Message.SaveProfile,
+		"success": success,
+		"user_id": user_id,
+		"lobby_id": lobby_id,
+		"orgPeer": data.get("orgPeer", -1)
+	}
+	SendToPlayer(data.get("orgPeer", -1), response)
 
 
 func handle_save_inventory(data: Dictionary):

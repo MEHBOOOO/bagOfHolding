@@ -68,12 +68,26 @@ func _init():
 		"lobby_id": {"data_type":"text", "not_null":true}
 	}
 	
-	var profiles_schema = {
-	"user_id": {"data_type": "int", "not_null": true},
-	"lobby_id": {"data_type": "text", "not_null": true},
-	"profile_json": {"data_type": "text", "not_null": true}
-}
 	
+	
+	var profiles_schema = {
+		"user_id": {"data_type": "int", "not_null": true},
+		"lobby_id": {"data_type": "text", "not_null": true},
+		"profile_json": {"data_type": "text", "not_null": true}
+	}
+	
+	
+	var create_query = """
+	CREATE TABLE profiles (
+		user_id INTEGER NOT NULL,
+		lobby_id TEXT NOT NULL,
+		profile_json TEXT NOT NULL,
+		PRIMARY KEY (user_id, lobby_id)
+	)
+	"""
+
+	if not db.query(create_query):
+		push_error("Failed to create profiles table: " + db.error_message)
 	var lobby_participants_schema = {
 		"lobby_id": {
 			"data_type": "text", 
@@ -280,16 +294,12 @@ func save_profile(user_id: int, lobby_id: String, profile: Dictionary) -> bool:
 		printerr("JSON serialization failed for profile: ", profile)
 		return false
 	
-	var query = "INSERT OR REPLACE INTO profiles (user_id, lobby_id, profile_json) VALUES (?, ?, ?)"
+	var query = """
+	INSERT OR REPLACE INTO profiles (user_id, lobby_id, profile_json)
+	VALUES (?, ?, ?)
+	"""
 	
-	db.query_with_bindings(query, [user_id, lobby_id, json])
-	
-	# Check for errors AFTER execution
-	if db.error_message != "" && db.error_message != "not an error":
-		printerr("DB Error: ", db.error_message)
-		return false
-		
-	return true
+	return db.query_with_bindings(query, [user_id, lobby_id, json])
 
 func load_profile(user_id: int, lobby_id: String) -> Dictionary:
 	var query = "SELECT profile_json FROM profiles WHERE user_id = ? AND lobby_id = ?"
@@ -297,16 +307,9 @@ func load_profile(user_id: int, lobby_id: String) -> Dictionary:
 	
 	if db.query_result.size() > 0:
 		var json = db.query_result[0]["profile_json"]
-		var profile = JSON.parse_string(json)
-		if profile is Dictionary:
-			return profile
+		return JSON.parse_string(json)
 	
-	return {
-		"name": "",
-		"avatar_id": 0,
-		"class": "",
-		"description": ""
-	}
+	return {}
 
 func delete_item(item_id: int, user_id: int, lobby_id: String) -> bool:
 	var query = "DELETE FROM items WHERE id = ? AND user_id = ? AND lobby_id = ?"
