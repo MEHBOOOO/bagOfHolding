@@ -41,8 +41,8 @@ text = "didn't start"
 [node name="Sprite2D" type="Sprite2D" parent="."]
 show_behind_parent = true
 z_index = -2
-position = Vector2(445, 859)
-scale = Vector2(0.534173, 0.776079)
+position = Vector2(342.5, 549.5)
+scale = Vector2(0.561751, 0.746852)
 texture = ExtResource("2_k5gp2")
 
 [connection signal="button_down" from="inventory/Button" to="inventory" method="_on_button_button_down"]

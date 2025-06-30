@@ -1,9 +1,9 @@
 extends Node2D
 
 const ITEM_SLOT = preload("res://Scenes/item_slot.tscn")
-@export var grid_rows: int = 3
-@export var grid_columns: int = 3
-@export var slot_size: Vector2 = Vector2(100, 100)
+@export var grid_rows: int = 5
+@export var grid_columns: int = 2
+@export var slot_size: Vector2 = Vector2(200, 200)
 
 var Items: Array = []
 var current_page: int = 0
@@ -31,21 +31,67 @@ func create_inventory_grid() -> void:
 			slot.position = pos
 			slots.append(slot)
 			add_child(slot)
-
 func create_navigation_buttons() -> void:
+	# Load textures
+	var prev_texture = preload("res://Images/button1.png")
+	var next_texture = preload("res://Images/button1.png")
+	var pointed_texture = preload("res://Images/button3.png")
+
+	# Create normal style
+	var normal_style = StyleBoxTexture.new()
+	normal_style.texture = prev_texture
+	normal_style.expand_margin_left = 10
+	normal_style.expand_margin_right = 10
+	normal_style.expand_margin_top = 10
+	normal_style.expand_margin_bottom = 10
+
+	# Create hover style
+	var hover_style = normal_style.duplicate()
+	hover_style.texture = pointed_texture
+
+	# PREV BUTTON
 	prev_button = Button.new()
 	prev_button.text = "Prev"
 	prev_button.position = Vector2(0, grid_rows * slot_size.y + 20)
 	prev_button.pressed.connect(prev_page)
-	add_child(prev_button)
+	prev_button.add_theme_font_size_override("font_size", 30)
 	
+	# Text colors - BLACK normally, WHITE on hover/pressed
+	prev_button.add_theme_color_override("font_color", Color.BLACK)
+	prev_button.add_theme_color_override("font_pressed_color", Color.WHITE)  # White when pressed
+	prev_button.add_theme_color_override("font_hover_color", Color.WHITE)    # White when hovered
+	
+	# Apply styles
+	prev_button.add_theme_stylebox_override("normal", normal_style)
+	prev_button.add_theme_stylebox_override("hover", hover_style)
+	prev_button.add_theme_stylebox_override("pressed", hover_style)  # Use hover style when pressed too
+	
+	prev_button.custom_minimum_size = Vector2(150, 50)
+	add_child(prev_button)
+
+	# NEXT BUTTON
 	next_button = Button.new()
 	next_button.text = "Next"
 	next_button.position = Vector2(
-		grid_columns * slot_size.x - next_button.size.x, 
+		grid_columns * slot_size.x - 150,
 		grid_rows * slot_size.y + 20
 	)
 	next_button.pressed.connect(next_page)
+	next_button.add_theme_font_size_override("font_size", 30)
+	
+	# Text colors - Same as prev_button
+	next_button.add_theme_color_override("font_color", Color.BLACK)
+	next_button.add_theme_color_override("font_pressed_color", Color.WHITE)
+	next_button.add_theme_color_override("font_hover_color", Color.WHITE)
+	
+	# Apply styles
+	var next_normal_style = normal_style.duplicate()
+	next_normal_style.texture = next_texture
+	next_button.add_theme_stylebox_override("normal", next_normal_style)
+	next_button.add_theme_stylebox_override("hover", hover_style)
+	next_button.add_theme_stylebox_override("pressed", hover_style)
+	
+	next_button.custom_minimum_size = Vector2(150, 50)
 	add_child(next_button)
 	
 	update_button_states()
