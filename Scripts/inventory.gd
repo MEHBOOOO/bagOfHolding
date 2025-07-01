@@ -5,6 +5,11 @@ const ITEM_SLOT = preload("res://Scenes/item_slot.tscn")
 @export var grid_columns: int = 2
 @export var slot_size: Vector2 = Vector2(200, 200)
 
+@onready var item_popup = $ItemPopup
+@onready var item_name_label = $ItemPopup/VBoxContainer/ItemNameLabel
+@onready var item_description_label = $ItemPopup/VBoxContainer/ScrollContainer/ItemDescriptionLabel
+@onready var close_button = $ItemPopup/VBoxContainer/CloseButton
+
 var Items: Array = []
 var current_page: int = 0
 var slots: Array = []
@@ -14,6 +19,7 @@ var next_button: Button
 func _ready() -> void:
 	$Label.text = "started"
 	NetworkManager.inventory_data_received.connect(_on_inventory_data_received)
+	close_button.pressed.connect(func(): item_popup.hide())
 	position = get_viewport_rect().size / 2 - Vector2(
 		(grid_columns * slot_size.x) / 2,
 		(grid_rows * slot_size.y) / 2
@@ -100,41 +106,59 @@ func create_navigation_buttons() -> void:
 func update_grid() -> void:
 	var items_per_page = grid_rows * grid_columns
 	var start_index = current_page * items_per_page
-	
+
 	for i in range(slots.size()):
 		var item_index = start_index + i
 		var slot = slots[i]
 		var label = slot.find_child("Name", true, false)
-		
+
 		if label:
-			# Correct text handling for Godot 4
 			label.autowrap_mode = TextServer.AUTOWRAP_OFF
 			label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-			label.clip_text = true  # Add this to prevent text overflow
-			
+			label.clip_text = true
+
 			if item_index < Items.size():
 				var item = Items[item_index]
 				var full_name = item["name"]
-				
-				# Set truncated text in label
 				label.text = full_name
-				
-				# Create tooltip with full name + description
+
 				var tooltip_text = full_name
 				if item.has("description") and item["description"] != "":
 					tooltip_text += "\n\n" + item["description"]
 				else:
-					tooltip_text += "\n\nNo description"
-				
+					tooltip_text += "\n\nНет описания"
 				label.tooltip_text = tooltip_text
+
+				## Подключаем клик на слот
+				#if slot is Control:
+					#slot.mouse_filter = Control.MOUSE_FILTER_STOP
+					#if not slot.is_connected("gui_input", _on_slot_clicked):
+						#slot.connect("gui_input", _on_slot_clicked.bind(item))
+				var button = slot.get_node("ItemButton")  # путь к твоей кнопке внутри слота
+				if button and not button.is_connected("pressed", _on_slot_pressed):
+					button.pressed.connect(_on_slot_pressed.bind(item))
+
 			else:
 				label.text = "Empty"
 				label.tooltip_text = ""
 		else:
 			$Label.text = "label not found"
 			push_warning("Label not found in slot ", i)
-	
+
 	update_button_states()
+	
+func _on_slot_pressed(item: Dictionary) -> void:
+	print("Клик по предмету:", item)
+	item_name_label.text = "Название: " + item.get("name", "Безымянный предмет")
+	item_description_label.text = "Описание: " + item.get("description", "Нет описания")
+	item_popup.popup_centered()
+
+func _on_slot_clicked(event: InputEvent, item: Dictionary) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		item_name_label.text = "Название: " + item.get("name", "Безымянный предмет")
+		item_description_label.text = "Описание: " + item.get("description", "Нет описания")
+		item_popup.popup_centered()
+
 
 func update_button_states() -> void:
 	var total_pages = ceil(Items.size() / float(grid_rows * grid_columns))

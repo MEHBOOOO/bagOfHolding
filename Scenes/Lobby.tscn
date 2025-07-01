@@ -54,10 +54,10 @@ horizontal_alignment = 1
 
 [node name="JoinLobby" type="Button" parent="."]
 layout_mode = 0
-offset_left = 99.0
-offset_top = 447.0
-offset_right = 610.0
-offset_bottom = 572.0
+offset_left = 100.0
+offset_top = 590.0
+offset_right = 625.0
+offset_bottom = 717.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 theme_override_styles/hover = SubResource("StyleBoxTexture_vmftg")
@@ -66,10 +66,10 @@ text = "Присоединиться"
 
 [node name="Create" type="Button" parent="."]
 layout_mode = 0
-offset_left = 86.0
-offset_top = 595.0
-offset_right = 600.0
-offset_bottom = 732.0
+offset_left = 100.0
+offset_top = 450.0
+offset_right = 625.0
+offset_bottom = 587.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 theme_override_styles/hover = SubResource("StyleBoxTexture_gqa7q")
@@ -78,32 +78,33 @@ text = "Создать комнату"
 
 [node name="Lobby" type="LineEdit" parent="."]
 layout_mode = 0
-offset_left = 79.0
-offset_top = 869.0
-offset_right = 695.0
-offset_bottom = 981.0
+offset_left = 59.0
+offset_top = 893.0
+offset_right = 675.0
+offset_bottom = 1005.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxTexture_sup6t")
 
 [node name="lobbyname" type="LineEdit" parent="."]
 layout_mode = 0
-offset_left = 90.0
-offset_top = 750.0
-offset_right = 472.0
-offset_bottom = 836.0
+offset_left = 100.0
+offset_top = 736.0
+offset_right = 625.0
+offset_bottom = 863.0
 theme_override_colors/font_placeholder_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxTexture_sup6t")
-placeholder_text = "имя "
+placeholder_text = "Название для комнаты"
+alignment = 1
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
-offset_left = 267.0
+offset_left = 250.0
 offset_top = 1148.0
-offset_right = 508.0
-offset_bottom = 1243.0
+offset_right = 491.0
+offset_bottom = 1275.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 theme_override_styles/hover = SubResource("StyleBoxTexture_r753w")

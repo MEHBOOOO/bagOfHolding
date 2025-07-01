@@ -1,0 +1,74 @@
+[gd_scene load_steps=5 format=3 uid="uid://h2x6bovnxma6"]
+
+[ext_resource type="Texture2D" uid="uid://caqtiignyj1yj" path="res://Images/background.png" id="1_8rnfx"]
+[ext_resource type="Texture2D" uid="uid://68ld57ho1wue" path="res://Images/button1.png" id="1_j0t0u"]
+[ext_resource type="Script" uid="uid://ckyw3rvwdlcx2" path="res://LoginWindow.gd" id="1_mh4jx"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mh4jx"]
+texture = ExtResource("1_j0t0u")
+expand_margin_left = 49.0
+expand_margin_top = 740.0
+expand_margin_right = 123.0
+expand_margin_bottom = 370.0
+
+[node name="About" type="Node2D"]
+
+[node name="TextEdit" type="RichTextLabel" parent="."]
+offset_top = 4.0
+offset_right = 721.0
+offset_bottom = 1277.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 26
+theme_override_styles/normal = SubResource("StyleBoxTexture_mh4jx")
+text = "Добро пожаловать
+ в цифровой помощник для игры 
+Dungeons & Dragons (D&D)!
+
+Это приложение создано, 
+чтобы сделать игровой процесс более удобным
+и организованным как для игроков, 
+так и для ведущего (DM). 
+Вместо громоздких бумажных листов 
+персонажей и хаотичных заметок
+вы получаете удобный и интуитивный интерфейс для управления всем необходимым в одной системе.
+ Основные возможности:
+Создание и редактирование персонажей
+Введите имя, выберите класс, аватар и описание вашего героя. Вся информация хранится в одном месте и доступна в любой момент.
+
+Лобби и участники
+Просматривайте других игроков в лобби, открывайте их профили и узнавайте, с кем вы отправляетесь в приключение.
+
+Управление инвентарём
+Добавляйте, удаляйте и редактируйте предметы персонажа. Всё, что есть у вашего героя, под рукой в структурированном виде.
+
+Сохранение и загрузка данных
+Все данные сохраняются на сервере и синхронизируются между пользователями. Вы можете вернуться к своему персонажу в любое время."
+horizontal_alignment = 1
+
+[node name="Back" type="Button" parent="."]
+offset_top = 4.0
+offset_right = 722.0
+offset_bottom = 1283.0
+flat = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+show_behind_parent = true
+z_index = -2
+position = Vector2(430, 860)
+scale = Vector2(0.534173, 0.776079)
+texture = ExtResource("1_8rnfx")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -519.0
+offset_top = 420.0
+offset_right = -265.0
+offset_bottom = 518.333
+text = "Создано при поддержке 
+Gamedev Center
+и клуба 
+Настольных игр «Сычевальня»"
+
+[node name="Panel" type="Panel" parent="."]
+script = ExtResource("1_mh4jx")
+
+[connection signal="pressed" from="Back" to="Panel" method="_on_backLogin_button_pressed"]

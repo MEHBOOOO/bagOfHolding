@@ -19,7 +19,7 @@ func _on_author_image_pressed():
 		author_popup.popup_centered()
 		
 func _on_close_button_pressed():
-	$AuthorPopup.hide()
+	get_parent().get_node("AuthorPopup").hide()
 			
 
 
@@ -58,3 +58,9 @@ func _on_author_image_gui_input(event: InputEvent) -> void:
 
 func _on_about_button_down(event: InputEvent) -> void:
 	pass # Replace with function body.
+
+func _on_About_button_pressed():
+	get_tree().change_scene_to_file("res://Scenes/About.tscn")
+
+func _on_backLogin_button_pressed():
+	get_tree().change_scene_to_file("res://Scenes/Login.tscn")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dq1tykyo6h7f3"]
+[gd_scene load_steps=10 format=3 uid="uid://dq1tykyo6h7f3"]
 
 [ext_resource type="Script" uid="uid://bj7nsfx0kil6d" path="res://Scripts/inventory.gd" id="1_qw0r6"]
 [ext_resource type="Texture2D" uid="uid://bqdtlusj1mr7t" path="res://Images/button3.png" id="2_0n8tc"]
@@ -10,6 +10,15 @@ texture = ExtResource("2_0n8tc")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sd8fj"]
 texture = ExtResource("3_k1vlg")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0n8tc"]
+bg_color = Color(0.54902, 0.611765, 0.709804, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k1vlg"]
+texture = ExtResource("2_0n8tc")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0n8tc"]
+texture = ExtResource("2_0n8tc")
 
 [node name="main" type="Node2D"]
 
@@ -37,6 +46,39 @@ offset_top = 493.0
 offset_right = 1002.0
 offset_bottom = 568.0
 text = "didn't start"
+
+[node name="ItemPopup" type="PopupPanel" parent="inventory"]
+size = Vector2i(500, 605)
+theme_override_styles/panel = SubResource("StyleBoxFlat_0n8tc")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="inventory/ItemPopup"]
+offset_right = 500.0
+offset_bottom = 605.0
+
+[node name="ItemNameLabel" type="Label" parent="inventory/ItemPopup/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 35
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="inventory/ItemPopup/VBoxContainer"]
+custom_minimum_size = Vector2(300, 500)
+layout_mode = 2
+
+[node name="ItemDescriptionLabel" type="Label" parent="inventory/ItemPopup/VBoxContainer/ScrollContainer"]
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 35
+autowrap_mode = 3
+
+[node name="CloseButton" type="Button" parent="inventory/ItemPopup/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+theme_override_styles/hover = SubResource("StyleBoxTexture_k1vlg")
+theme_override_styles/normal = SubResource("StyleBoxTexture_0n8tc")
+text = "Закрыть"
+icon_alignment = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 show_behind_parent = true

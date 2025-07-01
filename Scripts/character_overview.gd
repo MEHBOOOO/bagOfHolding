@@ -49,20 +49,31 @@ func add_character_card(character_data: Dictionary):
 	avatar_btn.disabled = false
 
 	avatar_btn.pressed.connect(func():
+		var local_avatar_btn = avatar_btn  # сохранить ссылку
+		var local_character_data = character_data.duplicate(true)  # делаем копию
 		populate_avatar_popup(func(selected_id):
-			print("Выбран аватар:", selected_id)
-			avatar_btn.texture_normal = avatar_textures[selected_id]
-
-			# Обновляем и сохраняем профиль
-			character_data["avatar_id"] = selected_id
-			var profile_path = "user://profiles/%s_%s_profile.json" % [str(current_user_id), character_data["lobby_id"]]
+			print("✅ Выбран аватар:", selected_id)
+			local_avatar_btn.texture_normal = avatar_textures[selected_id]
+			
+			# Обновляем данные
+			local_character_data["avatar_id"] = selected_id
+			var profile_path = "user://profiles/%s_%s_profile.json" % [
+				str(current_user_id),
+				local_character_data["lobby_id"]
+			]
+			
 			var file = FileAccess.open(profile_path, FileAccess.WRITE)
 			if file:
-				file.store_string(JSON.stringify(character_data))
+				file.store_string(JSON.stringify(local_character_data))
 				file.close()
+				load_all_profiles()
+				print("💾 Сохранено:", profile_path)
+			else:
+				push_error("❌ Не удалось сохранить профиль")
 		)
 		avatar_popup.popup_centered(Vector2(300, 300))
 	)
+
 
 	hbox.add_child(avatar_btn)
 
@@ -96,6 +107,23 @@ func add_character_card(character_data: Dictionary):
 	hbox.add_child(btn)
 	character_list.add_child(hbox)
 
+#func populate_avatar_popup(on_avatar_selected: Callable):
+	#for child in avatar_grid.get_children():
+		#child.queue_free()
+#
+	#for i in range(avatar_textures.size()):
+		#var avatar_btn = TextureButton.new()
+		#avatar_btn.texture_normal = avatar_textures[i]
+		#avatar_btn.custom_minimum_size = Vector2(64, 64)
+#
+		#var index := i  # ✅ сохраняем индекс, чтобы не путался в замыкании
+#
+		#avatar_btn.pressed.connect(func():
+			#on_avatar_selected.call(index)
+			#avatar_popup.hide()
+		#)
+#
+		#avatar_grid.add_child(avatar_btn)
 func populate_avatar_popup(on_avatar_selected: Callable):
 	for child in avatar_grid.get_children():
 		child.queue_free()
@@ -104,11 +132,17 @@ func populate_avatar_popup(on_avatar_selected: Callable):
 		var avatar_btn = TextureButton.new()
 		avatar_btn.texture_normal = avatar_textures[i]
 		avatar_btn.custom_minimum_size = Vector2(64, 64)
-		avatar_btn.pressed.connect(func():
-			on_avatar_selected.call(i)
-			avatar_popup.hide()
-		)
+
+		# ✅ Используем bind
+		avatar_btn.pressed.connect(_on_avatar_selected.bind(i, on_avatar_selected))
+
 		avatar_grid.add_child(avatar_btn)
+
+# Обработчик выбора аватара
+func _on_avatar_selected(index: int, on_avatar_selected: Callable) -> void:
+	on_avatar_selected.call(index)
+	avatar_popup.hide()
+
 
 func load_all_profiles():
 	for child in character_list.get_children():

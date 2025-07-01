@@ -276,6 +276,11 @@ layout_mode = 2
 texture_normal = ExtResource("16_wsq8l")
 stretch_mode = 3
 
+[node name="TextureButton13" type="TextureButton" parent="AvatarPopup/ScrollContainer/AvatarGrid"]
+layout_mode = 2
+texture_normal = ExtResource("1_kbuhv")
+stretch_mode = 3
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 show_behind_parent = true
 z_index = -2

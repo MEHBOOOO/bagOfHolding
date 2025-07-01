@@ -81,13 +81,22 @@ func _ready():
 	refresh_timer.start()
 
 	request_participants()
-func _on_profile_loaded(profile_data: Dictionary):
-	if profile_data.get("user_id") != NetworkManager.current_user_id:
-		return
+
+#func _on_profile_loaded(profile_data: Dictionary):
+	#if profile_data.get("user_id") != NetworkManager.current_user_id:
+		#return
+	#
+	## Обновить UI — имя, аватар и т.д.
+	#profile_name_label.text = "Имя: %s" % profile_data.get("name", "Игрок")
+	##$AvatarPopup/ScrollContainer/AvatarGrid.texture = get_avatar_texture(profile_data.get("avatar_id", 0))
 	
+func _on_profile_loaded(user_id: int, profile_data: Dictionary):
+	if user_id != NetworkManager.current_user_id:
+		return
+
 	# Обновить UI — имя, аватар и т.д.
 	profile_name_label.text = "Имя: %s" % profile_data.get("name", "Игрок")
-	#$AvatarPopup/ScrollContainer/AvatarGrid.texture = get_avatar_texture(profile_data.get("avatar_id", 0))
+
 
 func get_avatar_texture(avatar_index: int) -> Texture:
 	var avatar_grid = preload("res://Scenes/PlayerProfile.tscn").instantiate().get_node("AvatarPopup/ScrollContainer/AvatarGrid")
