@@ -7,9 +7,8 @@ func _ready() -> void:
 	#pass # Replace with function body.
 
 	#$AuthorImage.connect("pressed", Callable(self, "_on_author_image_pressed"))
-	
-	if $AuthorPopup.has_node("CloseButton"):
-		$AuthorPopup/CloseButton.connect("pressed", Callable(self, "_on_close_button_pressed"))
+	pass
+
 
 func _on_author_image_pressed():
 	if $AuthorPopup.is_visible():

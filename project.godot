@@ -13,6 +13,7 @@ config_version=5
 config/name="SumkaHraneniya"
 run/main_scene="uid://bcfl5ohsaxsnd"
 config/features=PackedStringArray("4.4", "GL Compatibility")
+config/icon="uid://ba2edoskin3j4"
 
 [autoload]
 

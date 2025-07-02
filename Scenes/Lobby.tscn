@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://blea5q0jwmkdg"]
+[gd_scene load_steps=13 format=3 uid="uid://blea5q0jwmkdg"]
 
 [ext_resource type="Script" uid="uid://c27t6njaanrnp" path="res://Scripts/lobby.gd" id="1_bpe3w"]
 [ext_resource type="Texture2D" uid="uid://caqtiignyj1yj" path="res://Images/background.png" id="2_lolwk"]
@@ -26,6 +26,9 @@ texture = ExtResource("3_nsj2m")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_idhfa"]
 texture = ExtResource("4_xy1bw")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nsj2m"]
+bg_color = Color(0.101961, 0.160784, 0.254902, 1)
 
 [node name="Lobby" type="Control"]
 layout_mode = 3
@@ -55,9 +58,9 @@ horizontal_alignment = 1
 [node name="JoinLobby" type="Button" parent="."]
 layout_mode = 0
 offset_left = 100.0
-offset_top = 590.0
+offset_top = 809.0
 offset_right = 625.0
-offset_bottom = 717.0
+offset_bottom = 936.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 theme_override_styles/hover = SubResource("StyleBoxTexture_vmftg")
@@ -67,9 +70,9 @@ text = "Присоединиться"
 [node name="Create" type="Button" parent="."]
 layout_mode = 0
 offset_left = 100.0
-offset_top = 450.0
+offset_top = 460.0
 offset_right = 625.0
-offset_bottom = 587.0
+offset_bottom = 597.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 theme_override_styles/hover = SubResource("StyleBoxTexture_gqa7q")
@@ -79,24 +82,24 @@ text = "Создать комнату"
 [node name="Lobby" type="LineEdit" parent="."]
 layout_mode = 0
 offset_left = 59.0
-offset_top = 893.0
+offset_top = 959.0
 offset_right = 675.0
-offset_bottom = 1005.0
+offset_bottom = 1071.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxTexture_sup6t")
+placeholder_text = "Введите ID"
 
 [node name="lobbyname" type="LineEdit" parent="."]
 layout_mode = 0
 offset_left = 100.0
-offset_top = 736.0
+offset_top = 310.0
 offset_right = 625.0
-offset_bottom = 863.0
-theme_override_colors/font_placeholder_color = Color(0, 0, 0, 1)
+offset_bottom = 440.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxTexture_sup6t")
-placeholder_text = "Название для комнаты"
+placeholder_text = "Придумайте Название"
 alignment = 1
 
 [node name="Button" type="Button" parent="."]
@@ -110,6 +113,23 @@ theme_override_font_sizes/font_size = 50
 theme_override_styles/hover = SubResource("StyleBoxTexture_r753w")
 theme_override_styles/normal = SubResource("StyleBoxTexture_idhfa")
 text = "Назад"
+
+[node name="ErrorDialog" type="AcceptDialog" parent="."]
+title = "Внимание"
+initial_position = 3
+size = Vector2i(500, 250)
+current_screen = 0
+borderless = true
+theme_override_styles/panel = SubResource("StyleBoxFlat_nsj2m")
+
+[node name="Label" type="Label" parent="ErrorDialog"]
+offset_right = 500.0
+offset_bottom = 207.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 50
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [connection signal="button_down" from="JoinLobby" to="." method="_on_join_lobby_button_down"]
 [connection signal="button_down" from="Create" to="." method="_on_create_button_down"]

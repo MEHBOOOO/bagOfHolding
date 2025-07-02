@@ -216,10 +216,10 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_05p1t")
 text = "Мой Персонаж / Редактировать"
 
 [node name="LobbyId" type="VBoxContainer" parent="."]
-offset_left = 12.0
-offset_top = 586.0
-offset_right = 299.0
-offset_bottom = 714.0
+offset_left = 51.0
+offset_top = 581.0
+offset_right = 294.0
+offset_bottom = 667.0
 
 [node name="LobbyIdLabel" type="Label" parent="LobbyId"]
 layout_mode = 2

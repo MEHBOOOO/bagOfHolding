@@ -111,6 +111,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 25
 theme_override_styles/hover = SubResource("StyleBoxTexture_7m0wi")
 theme_override_styles/normal = SubResource("StyleBoxTexture_sthlh")
+alignment = 1
 item_count = 4
 popup/item_0/text = "Artifact"
 popup/item_0/id = 0

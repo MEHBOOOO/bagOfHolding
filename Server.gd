@@ -227,6 +227,7 @@ func is_user_in_lobby(lobby_id: String, user_id: int) -> bool:
 				return true
 	return false
 
+# In the server script's JoinLobby function
 func JoinLobby(user):
 	var peer_id = user.orgPeer
 	var lobby_id = user.lobbyValue
@@ -236,38 +237,10 @@ func JoinLobby(user):
 		return
 	
 	var user_id = user_sessions[peer_id]
-	if is_user_in_lobby(lobby_id, user_id):
-		print("User already in lobby: ", user_id)
-		return
-	if not dao.add_participant(lobby_id, user_id, false):
-		push_error("Failed to add participant to DB")
-		return
 	
-	if lobbies.has(lobby_id):
-		var lobby = lobbies[lobby_id]
-		var player_name = str(user.get("name", "Anonymous"))
-		
-		var player = lobby.AddPlayer(peer_id, player_name)
-		lobby.SetPlayerUserId(peer_id, user_id)  
-		
-		# Prepare players data
-		var players_data = {}
-		for p in lobby.Players:
-			players_data[str(p)] = lobby.Players[p]
-		
-		# Notify all players
-		for p in lobby.Players:
-			var newPlayer = peer_id if p != peer_id else null
-			SendToPlayer(p, {
-				"message": Message.Message.lobbyUpdate,
-				"host": lobby.host_peer_id,
-				"lobbyValue": lobby_id,
-				"players": players_data,
-				"newPlayer": newPlayer
-			})
-	
-	# New lobby case - FIXED
-	else:
+	# Check if this is a create request or join request
+	if user.get("name", "") != "":
+		# This is a CREATE request
 		# Generate new lobby ID
 		var new_lobby_id = GenString()
 		
@@ -299,7 +272,86 @@ func JoinLobby(user):
 				"host": peer_id
 			})
 			
-			lobby_id = new_lobby_id
+			# Send lobby creation success
+			var response = {
+				"message": Message.Message.lobbyCreated,
+				"reason": "success",
+				"orgPeer": peer_id
+			}
+			SendToPlayer(peer_id, response)
+		else:
+			# Send lobby creation failure
+			var response = {
+				"message": Message.Message.lobbyJoinFailed,
+				"reason": "Failed to create lobby",
+				"orgPeer": peer_id
+			}
+			SendToPlayer(peer_id, response)
+	else:
+		# This is a JOIN request
+		# Check if user is already in this lobby
+		if is_user_in_lobby(lobby_id, user_id):
+			# Send "already in lobby" message
+			var response = {
+				"message": Message.Message.alreadyInLobby,
+				"orgPeer": peer_id
+			}
+			SendToPlayer(peer_id, response)
+			return
+		
+		# Check if lobby exists
+		if not lobbies.has(lobby_id):
+			# Lobby doesn't exist
+			var response = {
+				"message": Message.Message.lobbyJoinFailed,
+				"reason": "Lobby does not exist",
+				"orgPeer": peer_id
+			}
+			SendToPlayer(peer_id, response)
+			return
+		
+		# Add participant to lobby
+		if not dao.add_participant(lobby_id, user_id, false):
+			push_error("Failed to add participant to DB")
+			# Send join failed message
+			var response = {
+				"message": Message.Message.lobbyJoinFailed,
+				"reason": "Database error",
+				"orgPeer": peer_id
+			}
+			SendToPlayer(peer_id, response)
+			return
+		
+		# Proceed with joining existing lobby
+		var lobby = lobbies[lobby_id]
+		var player_name = str(user.get("name", "Anonymous"))
+		
+		var player = lobby.AddPlayer(peer_id, player_name)
+		lobby.SetPlayerUserId(peer_id, user_id)  
+		
+		# Prepare players data
+		var players_data = {}
+		for p in lobby.Players:
+			players_data[str(p)] = lobby.Players[p]
+		
+		# Notify all players
+		for p in lobby.Players:
+			var newPlayer = peer_id if p != peer_id else null
+			SendToPlayer(p, {
+				"message": Message.Message.lobbyUpdate,
+				"host": lobby.host_peer_id,
+				"lobbyValue": lobby_id,
+				"players": players_data,
+				"newPlayer": newPlayer
+			})
+		
+		# Send join success message
+		var response = {
+			"message": Message.Message.lobbyJoinSuccess,
+			"reason": "success",
+			"orgPeer": peer_id
+		}
+		SendToPlayer(peer_id, response)
 	
 	broadcast_participant_update(lobby_id)
 	

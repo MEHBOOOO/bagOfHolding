@@ -149,12 +149,24 @@ func update_participants_display(participants: Array, host_id: int):
 			add_participant_card(participant, false)
 
 func add_participant_card(participant: Dictionary, is_host: bool):
+	var prev_texture = preload("res://Images/button1.png")
+	var next_texture = preload("res://Images/button1.png")
+	var pointed_texture = preload("res://Images/button3.png")
+	
 	var button = Button.new()
 	button.text = participant.get("name", "Unknown")
 	button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	button.focus_mode = Control.FOCUS_NONE
 	button.custom_minimum_size = Vector2(0, 40)
-
+	
+	var normal_style = StyleBoxTexture.new()
+	normal_style.texture = prev_texture
+	normal_style.expand_margin_left = 0
+	normal_style.expand_margin_right = 0
+	normal_style.expand_margin_top = 0
+	normal_style.expand_margin_bottom = 0
+	button.add_theme_stylebox_override("normal", normal_style)
+	button.add_theme_font_size_override("font_size", 35)
 	if participant.get("is_host") == 1:
 		button.text += " 👑"
 		button.add_theme_color_override("font_color", Color.GOLD)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bsb8mf0n0xjcn"]
+[gd_scene load_steps=15 format=3 uid="uid://bsb8mf0n0xjcn"]
 
 [ext_resource type="Script" uid="uid://4h3oldsvbsel" path="res://Scripts/menu.gd" id="1_3kf3n"]
 [ext_resource type="Texture2D" uid="uid://caqtiignyj1yj" path="res://Images/background.png" id="2_6pedr"]
@@ -26,14 +26,6 @@ texture = ExtResource("3_s2c3o")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sjh0l"]
 texture = ExtResource("4_ma218")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_idohh"]
-content_margin_top = 100.0
-bg_color = Color(0.0980392, 0.164706, 0.254902, 1)
-corner_radius_top_left = 100
-corner_radius_top_right = 100
-corner_radius_bottom_right = 100
-corner_radius_bottom_left = 100
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -141,52 +133,6 @@ texture_normal = ExtResource("6_wfhf6")
 texture_hover = ExtResource("6_3jcrr")
 stretch_mode = 0
 
-[node name="AuthorPopup" type="PopupPanel" parent="."]
-position = Vector2i(-40, 65)
-size = Vector2i(800, 1150)
-theme_override_styles/panel = SubResource("StyleBoxFlat_idohh")
-
-[node name="AuthorText" type="Label" parent="AuthorPopup"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_top = 100.0
-offset_right = 800.0
-offset_bottom = 1150.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.962677, 0.902142)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 40
-text = "Создано при
- поддержке Gamedev Center и 
-клуба 
-Настольных игр 
-«Сычевальня»
-GameDev Center:
-Developers:
-DarkDeception-Erasyl
-MEHBOO-Bauyrzhan
-Designer:
-faēni-Adiya
-Game Designer:
-Sherkhan
-Сычевальня:
-Game Designer:
-Dark_Sword-Arman"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="AuthorPopup/AuthorText"]
-layout_mode = 0
-offset_left = 4.0
-offset_top = -105.0
-offset_right = 822.0
-offset_bottom = 1167.0
-flat = true
-
 [node name="Gamedev1" type="Sprite2D" parent="."]
 position = Vector2(238, 1185)
 scale = Vector2(0.81, 0.724)
@@ -202,4 +148,3 @@ texture = ExtResource("8_aobxe")
 [connection signal="button_down" from="Lobby" to="." method="_on_lobby_button_down"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_ExitButton_pressed"]
 [connection signal="pressed" from="AuthorImage" to="." method="_on_author_image_pressed"]
-[connection signal="pressed" from="AuthorPopup/AuthorText/Button" to="." method="_on_close_button_pressed"]

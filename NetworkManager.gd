@@ -4,7 +4,6 @@ signal create_user_requested(email, username, password)
 signal login_failed(message)
 signal player_info_received(info)
 signal lobby_join_successful(lobby_info)
-signal lobby_join_failed(reason)
 signal load_inventory()
 signal createItem(data)
 signal lobby_created(lobby_id)
@@ -13,9 +12,15 @@ signal participant_update_received(participants_data)
 signal player_disconnected()
 signal profile_save_completed(success)  
 signal profiles_list_received(profiles) 
-signal kicked_from_lobby(reason)
 signal profile_data_received(user_id, profile_data)  # For profile data
 signal inventory_data_received(user_id, items) 
+signal kicked_from_lobby(reason)
+signal joinsuccess(reason)
+signal lobby_join_failed(reason)     # Add this signal
+signal already_in_lobby()            # Add this signal
+signal lobby_join_success(reason)    # Keep this signal
+signal lobby_created_suc(reason)
+
 var peer = WebSocketMultiplayerPeer.new()
 var id = 0
 var rtcPeer : WebRTCMultiplayerPeer = WebRTCMultiplayerPeer.new()
@@ -110,6 +115,16 @@ func _process(delta):
 			var data = JSON.parse_string(dataString)
 			
 			print(data)
+			if data.message == Message.Message.lobbyJoinSuccess:
+				lobby_join_success.emit("success")
+			
+			# Add these new message handlers
+			if data.message == Message.Message.lobbyJoinFailed:
+				lobby_join_failed.emit(data.reason)
+				
+			if data.message == Message.Message.alreadyInLobby:
+				already_in_lobby.emit()
+				
 			
 			if data.message == Message.Message.id:
 				id = data.id
@@ -121,7 +136,9 @@ func _process(delta):
 				createPeer(data.id)
 			
 			if data.message == Message.Message.lobbyCreated:
-				lobby_created.emit(data.lobby_id)
+				lobby_created.emit()
+				lobby_created_suc.emit("reason")
+				
 				
 			if data.message == Message.Message.lobbyData:
 				lobbies_received.emit(data.lobbies)
@@ -324,6 +341,7 @@ func iceCandidateCreated(midName, indexName, sdpName, id):
 
 func connectToServer(ip):
 	var error = peer.create_client("ws://127.0.0.1:8915")
+	#var error = peer.create_client("ws://10.18.2.7:8915")
 	if error != OK:
 		print("Failed to connect to server: " + str(error))
 	else:

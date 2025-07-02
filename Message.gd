@@ -38,5 +38,8 @@ enum Message{
 	kickedFromLobby,
 	deleteItem,
 	deleteItemResponse,
-	ProfileData
+	ProfileData,
+	lobbyJoinFailed,
+	alreadyInLobby,
+	lobbyJoinSuccess
 }
