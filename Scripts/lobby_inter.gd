@@ -14,6 +14,7 @@ extends Node2D
 @onready var copy_lobby_id_button = $LobbyId/CopyLobbyButton
 @onready var player_name_label = $ProfilePopup/VBoxContainer/PlayerNameLabel
 #@onready var avatar_grid = $AvatarPopup/ScrollContainer/AvatarGrid
+@onready var delete_lobby_button: Button = $DeleteLobbyButton
 
 var pending_profile_data: Dictionary = {}
 var pending_inventory_data: Array = []
@@ -79,7 +80,8 @@ func _ready():
 	refresh_timer.autostart = true
 	refresh_timer.one_shot = false
 	refresh_timer.start()
-
+	
+	
 	request_participants()
 
 #func _on_profile_loaded(profile_data: Dictionary):
@@ -89,7 +91,10 @@ func _ready():
 	## Обновить UI — имя, аватар и т.д.
 	#profile_name_label.text = "Имя: %s" % profile_data.get("name", "Игрок")
 	##$AvatarPopup/ScrollContainer/AvatarGrid.texture = get_avatar_texture(profile_data.get("avatar_id", 0))
-	
+func _on_delete_lobby_button_pressed():
+	if current_user_id == host_id:
+		NetworkManager.request_delete_lobby(lobby_id)
+		
 func _on_profile_loaded(user_id: int, profile_data: Dictionary):
 	if user_id != NetworkManager.current_user_id:
 		return
@@ -131,6 +136,9 @@ func _on_participant_update_received(data: Dictionary):
 	if data.get("lobby_id", "") == lobby_id:
 		host_id = data.get("host_id", -1)  # Store host ID
 		update_participants_display(data.get("participants", []), host_id)
+	if delete_lobby_button:
+		delete_lobby_button.visible = (current_user_id == host_id)
+		delete_lobby_button.pressed.connect(_on_delete_lobby_button_pressed)
 
 func update_participants_display(participants: Array, host_id: int):
 	for i in range(participants_container.get_child_count() - 1, 0, -1):

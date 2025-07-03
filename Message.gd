@@ -41,5 +41,7 @@ enum Message{
 	ProfileData,
 	lobbyJoinFailed,
 	alreadyInLobby,
-	lobbyJoinSuccess
+	lobbyJoinSuccess,
+	deleteLobby,
+	lobbyDeleted
 }

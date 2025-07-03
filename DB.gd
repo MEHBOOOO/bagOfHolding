@@ -150,7 +150,39 @@ func get_lobby_participants(lobby_id: String) -> Array:
 		return db.query_result
 	return []
 
-
+func delete_lobby(lobby_id: String) -> bool:
+	# Use transaction for atomic operations
+	db.query("BEGIN TRANSACTION")
+	
+	var success = true
+	
+	# Delete participants
+	if not db.query_with_bindings("DELETE FROM lobby_participants WHERE lobby_id = ?", [lobby_id]):
+		success = false
+	
+	# Delete lobby
+	if success and not db.query_with_bindings("DELETE FROM lobbies WHERE lobby_id = ?", [lobby_id]):
+		success = false
+	
+	# Delete user lobby associations
+	if success and not db.query_with_bindings("DELETE FROM user_lobbies WHERE lobby_id = ?", [lobby_id]):
+		success = false
+	
+	# Delete profiles
+	if success and not db.query_with_bindings("DELETE FROM profiles WHERE lobby_id = ?", [lobby_id]):
+		success = false
+	
+	# Delete items
+	if success and not db.query_with_bindings("DELETE FROM items WHERE lobby_id = ?", [lobby_id]):
+		success = false
+	
+	if success:
+		db.query("COMMIT")
+	else:
+		db.query("ROLLBACK")
+		push_error("Failed to delete lobby: " + db.error_message)
+	
+	return success
 
 func insert_lobby(data: Dictionary) -> bool:
 	return db.insert_row("lobbies", data) && db.insert_row("user_lobbies", {

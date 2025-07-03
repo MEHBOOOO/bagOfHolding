@@ -47,7 +47,7 @@ func _on_login_requested(email, password):
 func _on_create_user_requested(email, username, password):
 	createUser(email, username, password)
 	
-	
+
 func createUser(email,username, password):
 	var data = {
 	"email" : email.strip_edges(true, true), 
@@ -156,7 +156,10 @@ func _process(delta):
 			#if data.message == Message.Message.LoadInventory:
 				#emit_signal("inventory_data_received", data.get("items", []))
 
-			
+			if data.message == Message.Message.lobbyDeleted:
+				if data.lobby_id == GameManager.current_lobby_id:
+					GameManager.current_lobby_id = ""
+					get_tree().change_scene_to_file("res://Scenes/Lobbies.tscn")
 				
 			if data.message == Message.Message.candidate:
 				if rtcPeer.has_peer(data.orgPeer):
@@ -233,6 +236,14 @@ func _process(delta):
 					push_error("Failed to delete item: " + data.reason)
 
 	pass
+
+func request_delete_lobby(lobby_id: String):
+	var message = {
+		"message": Message.Message.deleteLobby,
+		"lobby_id": lobby_id,
+		"orgPeer": id
+	}
+	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 
 func request_delete_item(item_id: int, user_id: int, lobby_id: String):
 	var message = {

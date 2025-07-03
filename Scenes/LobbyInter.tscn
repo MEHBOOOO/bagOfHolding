@@ -241,6 +241,17 @@ position = Vector2(445, 722)
 scale = Vector2(0.534173, 0.652878)
 texture = ExtResource("3_qfihk")
 
+[node name="DeleteLobbyButton" type="Button" parent="."]
+offset_left = 200.0
+offset_top = 1045.0
+offset_right = 516.0
+offset_bottom = 1141.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 35
+theme_override_styles/hover = SubResource("StyleBoxTexture_5p8kn")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ujaai")
+text = "удалить лобби"
+
 [connection signal="button_down" from="Create" to="." method="_on_create_button_down"]
 [connection signal="button_down" from="Inventory" to="." method="_on_inventory_button_down"]
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

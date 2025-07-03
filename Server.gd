@@ -86,7 +86,44 @@ func _process(delta):
 				handle_load_profile(data)
 			if data.message == Message.Message.LoadInventory:
 				handle_load_inventory(data)
+			if data.message == Message.Message.deleteLobby:
+				handle_delete_lobby(data)
 	pass
+
+
+func handle_delete_lobby(data: Dictionary):
+	var lobby_id = data.get("lobby_id", "")
+	var peer_id = data.get("orgPeer", -1)
+	
+	if not user_sessions.has(peer_id) or not lobbies.has(lobby_id):
+		return
+	
+	var user_id = user_sessions[peer_id]
+	var host_id = dao.get_lobby_host(lobby_id)
+	
+	# Only host can delete lobby
+	if user_id != host_id:
+		return
+	
+	# Delete from database
+	if dao.delete_lobby(lobby_id):
+		# Notify all participants
+		var participants = dao.get_lobby_participants(lobby_id)
+		for participant in participants:
+			var participant_id = participant["id"]
+			for peer in lobbies[lobby_id].Players:
+				var player_data = lobbies[lobby_id].Players.get(peer, {})
+				if player_data.get("user_id", -1) == participant_id:
+					SendToPlayer(peer, {
+						"message": Message.Message.lobbyDeleted,
+						"lobby_id": lobby_id,
+						"reason": "Lobby deleted by host"
+					})
+		
+		# Remove from memory
+		lobbies.erase(lobby_id)
+
+
 
 func handle_delete_item(data: Dictionary):
 	var item_id = data.get("item_id", -1)
