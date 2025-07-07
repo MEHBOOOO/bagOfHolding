@@ -142,6 +142,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 45
 theme_override_styles/normal = SubResource("StyleBoxTexture_t8os5")
+alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -160,6 +161,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 45
 theme_override_styles/normal = SubResource("StyleBoxTexture_ait7d")
+alignment = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -178,6 +180,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 45
 theme_override_styles/normal = SubResource("StyleBoxTexture_hq7qm")
+alignment = 1
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -228,57 +231,57 @@ stretch_mode = 3
 
 [node name="TextureButton3" type="TextureButton" parent="AvatarPopup/ScrollContainer/AvatarGrid"]
 layout_mode = 2
-texture_normal = ExtResource("7_58jvu")
+texture_normal = ExtResource("1_kbuhv")
 stretch_mode = 3
 
 [node name="TextureButton4" type="TextureButton" parent="AvatarPopup/ScrollContainer/AvatarGrid"]
 layout_mode = 2
-texture_normal = ExtResource("8_okrfr")
+texture_normal = ExtResource("7_58jvu")
 stretch_mode = 3
 
 [node name="TextureButton5" type="TextureButton" parent="AvatarPopup/ScrollContainer/AvatarGrid"]
 layout_mode = 2
-texture_normal = ExtResource("9_ol4yw")
+texture_normal = ExtResource("8_okrfr")
 stretch_mode = 3
 
 [node name="TextureButton6" type="TextureButton" parent="AvatarPopup/ScrollContainer/AvatarGrid"]
 layout_mode = 2
-texture_normal = ExtResource("10_l1daw")
+texture_normal = ExtResource("9_ol4yw")
 stretch_mode = 3
 
 [node name="TextureButton7" type="TextureButton" parent="AvatarPopup/ScrollContainer/AvatarGrid"]
 layout_mode = 2
-texture_normal = ExtResource("11_1py78")
+texture_normal = ExtResource("10_l1daw")
 stretch_mode = 3
 
 [node name="TextureButton8" type="TextureButton" parent="AvatarPopup/ScrollContainer/AvatarGrid"]
 layout_mode = 2
-texture_normal = ExtResource("12_kd8aq")
+texture_normal = ExtResource("11_1py78")
 stretch_mode = 3
 
 [node name="TextureButton9" type="TextureButton" parent="AvatarPopup/ScrollContainer/AvatarGrid"]
 layout_mode = 2
-texture_normal = ExtResource("3_5np7k")
+texture_normal = ExtResource("12_kd8aq")
 stretch_mode = 3
 
 [node name="TextureButton10" type="TextureButton" parent="AvatarPopup/ScrollContainer/AvatarGrid"]
 layout_mode = 2
-texture_normal = ExtResource("14_n078r")
+texture_normal = ExtResource("3_5np7k")
 stretch_mode = 3
 
 [node name="TextureButton11" type="TextureButton" parent="AvatarPopup/ScrollContainer/AvatarGrid"]
 layout_mode = 2
-texture_normal = ExtResource("15_cu0tu")
+texture_normal = ExtResource("14_n078r")
 stretch_mode = 3
 
 [node name="TextureButton12" type="TextureButton" parent="AvatarPopup/ScrollContainer/AvatarGrid"]
 layout_mode = 2
-texture_normal = ExtResource("16_wsq8l")
+texture_normal = ExtResource("15_cu0tu")
 stretch_mode = 3
 
 [node name="TextureButton13" type="TextureButton" parent="AvatarPopup/ScrollContainer/AvatarGrid"]
 layout_mode = 2
-texture_normal = ExtResource("1_kbuhv")
+texture_normal = ExtResource("16_wsq8l")
 stretch_mode = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
