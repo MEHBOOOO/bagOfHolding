@@ -10,6 +10,7 @@ func _ready():
 	peer.connect("peer_connected", peer_connected)
 	peer.connect("peer_disconnected", peer_disconnected)
 	load_lobbies()
+	StartServer()
 	pass
 	
 func load_lobbies():

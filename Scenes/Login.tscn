@@ -84,17 +84,6 @@ offset_right = 800.0
 offset_bottom = 1150.0
 flat = true
 
-[node name="Server" type="Button" parent="."]
-offset_left = 633.0
-offset_top = 946.0
-offset_right = 721.0
-offset_bottom = 1048.0
-theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_font_sizes/font_size = 50
-theme_override_styles/hover = SubResource("StyleBoxTexture_ucsfu")
-theme_override_styles/normal = SubResource("StyleBoxTexture_g1u07")
-text = "test"
-
 [node name="Label" type="Label" parent="."]
 visible = false
 offset_left = -101.0
@@ -145,6 +134,5 @@ scale = Vector2(0.0898438, 0.0902099)
 texture = ExtResource("10_jbojw")
 
 [connection signal="pressed" from="AuthorPopup/Button" to="LoginWindow" method="_on_close_button_pressed"]
-[connection signal="button_down" from="Server" to="LoginWindow" method="_on_server_button_down"]
 [connection signal="button_down" from="About" to="LoginWindow" method="_on_About_button_pressed"]
 [connection signal="pressed" from="AuthorImage" to="LoginWindow" method="_on_author_image_pressed"]
